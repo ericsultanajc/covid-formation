@@ -2,6 +2,7 @@ package sopra.formation.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,10 +10,12 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 @Entity
 @Table (name="course")
@@ -20,23 +23,32 @@ public class Filiere {
 	@Id
 	@GeneratedValue
 	private Long id;
+	
 	@Column(name="title", length = 100, nullable = false)
 	private String intitule;
+	
 	@Column(name="prom")
 	private String promotion;
+	
 	@Column(name="strat_date", length = 100, nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dtDebut;
+	
 	@Column(name = "duration")
 	private Integer duree;
+	
 	@Column(name = "plan", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Dispositif dispositif;
-	@Transient
-	private ArrayList<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
-	@Transient
-	private ArrayList<UE> ues = new ArrayList<UE>();
-	@Transient
+	
+	@OneToMany(mappedBy = "filiere")
+	private List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
+	
+	@OneToMany(mappedBy = "filiere")
+	private List<UE> ues = new ArrayList<UE>();
+	
+	@ManyToOne
+	@JoinTable(name="trainer_id")
 	private Formateur referent;
 
 	public Filiere() {
@@ -106,7 +118,7 @@ public class Filiere {
 		this.dispositif = dispositif;
 	}
 
-	public ArrayList<Stagiaire> getStagiaires() {
+	public List<Stagiaire> getStagiaires() {
 		return stagiaires;
 	}
 
@@ -118,7 +130,7 @@ public class Filiere {
 		this.stagiaires.add(stagiaire);
 	}
 
-	public ArrayList<UE> getUes() {
+	public List<UE> getUes() {
 		return ues;
 	}
 
