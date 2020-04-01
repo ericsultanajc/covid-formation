@@ -1,9 +1,11 @@
 package sopra.formation.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity // obligatoire
 @Table(name = "rating") // optionnel 
@@ -11,8 +13,12 @@ public class Evaluation {
 	@Id // obligatoire
 	@GeneratedValue // optionnel
 	private Long id;
+	@Column(name="behaviour", nullable = false)
 	private Integer comportemental;
+	@Column(name="technical")
+	@NotNull
 	private Integer technique;
+	@Column(name="comments")
 	private String commentaires;
 
 	public Evaluation() {
