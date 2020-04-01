@@ -2,10 +2,20 @@ package sopra.formation.model;
 
 import java.util.ArrayList;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Transient;
+
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorValue("trainer")
 public class Formateur extends Personne {
 	private Boolean referent;
 	private Integer experience;
+	@Transient
 	private ArrayList<UE> ues = new ArrayList<UE>();
+	@Transient
 	private ArrayList<Matiere> competences = new ArrayList<Matiere>();
 
 	public Formateur() {
