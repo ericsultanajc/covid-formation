@@ -2,18 +2,16 @@ package sopra.formation.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
 
-@Entity
 @Embeddable
 public class Adresse {
-	@Column(name="street", length = 255)
+	@Column(name = "street", length = 255)
 	private String rue;
-	@Column(name="additional", length = 255)
+	@Column(name = "additional", length = 255)
 	private String complement;
-	@Column(name="zipcode", length = 10)
+	@Column(name = "zipcode", length = 10)
 	private String codePostal;
-	@Column(name="city", length = 100)
+	@Column(name = "city", length = 100)
 	private String ville;
 
 	public Adresse() {
