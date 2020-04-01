@@ -1,0 +1,3 @@
+1;15;12;intéressant
+2;12;18;un peu autiste
+3;18;13;bon relationnel, apprentissage aisé
