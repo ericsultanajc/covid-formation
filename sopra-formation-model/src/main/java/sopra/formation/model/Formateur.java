@@ -2,9 +2,12 @@ package sopra.formation.model;
 
 import java.util.ArrayList;
 
+import javax.persistence.Transient;
+
 public class Formateur extends Personne {
 	private Boolean referent;
 	private Integer experience;
+	@Transient
 	private ArrayList<UE> ues = new ArrayList<UE>();
 	private ArrayList<Matiere> competences = new ArrayList<Matiere>();
 
