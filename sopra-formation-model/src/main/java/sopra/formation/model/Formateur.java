@@ -2,6 +2,9 @@ package sopra.formation.model;
 
 import java.util.ArrayList;
 
+import javax.persistence.DiscriminatorValue;
+
+@DiscriminatorValue("trainer")
 public class Formateur extends Personne {
 	private Boolean referent;
 	private Integer experience;

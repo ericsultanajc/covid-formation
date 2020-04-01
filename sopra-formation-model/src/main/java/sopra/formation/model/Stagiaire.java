@@ -2,6 +2,9 @@ package sopra.formation.model;
 
 import java.util.Date;
 
+import javax.persistence.DiscriminatorValue;
+
+@DiscriminatorValue("student")
 public class Stagiaire extends Personne {
 	private Date dtNaissance;
 	private NiveauEtude niveauEtude;

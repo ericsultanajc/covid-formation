@@ -10,9 +10,6 @@ public class TestJPA {
 		
 		
 		
-		
-		
-		
 		emf.close();
 	}
 
