@@ -2,10 +2,20 @@ package sopra.formation.model;
 
 import java.util.Date;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+
+
+@Entity // obligatoire
+@DiscriminatorValue("Trainee")
 public class Stagiaire extends Personne {
 	private Date dtNaissance;
+	@Transient
 	private NiveauEtude niveauEtude;
+	@Transient
 	private Filiere filiere;
+	@Transient
 	private Evaluation evaluation;
 
 	public Stagiaire() {
