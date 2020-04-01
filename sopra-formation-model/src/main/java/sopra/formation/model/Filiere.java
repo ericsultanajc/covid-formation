@@ -21,14 +21,18 @@ public class Filiere {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column(name = "title", length = 100)
+	@Column(name = "title", length = 100, nullable = false)
 	@Size(max = 100)
 	private String intitule;
+	@Column(length = 255)
 	private String promotion;
 	@Temporal(TemporalType.DATE)
+	@Column(name = "startdate")
 	private Date dtDebut;
+	@Column(name = "duration")
 	private Integer duree;
 	@Enumerated(EnumType.STRING)
+	@Column(name = "plan", length = 10)
 	private Dispositif dispositif;
 	@Transient
 	private ArrayList<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
