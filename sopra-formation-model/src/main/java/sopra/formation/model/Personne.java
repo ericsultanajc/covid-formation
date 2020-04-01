@@ -2,34 +2,43 @@ package sopra.formation.model;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-@Entity // obligatoire
-@Table(name = "person") // optionnel
+@Entity
+@Table(name = "person")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "TYPE_PERSONNE")
+@DiscriminatorColumn(name = "disc")
 public abstract class Personne {
-	@Id // obligatoire
-	@GeneratedValue // optionnel
+	@Id
+	@GeneratedValue
 	private Long id;
-	@Column(name="title")
+	@Column(name = "civility")
+	@Enumerated(EnumType.STRING)
 	private Civilite civilite;
-	@Column(name="last_name")
+	@Column(name = "last_name")
 	private String nom;
-	@Column(name="first_name")
+	@Column(name = "first_name")
 	private String prenom;
-	@Column(name="email")
+	@Column(name = "email")
 	private String email;
-	@Column(name="phone_number")
+	@Column(name = "phone_number")
 	private String telephone;
-	
-	@Transient
+
+//	@OneToOne
+//	@JoinColumn(name = "address_id")
+//	@Transient
+	@Embedded
 	private Adresse adresse;
 
 	public Personne() {

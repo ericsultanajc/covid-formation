@@ -9,23 +9,33 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-@Entity // obligatoire
-@Table(name = "student") // optionnel
+@Entity
+@Table(name = "student")
 @DiscriminatorValue("Stagiaire")
 public class Stagiaire extends Personne {
-	@GeneratedValue // optionnel
-	@Column(name="birth_date")
+	@GeneratedValue
+
+	@Column(name = "birth_date")
+	@Temporal(TemporalType.DATE)
 	private Date dtNaissance;
-	@Column(name="schooling_level")
+	@Column(name = "schooling_level")
 	@Enumerated(EnumType.STRING)
 	private NiveauEtude niveauEtude;
-	
-	@Transient
+
+	@ManyToOne
+	@JoinColumn(name = "filiere_id")
 	private Filiere filiere;
-	@Transient
+
+	@OneToOne
+	@JoinColumn(name = "evaluation_id")
 	private Evaluation evaluation;
 
 	public Stagiaire() {

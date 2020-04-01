@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -22,13 +24,20 @@ public class UE {
 	@Column(name = "position")
 	private int ordre;
 
-	@Transient
+	@ManyToOne
+	@JoinColumn(name = "filiere_id")
 	private Filiere filiere;
-	@Transient
+	
+	@ManyToOne
+	@JoinColumn(name="formateur_id")
 	private Formateur formateur;
-	@Transient
+	
+	@ManyToOne
+	@JoinColumn(name="matiere_id")
 	private Matiere matiere;
-	@Transient
+	
+	@ManyToOne
+	@JoinColumn(name="salle_id")
 	private Salle salle;
 
 	public UE() {

@@ -1,5 +1,6 @@
 package sopra.formation.model;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,17 +10,20 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-@Entity // obligatoire
-@Table(name = "course") // optionnel
+@Entity 
+@Table(name = "course") 
 
 public class Filiere {
-	@Id // obligatoire
-	@GeneratedValue // optionnel
+	@Id 
+	@GeneratedValue 
 	private Long id;
 	@Column(name = "title")
 	private String intitule;
@@ -30,15 +34,18 @@ public class Filiere {
 	private Date dtDebut;
 	@Column(name = "duration")
 	private Integer duree;
-	@Column(name="plan")
+	@Column(name = "plan")
 	@Enumerated(EnumType.STRING)
 	private Dispositif dispositif;
+
+	@OneToMany(mappedBy = "filiere")
+	private List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
 	
-	@Transient
-	private ArrayList<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
-	@Transient
-	private ArrayList<UE> ues = new ArrayList<UE>();
-	@Transient
+	@OneToMany(mappedBy = "filiere")
+	private List<UE> ues = new ArrayList<UE>();
+	
+	@ManyToOne
+	@JoinColumn(name="trainer_id")
 	private Formateur referent;
 
 	public Filiere() {
@@ -108,11 +115,11 @@ public class Filiere {
 		this.dispositif = dispositif;
 	}
 
-	public ArrayList<Stagiaire> getStagiaires() {
+	public List<Stagiaire> getStagiaires() {
 		return stagiaires;
 	}
 
-	public void setStagiaires(ArrayList<Stagiaire> stagiaires) {
+	public void setStagiaires(List<Stagiaire> stagiaires) {
 		this.stagiaires = stagiaires;
 	}
 
@@ -120,11 +127,11 @@ public class Filiere {
 		this.stagiaires.add(stagiaire);
 	}
 
-	public ArrayList<UE> getUes() {
+	public List<UE> getUes() {
 		return ues;
 	}
 
-	public void setUes(ArrayList<UE> ues) {
+	public void setUes(List<UE> ues) {
 		this.ues = ues;
 	}
 
