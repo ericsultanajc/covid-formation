@@ -1,13 +1,36 @@
 package sopra.formation.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Entity
+@Table(name="course_unit")
 public class UE {
+	@Id
+	@GeneratedValue
 	private Long id;
+	@Column(name="code", length = 4, nullable=false)
+	@Size(max=4)
 	private Integer code;
+	@Column(name="time", length = 4, nullable=false)
+	@Size(max=4)
 	private Integer duree;
+	@Column(name="ordere", length = 4)
+	@Size(max=4)
 	private int ordre;
+	@Transient
 	private Filiere filiere;
+	@Transient
 	private Formateur formateur;
+	@Transient
 	private Matiere matiere;
+	@Transient
 	private Salle salle;
 
 	public UE() {

@@ -2,10 +2,31 @@ package sopra.formation.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Entity
+@DiscriminatorValue("student")
 public class Stagiaire extends Personne {
+	@Column(name="date_of_birth", nullable=false)
+	@Temporal(TemporalType.DATE)
 	private Date dtNaissance;
+	@Column(name="study_level", length = 15, nullable=false)
+	@Enumerated(EnumType.STRING)
+	@Size(max=15)
+
 	private NiveauEtude niveauEtude;
+	@Transient
 	private Filiere filiere;
+	@Transient
 	private Evaluation evaluation;
 
 	public Stagiaire() {

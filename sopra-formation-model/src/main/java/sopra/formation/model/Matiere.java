@@ -2,11 +2,29 @@ package sopra.formation.model;
 
 import java.util.ArrayList;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Entity
+@Table(name ="matter")
 public class Matiere {
+	@Id 
+	@GeneratedValue
 	private Long id;
+	@Column(name="name", nullable=false)
 	private String nom;
+	@Column(name="time", length = 4)
+	@Size(max=4)
 	private Integer duree;
+	@Transient
 	private ArrayList<UE> ues = new ArrayList<UE>();
+	@Transient
 	private ArrayList<Formateur> formateurs = new ArrayList<Formateur>();
 
 	public Matiere() {

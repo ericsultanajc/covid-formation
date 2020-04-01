@@ -2,10 +2,25 @@ package sopra.formation.model;
 
 import java.util.ArrayList;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+import javax.validation.constraints.Size;
+
+@Entity
+@DiscriminatorValue("trainer")
 public class Formateur extends Personne {
+	
+	@Column(name="manager", length=10)
+	@Size(max=10)
 	private Boolean referent;
+	@Column(name="exp", length=3)
+	@Size(max=3)
 	private Integer experience;
+	@Transient
 	private ArrayList<UE> ues = new ArrayList<UE>();
+	@Transient
 	private ArrayList<Matiere> competences = new ArrayList<Matiere>();
 
 	public Formateur() {
