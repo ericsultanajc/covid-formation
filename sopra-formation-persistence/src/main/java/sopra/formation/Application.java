@@ -40,7 +40,7 @@ public class Application {
 	}
 
 	public Connection getConnection() throws SQLException {
-		return DriverManager.getConnection("jdbc:postgresql://localhost/formation", "postgres", "manager");
+		return DriverManager.getConnection("jdbc:postgresql://localhost/training", "postgres", "manager");
 	}
 
 	public IEvaluationDao getEvaluationDao() {
