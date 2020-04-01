@@ -1,12 +1,35 @@
 package sopra.formation.model;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity // obligatoire
+@Table(name = "person") // optionnel
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "TYPE_PERSONNE")
 public abstract class Personne {
+	@Id // obligatoire
+	@GeneratedValue // optionnel
 	private Long id;
+	@Column(name="title")
 	private Civilite civilite;
+	@Column(name="last_name")
 	private String nom;
+	@Column(name="first_name")
 	private String prenom;
+	@Column(name="email")
 	private String email;
+	@Column(name="phone_number")
 	private String telephone;
+	
+	@Transient
 	private Adresse adresse;
 
 	public Personne() {

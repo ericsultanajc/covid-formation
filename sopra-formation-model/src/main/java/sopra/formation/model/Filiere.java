@@ -3,15 +3,42 @@ package sopra.formation.model;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+@Entity // obligatoire
+@Table(name = "course") // optionnel
+
 public class Filiere {
+	@Id // obligatoire
+	@GeneratedValue // optionnel
 	private Long id;
+	@Column(name = "title")
 	private String intitule;
+	@Column(name = "intership_group")
 	private String promotion;
+	@Column(name = "date")
+	@Temporal(TemporalType.DATE)
 	private Date dtDebut;
+	@Column(name = "duration")
 	private Integer duree;
+	@Column(name="plan")
+	@Enumerated(EnumType.STRING)
 	private Dispositif dispositif;
+	
+	@Transient
 	private ArrayList<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
+	@Transient
 	private ArrayList<UE> ues = new ArrayList<UE>();
+	@Transient
 	private Formateur referent;
 
 	public Filiere() {
