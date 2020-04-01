@@ -28,9 +28,6 @@ public class Salle {
 	@OneToMany(mappedBy = "salle")
 	private List<UE> ues = new ArrayList<UE>();
 
-	@OneToMany(mappedBy = "salle")
-	private List<UE> ues = new ArrayList<UE>();
-
 	public Salle() {
 		super();
 	}

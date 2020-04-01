@@ -26,12 +26,6 @@ public class Matiere {
 	@ManyToMany(mappedBy = "competences")
 	private List<Formateur> formateurs = new ArrayList<Formateur>();
 
-	@OneToMany(mappedBy = "matiere")
-	private List<UE> ues = new ArrayList<UE>();
-
-	@ManyToMany(mappedBy = "competences")
-	private List<Formateur> formateurs = new ArrayList<Formateur>();
-
 	public Matiere() {
 		super();
 	}
