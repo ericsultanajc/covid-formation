@@ -2,10 +2,21 @@ package sopra.formation.model;
 
 import java.util.ArrayList;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+
+@Entity
+@DiscriminatorValue("trainer")
 public class Formateur extends Personne {
+	@Column(name="referent", nullable = false)
 	private Boolean referent;
+	@Column(name="experience")
 	private Integer experience;
+	@Transient
 	private ArrayList<UE> ues = new ArrayList<UE>();
+	@Transient
 	private ArrayList<Matiere> competences = new ArrayList<Matiere>();
 
 	public Formateur() {
