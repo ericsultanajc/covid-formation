@@ -2,8 +2,18 @@ package sopra.formation.model;
 
 import java.util.ArrayList;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.validation.constraints.Size;
+
+@Entity
+@DiscriminatorValue("trainer")
 public class Formateur extends Personne {
+	@Column(name = "referent")
 	private Boolean referent;
+	@Column(name = "expertise", length = 3)
+	@Size(max = 3)
 	private Integer experience;
 	private ArrayList<UE> ues = new ArrayList<UE>();
 	private ArrayList<Matiere> competences = new ArrayList<Matiere>();
@@ -15,8 +25,9 @@ public class Formateur extends Personne {
 	public Formateur(String email) {
 		super(email);
 	}
-	
-	public Formateur(Long id, Civilite civilite, String nom, String prenom, String email, String telephone, Boolean referent, Integer experience) {
+
+	public Formateur(Long id, Civilite civilite, String nom, String prenom, String email, String telephone,
+			Boolean referent, Integer experience) {
 		super(id, civilite, nom, prenom, email, telephone);
 		this.referent = referent;
 		this.experience = experience;
