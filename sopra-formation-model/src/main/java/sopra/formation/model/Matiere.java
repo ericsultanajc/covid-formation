@@ -1,13 +1,15 @@
 package sopra.formation.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "subject")
@@ -19,10 +21,10 @@ public class Matiere {
 	private String nom;
 	@Column(name = "duration", nullable = false)
 	private Integer duree;
-	@Transient
-	private ArrayList<UE> ues = new ArrayList<UE>();
-	@Transient
-	private ArrayList<Formateur> formateurs = new ArrayList<Formateur>();
+	@OneToMany(mappedBy = "matiere")
+	private List<UE> ues = new ArrayList<UE>();
+	@ManyToMany(mappedBy = "competences")
+	private List<Formateur> formateurs = new ArrayList<Formateur>();
 
 	public Matiere() {
 		super();
@@ -65,11 +67,11 @@ public class Matiere {
 		this.duree = duree;
 	}
 
-	public ArrayList<UE> getUes() {
+	public List<UE> getUes() {
 		return ues;
 	}
 
-	public void setUes(ArrayList<UE> ues) {
+	public void setUes(List<UE> ues) {
 		this.ues = ues;
 	}
 
@@ -77,11 +79,11 @@ public class Matiere {
 		this.ues.add(ue);
 	}
 
-	public ArrayList<Formateur> getFormateurs() {
+	public List<Formateur> getFormateurs() {
 		return formateurs;
 	}
 
-	public void setFormateurs(ArrayList<Formateur> formateurs) {
+	public void setFormateurs(List<Formateur> formateurs) {
 		this.formateurs = formateurs;
 	}
 

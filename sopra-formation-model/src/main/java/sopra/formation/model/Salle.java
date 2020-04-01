@@ -1,30 +1,32 @@
 package sopra.formation.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
-@Table(name="classroom")
+@Table(name = "classroom")
 public class Salle {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column(name="name", nullable = false)
+	@Column(name = "name", nullable = false)
 	private String nom;
-	@Column(name="capacity")
+	@Column(name = "capacity")
 	private Integer capacite;
-	@Column(name="video_projector")
+	@Column(name = "video_projector")
 	private Boolean videoProjecteur;
-	@Transient
+	@Embedded
 	private Adresse adr;
-	@Transient
-	private ArrayList<UE> ues = new ArrayList<UE>();
+	@OneToMany(mappedBy = "salle")
+	private List<UE> ues = new ArrayList<UE>();
 
 	public Salle() {
 		super();
@@ -83,11 +85,11 @@ public class Salle {
 		this.adr = adr;
 	}
 
-	public ArrayList<UE> getUes() {
+	public List<UE> getUes() {
 		return ues;
 	}
 
-	public void setUes(ArrayList<UE> ues) {
+	public void setUes(List<UE> ues) {
 		this.ues = ues;
 	}
 

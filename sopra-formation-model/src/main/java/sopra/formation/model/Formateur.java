@@ -1,20 +1,25 @@
 package sopra.formation.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 @DiscriminatorValue("Formateur")
 public class Formateur extends Personne {
 	private Boolean referent;
 	private Integer experience;
-	@Transient
-	private ArrayList<UE> ues = new ArrayList<UE>();
-	@Transient
-	private ArrayList<Matiere> competences = new ArrayList<Matiere>();
+	@OneToMany(mappedBy = "formateur")
+	private List<UE> ues = new ArrayList<UE>();
+	@ManyToMany
+	@JoinTable(name = "skill", joinColumns = @JoinColumn(name = "trainer_id"), inverseJoinColumns = @JoinColumn(name = "subject_id"))
+	private List<Matiere> competences = new ArrayList<Matiere>();
 
 	public Formateur() {
 		super();
@@ -23,8 +28,9 @@ public class Formateur extends Personne {
 	public Formateur(String email) {
 		super(email);
 	}
-	
-	public Formateur(Long id, Civilite civilite, String nom, String prenom, String email, String telephone, Boolean referent, Integer experience) {
+
+	public Formateur(Long id, Civilite civilite, String nom, String prenom, String email, String telephone,
+			Boolean referent, Integer experience) {
 		super(id, civilite, nom, prenom, email, telephone);
 		this.referent = referent;
 		this.experience = experience;
@@ -46,11 +52,11 @@ public class Formateur extends Personne {
 		this.experience = experience;
 	}
 
-	public ArrayList<UE> getUes() {
+	public List<UE> getUes() {
 		return ues;
 	}
 
-	public void setUes(ArrayList<UE> ues) {
+	public void setUes(List<UE> ues) {
 		this.ues = ues;
 	}
 
@@ -58,11 +64,11 @@ public class Formateur extends Personne {
 		this.ues.add(ue);
 	}
 
-	public ArrayList<Matiere> getCompetences() {
+	public List<Matiere> getCompetences() {
 		return competences;
 	}
 
-	public void setCompetences(ArrayList<Matiere> competences) {
+	public void setCompetences(List<Matiere> competences) {
 		this.competences = competences;
 	}
 
