@@ -3,6 +3,7 @@ package sopra.formation.model;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,36 +17,33 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
-@Entity 
-@Table(name = "course") 
-
+@Entity
+@Table(name = "course")
 public class Filiere {
-	@Id 
-	@GeneratedValue 
+	@Id
+	@GeneratedValue
 	private Long id;
-	@Column(name = "title")
+	@Column(name = "title", length = 100, nullable = false)
+	@Size(max = 100)
 	private String intitule;
-	@Column(name = "intership_group")
+	@Column(length = 255)
 	private String promotion;
-	@Column(name = "date")
 	@Temporal(TemporalType.DATE)
+	@Column(name = "startdate")
 	private Date dtDebut;
 	@Column(name = "duration")
 	private Integer duree;
-	@Column(name = "plan")
 	@Enumerated(EnumType.STRING)
+	@Column(name = "plan", length = 10)
 	private Dispositif dispositif;
-
 	@OneToMany(mappedBy = "filiere")
 	private List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
-	
 	@OneToMany(mappedBy = "filiere")
 	private List<UE> ues = new ArrayList<UE>();
-	
 	@ManyToOne
-	@JoinColumn(name="trainer_id")
+	@JoinColumn(name = "trainer_id")
 	private Formateur referent;
 
 	public Filiere() {

@@ -16,7 +16,7 @@ public class Evaluation {
 	@Column(name="behaviour", nullable = false)
 	private Integer comportemental;
 	@Column(name="technical")
-//	@NotNull
+	@NotNull
 	private Integer technique;
 	@Column(name="comments", length = 4000)
 	private String commentaires;

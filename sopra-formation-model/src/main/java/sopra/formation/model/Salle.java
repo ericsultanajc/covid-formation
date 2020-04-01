@@ -8,31 +8,25 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-@Entity // obligatoire
-@Table(name = "room") // optionnel
-
+@Entity
+@Table(name = "classroom")
 public class Salle {
-	@Id // obligatoire
-	@GeneratedValue // optionnel
+	@Id
+	@GeneratedValue
 	private Long id;
-	@Column(name = "name")
+	@Column(name = "name", nullable = false)
 	private String nom;
 	@Column(name = "capacity")
 	private Integer capacite;
-	@Column(name = "projector")
+	@Column(name = "video_projector")
 	private Boolean videoProjecteur;
-
-//	@OneToOne
-//	@JoinColumn(name = "address_id")
-//	@Transient
 	@Embedded
 	private Adresse adr;
+	@OneToMany(mappedBy = "salle")
+	private List<UE> ues = new ArrayList<UE>();
 
 	@OneToMany(mappedBy = "salle")
 	private List<UE> ues = new ArrayList<UE>();

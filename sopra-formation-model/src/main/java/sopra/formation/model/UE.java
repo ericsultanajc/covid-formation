@@ -7,37 +7,30 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
-@Table(name = "course_unit")
-
+@Table(name = "module")
 public class UE {
 	@Id
 	@GeneratedValue
-
 	private Long id;
-	@Column(name = "code")
+	@Column(nullable = false)
 	private Integer code;
-	@Column(name = "duration")
+	@Column(name = "duration", nullable = false)
 	private Integer duree;
-	@Column(name = "position")
+	@Column(name = "position", nullable = false)
 	private int ordre;
-
 	@ManyToOne
-	@JoinColumn(name = "filiere_id")
+	@JoinColumn(name="course_id")
 	private Filiere filiere;
-	
 	@ManyToOne
-	@JoinColumn(name="formateur_id")
+	@JoinColumn(name="trainer_id")
 	private Formateur formateur;
-	
 	@ManyToOne
-	@JoinColumn(name="matiere_id")
+	@JoinColumn(name="subject_id")
 	private Matiere matiere;
-	
 	@ManyToOne
-	@JoinColumn(name="salle_id")
+	@JoinColumn(name="classroom_id")
 	private Salle salle;
 
 	public UE() {

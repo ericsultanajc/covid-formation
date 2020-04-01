@@ -7,11 +7,11 @@ import javax.persistence.Embeddable;
 public class Adresse {
 	@Column(name = "street", length = 255)
 	private String rue;
-	@Column(name = "additional")
+	@Column(name = "additional", length = 255)
 	private String complement;
-	@Column(name = "zipcode")
+	@Column(name = "zipcode", length = 10)
 	private String codePostal;
-	@Column(name = "city")
+	@Column(name = "city", length = 100)
 	private String ville;
 
 	public Adresse() {

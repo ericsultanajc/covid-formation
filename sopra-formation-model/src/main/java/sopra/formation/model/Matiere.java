@@ -10,19 +10,21 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-@Entity // obligatoire
-@Table(name = "subject") // optionnel
-
+@Entity
+@Table(name = "subject")
 public class Matiere {
-	@Id // obligatoire
-	@GeneratedValue // optionnel
+	@Id
+	@GeneratedValue
 	private Long id;
-	@Column(name = "name")
+	@Column(name = "name", length = 100, nullable = false)
 	private String nom;
-	@Column(name = "duration")
+	@Column(name = "duration", nullable = false)
 	private Integer duree;
+	@OneToMany(mappedBy = "matiere")
+	private List<UE> ues = new ArrayList<UE>();
+	@ManyToMany(mappedBy = "competences")
+	private List<Formateur> formateurs = new ArrayList<Formateur>();
 
 	@OneToMany(mappedBy = "matiere")
 	private List<UE> ues = new ArrayList<UE>();
