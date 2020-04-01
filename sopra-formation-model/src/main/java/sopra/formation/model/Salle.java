@@ -2,12 +2,26 @@ package sopra.formation.model;
 
 import java.util.ArrayList;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity // obligatoire
+@Table(name = "room") // optionnel
 public class Salle {
+	@Id // obligatoire
 	private Long id;
+	@Column(name="room_name", nullable = false)
 	private String nom;
+	@Column(name="capacity", nullable = false)
 	private Integer capacite;
+	@Column(name="projector", nullable = false)
 	private Boolean videoProjecteur;
+	@Transient
 	private Adresse adr;
+	@Transient
 	private ArrayList<UE> ues = new ArrayList<UE>();
 
 	public Salle() {

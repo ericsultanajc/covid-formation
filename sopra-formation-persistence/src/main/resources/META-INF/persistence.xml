@@ -6,7 +6,12 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
 		<class>sopra.formation.model.Evaluation</class>
-
+		<class>sopra.formation.model.Filiere</class>
+		<class>sopra.formation.model.UE</class>
+		<class>sopra.formation.model.Personne</class>
+		<class>sopra.formation.model.Salle</class>	
+		<class>sopra.formation.model.Matiere</class>	
+		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/training" />
