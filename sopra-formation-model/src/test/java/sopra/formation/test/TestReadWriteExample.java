@@ -194,7 +194,7 @@ public class TestReadWriteExample {
 		}
 	}
 
-	private static void ecritureFilesWriteString() {
+	/*private static void ecritureFilesWriteString() {
 		Path filePath = Paths.get("formateurs.txt");
 		try {
 			Files.writeString(filePath,
@@ -204,7 +204,7 @@ public class TestReadWriteExample {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	private static void ecritureFilesWrite() {
 		String fileName = "formateurs.txt";

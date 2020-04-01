@@ -1,5 +1,8 @@
 package sopra.formation.model;
 
+import javax.persistence.Entity;
+
+@Entity // obligatoire
 public class Adresse {
 	private String rue;
 	private String complement;

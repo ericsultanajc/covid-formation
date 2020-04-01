@@ -2,10 +2,23 @@ package sopra.formation.model;
 
 import java.util.Date;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Transient;
+
+@Entity // obligatoire
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorValue("stag")
 public class Stagiaire extends Personne {
 	private Date dtNaissance;
+	@Transient
 	private NiveauEtude niveauEtude;
+	@Transient
 	private Filiere filiere;
+	@Transient
 	private Evaluation evaluation;
 
 	public Stagiaire() {
