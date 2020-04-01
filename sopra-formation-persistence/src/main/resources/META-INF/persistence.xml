@@ -6,6 +6,17 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
 		<class>sopra.formation.model.Evaluation</class>
+		<class>sopra.formation.model.Filiere</class>
+		<class>sopra.formation.model.Formateur</class>
+		<class>sopra.formation.model.Personne</class>
+		<class>sopra.formation.model.Matiere</class>
+		<class>sopra.formation.model.Salle</class>
+		<class>sopra.formation.model.Stagiaire</class>
+		<class>sopra.formation.model.UE</class>
+		<class>sopra.formation.model.Adresse</class>
+		<class>sopra.formation.model.Civilite</class>
+		<class>sopra.formation.model.Dispositif</class>
+		<class>sopra.formation.model.NiveauEtude</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
