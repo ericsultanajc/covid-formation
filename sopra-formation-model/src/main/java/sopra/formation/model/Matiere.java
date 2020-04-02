@@ -1,11 +1,15 @@
 package sopra.formation.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
@@ -17,14 +21,13 @@ public class Matiere {
 	@GeneratedValue // optionnel
 	private Long id;
 	@Column(name = "name", nullable = false, length = 100)
-	@Size(max = 100)
 	private String nom;
 	@Column(name = "time", nullable = false)
 	private Integer duree;
-	@Transient
-	private ArrayList<UE> ues = new ArrayList<UE>();
-	@Transient
-	private ArrayList<Formateur> formateurs = new ArrayList<Formateur>();
+	@OneToMany(mappedBy = "matiere")
+	private List<UE> ues = new ArrayList<UE>();
+	@ManyToMany(mappedBy = "competences")
+	private List<Formateur> formateurs = new ArrayList<Formateur>();
 
 	public Matiere() {
 		super();
@@ -67,7 +70,7 @@ public class Matiere {
 		this.duree = duree;
 	}
 
-	public ArrayList<UE> getUes() {
+	public List<UE> getUes() {
 		return ues;
 	}
 
@@ -79,7 +82,7 @@ public class Matiere {
 		this.ues.add(ue);
 	}
 
-	public ArrayList<Formateur> getFormateurs() {
+	public List<Formateur> getFormateurs() {
 		return formateurs;
 	}
 

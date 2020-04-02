@@ -13,6 +13,8 @@
 		<class>sopra.formation.model.Filiere</class>
 		<class>sopra.formation.model.UE</class>
 		<class>sopra.formation.model.Personne</class>
+		<class>sopra.formation.model.Formateur</class>
+		<class>sopra.formation.model.Stagiaire</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
