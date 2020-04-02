@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -24,6 +25,8 @@ public class Filiere {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name = "title", length = 100, nullable = false)
 	@Size(max = 100)
 	private String intitule;
@@ -54,9 +57,8 @@ public class Filiere {
 		this.promotion = promotion;
 	}
 
-	public Filiere(Long id, String intitule, String promotion, Date dtDebut, Integer duree, Dispositif dispositif) {
+	public Filiere(String intitule, String promotion, Date dtDebut, Integer duree, Dispositif dispositif) {
 		super();
-		this.id = id;
 		this.intitule = intitule;
 		this.promotion = promotion;
 		this.dtDebut = dtDebut;
@@ -70,6 +72,14 @@ public class Filiere {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public String getIntitule() {

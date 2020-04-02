@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "classroom")
@@ -17,6 +18,8 @@ public class Salle {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name = "name", nullable = false)
 	private String nom;
 	@Column(name = "capacity")
@@ -37,9 +40,8 @@ public class Salle {
 		this.nom = nom;
 	}
 
-	public Salle(Long id, String nom, Integer capacite, Boolean videoProjecteur) {
+	public Salle(String nom, Integer capacite, Boolean videoProjecteur) {
 		super();
-		this.id = id;
 		this.nom = nom;
 		this.capacite = capacite;
 		this.videoProjecteur = videoProjecteur;
@@ -51,6 +53,14 @@ public class Salle {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public String getNom() {

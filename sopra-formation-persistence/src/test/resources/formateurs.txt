@@ -1,4 +1,0 @@
-1;M;SULTAN;Eric;e.sultan@ajc-ingenierie.fr;O;22;1 rue Sainte Catherine;;33000;Bordeaux
-2;M;SALMI;Jacky;j.salmi@gmail.com;N;25;;;;
-3;M;TURPIN;Jonathan;j.turpin@gmail.com;N;15;;;;
-4;M;SULTAN;Eric;e.sultan@ajc-ingenierie.fr;O;20;4 rue de Corono;;33160;Saint-Médard-en-Jalles
