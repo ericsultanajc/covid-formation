@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "rating") // optionnel
 public class Evaluation {
 	@Id // obligatoire
-	@GeneratedValue // optionnel
+	@GeneratedValue // optionnelle
 	private Long id;
 	@Version
 	private int version;
