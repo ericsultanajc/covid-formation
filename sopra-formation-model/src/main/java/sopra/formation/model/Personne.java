@@ -2,6 +2,7 @@ package sopra.formation.model;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -9,8 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "personne")
@@ -20,6 +24,8 @@ public abstract class Personne {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Enumerated(EnumType.STRING)
 	private Civilite civilite;
 	@Column(name = "first_name")
@@ -30,7 +36,7 @@ public abstract class Personne {
 	private String email;
 	@Column(name = "phone")
 	private String telephone;
-	@Transient
+	@Embedded
 	private Adresse adresse;
 
 	public Personne() {
@@ -42,9 +48,8 @@ public abstract class Personne {
 		this.email = email;
 	}
 
-	public Personne(Long id, Civilite civilite, String nom, String prenom, String email, String telephone) {
+	public Personne(Civilite civilite, String nom, String prenom, String email, String telephone) {
 		super();
-		this.id = id;
 		this.civilite = civilite;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -58,6 +63,15 @@ public abstract class Personne {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public Civilite getCivilite() {

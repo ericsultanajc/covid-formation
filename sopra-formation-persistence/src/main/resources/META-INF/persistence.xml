@@ -12,7 +12,11 @@
 		<class>sopra.formation.model.Matiere</class>
 		<class>sopra.formation.model.Salle</class>
 		<class>sopra.formation.model.Personne</class>
+		<class>sopra.formation.model.Stagiaire</class>
+		<class>sopra.formation.model.Formateur</class>
 		<class>sopra.formation.model.UE</class>
+		<class>sopra.formation.model.Adresse</class>
+		
 
 
 		<properties>

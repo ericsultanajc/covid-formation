@@ -1,20 +1,31 @@
 package sopra.formation.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @DiscriminatorValue("formateur")
 public class Formateur extends Personne {
 	private Boolean referent;
 	private Integer experience;
-	@Transient
-	private ArrayList<UE> ues = new ArrayList<UE>();
-	@Transient
-	private ArrayList<Matiere> competences = new ArrayList<Matiere>();
+	@OneToMany
+	@JoinColumn(name ="lesson_id")
+	private List<UE> ues = new ArrayList<UE>();
+	@ManyToMany
+	@JoinTable(name ="skills", 
+	uniqueConstraints = @UniqueConstraint(columnNames ={ "trainer_id ", "field_id" } ),
+	joinColumns = @JoinColumn (name = "trainer_id ", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn (name = "field_id ", referencedColumnName = "id"))
+	private List<Matiere> competences = new ArrayList<Matiere>();
 
 	public Formateur() {
 		super();
@@ -24,8 +35,8 @@ public class Formateur extends Personne {
 		super(email);
 	}
 	
-	public Formateur(Long id, Civilite civilite, String nom, String prenom, String email, String telephone, Boolean referent, Integer experience) {
-		super(id, civilite, nom, prenom, email, telephone);
+	public Formateur(Civilite civilite, String nom, String prenom, String email, String telephone, Boolean referent, Integer experience) {
+		super(civilite, nom, prenom, email, telephone);
 		this.referent = referent;
 		this.experience = experience;
 	}
@@ -46,7 +57,7 @@ public class Formateur extends Personne {
 		this.experience = experience;
 	}
 
-	public ArrayList<UE> getUes() {
+	public List<UE> getUes() {
 		return ues;
 	}
 
@@ -58,7 +69,7 @@ public class Formateur extends Personne {
 		this.ues.add(ue);
 	}
 
-	public ArrayList<Matiere> getCompetences() {
+	public List<Matiere> getCompetences() {
 		return competences;
 	}
 

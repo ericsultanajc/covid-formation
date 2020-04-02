@@ -4,11 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "ue")
+@Table(name = "lesson")
 public class UE {
 	@Id
 	@GeneratedValue
@@ -17,15 +19,19 @@ public class UE {
 	private Integer code;
 	@Column(name = "beginning_date", nullable = false)
 	private Integer duree;
-	@Column(name = "order",nullable = false)
+	@Column(name = "position",nullable = false)
 	private int ordre;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name = "course_id")
 	private Filiere filiere;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name = "trainer_id")
 	private Formateur formateur;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name = "field_id")
 	private Matiere matiere;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name = "classroom_id")
 	private Salle salle;
 
 	public UE() {

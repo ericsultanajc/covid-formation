@@ -77,36 +77,34 @@ public class TestFormation {
 //			System.out.println(eval);
 //		}
 
-		Matiere angular = new Matiere("ANGULAR", 6);
-
-		angular = Application.getInstance().getMatiereDao().create(angular);
-
-		Matiere springboot = new Matiere("Spring boot", 3);
-
-		springboot = Application.getInstance().getMatiereDao().create(springboot);
-
-		Formateur eric = new Formateur("e.sultan@ajc-ingenierie.fr");
-		eric.setCivilite(Civilite.M);
-		eric.setNom("SULTAN");
-		eric.setPrenom("Eric");
-		eric.setTelephone("0645104506");
-		eric.setAdresse("4 rue de Corono", "", "33160", "Saint-Médard-en-Jalles");
-		eric.setReferent(true);
-		eric.setExperience(20);
-		
-		Date dtNaissance;
-
-		eric.getCompetences().add(angular);
-		eric.getCompetences().add(springboot);
-
-		Application.getInstance().getFormateurDao().create(eric);
-		
-		Matiere servletJsp = new Matiere("Servlet/JSP", 2);
-		servletJsp = Application.getInstance().getMatiereDao().create(servletJsp);
-		
-		eric.getCompetences().add(servletJsp);
-		
-		Application.getInstance().getFormateurDao().update(eric);
+//		Matiere angular = new Matiere("ANGULAR", 6);
+//
+//		angular = Application.getInstance().getMatiereDao().create(angular);
+//
+//		Matiere springboot = new Matiere("Spring boot", 3);
+//
+//		springboot = Application.getInstance().getMatiereDao().create(springboot);
+//
+//		Formateur eric = new Formateur("e.sultan@ajc-ingenierie.fr");
+//		eric.setCivilite(Civilite.M);
+//		eric.setNom("SULTAN");
+//		eric.setPrenom("Eric");
+//		eric.setTelephone("0645104506");
+//		eric.setAdresse("4 rue de Corono", "", "33160", "Saint-Médard-en-Jalles");
+//		eric.setReferent(true);
+//		eric.setExperience(20);
+//
+//		eric.getCompetences().add(angular);
+//		eric.getCompetences().add(springboot);
+//
+//		Application.getInstance().getFormateurDao().create(eric);
+//		
+//		Matiere servletJsp = new Matiere("Servlet/JSP", 2);
+//		servletJsp = Application.getInstance().getMatiereDao().create(servletJsp);
+//		
+//		eric.getCompetences().add(servletJsp);
+//		
+//		Application.getInstance().getFormateurDao().update(eric);
 		
 	}
 
