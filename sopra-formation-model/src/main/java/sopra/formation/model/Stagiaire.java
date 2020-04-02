@@ -5,19 +5,25 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @DiscriminatorValue ("stagiaire")
 public class Stagiaire extends Personne {
+	
 	@Temporal(TemporalType.DATE)
 	private Date dtNaissance;
 	@Column(name="level")
 	private NiveauEtude niveauEtude;
-	@Column(name="Faculty")
+	@ManyToOne
+	@JoinColumn(name="course_id")
 	private Filiere filiere;
-	@Column(name="rating")
+	@OneToOne
+	@JoinColumn(name ="rating_id")
 	private Evaluation evaluation;
 
 	public Stagiaire() {

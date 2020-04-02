@@ -2,12 +2,14 @@ package sopra.formation.model;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "people")
@@ -15,7 +17,10 @@ import javax.persistence.Transient;
 @DiscriminatorColumn(name = "type_personne")
 public abstract class Personne {
 	@Id
+	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name="title")
 	private Civilite civilite;
 	@Column(name="lastname", length = 100)
@@ -26,7 +31,7 @@ public abstract class Personne {
 	private String email;
 	@Column(name="phonenumber", length = 100)
 	private String telephone;
-	@Transient
+	@Embedded
 	private Adresse adresse;
 
 	public Personne() {
@@ -46,6 +51,14 @@ public abstract class Personne {
 		this.prenom = prenom;
 		this.email = email;
 		this.telephone = telephone;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public Long getId() {

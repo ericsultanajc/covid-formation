@@ -1,11 +1,13 @@
 package sopra.formation.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 @DiscriminatorValue ("formateur")
@@ -14,10 +16,10 @@ public class Formateur extends Personne {
 	private Boolean referent;
 	@Column(name="experiment")
 	private Integer experience;
-	@Transient
-	private ArrayList<UE> ues = new ArrayList<UE>();
-	@Transient
-	private ArrayList<Matiere> competences = new ArrayList<Matiere>();
+	@OneToMany(mappedBy="formateur")
+	private List<UE> ues = new ArrayList<UE>();
+	@ManyToMany
+	private List<Matiere> competences = new ArrayList<Matiere>();
 
 	public Formateur() {
 		super();
@@ -49,7 +51,7 @@ public class Formateur extends Personne {
 		this.experience = experience;
 	}
 
-	public ArrayList<UE> getUes() {
+	public List<UE> getUes() {
 		return ues;
 	}
 
@@ -61,7 +63,7 @@ public class Formateur extends Personne {
 		this.ues.add(ue);
 	}
 
-	public ArrayList<Matiere> getCompetences() {
+	public List<Matiere> getCompetences() {
 		return competences;
 	}
 

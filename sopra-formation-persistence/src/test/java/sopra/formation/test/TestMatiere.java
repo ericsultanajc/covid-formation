@@ -11,11 +11,11 @@ public class TestMatiere {
 
 		Matiere angular = new Matiere("Angular", 6);
 
-		angular = matiereDao.create(angular);
+//		angular = matiereDao.create(angular);
 
 		Matiere boot = new Matiere("Spring Boot", 2);
 
-		boot = matiereDao.create(boot);
+//		boot = matiereDao.create(boot);
 
 		Matiere bootCopy = matiereDao.find(boot.getId());
 
@@ -24,7 +24,7 @@ public class TestMatiere {
 		bootCopy.setNom("Spring Boot / Rest");
 		bootCopy.setDuree(3);
 
-		matiereDao.update(bootCopy);
+//		matiereDao.update(bootCopy);
 
 		bootCopy = matiereDao.find(boot.getId());
 
@@ -32,7 +32,7 @@ public class TestMatiere {
 		
 		System.out.println(matiereDao.findAll());
 		
-		matiereDao.delete(boot.getId());
+//		matiereDao.delete(boot.getId());
 		
 		bootCopy = matiereDao.find(boot.getId());
 

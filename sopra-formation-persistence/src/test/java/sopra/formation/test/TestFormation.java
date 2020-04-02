@@ -79,11 +79,11 @@ public class TestFormation {
 
 		Matiere angular = new Matiere("ANGULAR", 6);
 
-		angular = Application.getInstance().getMatiereDao().create(angular);
+//		angular = Application.getInstance().getMatiereDao().create(angular);
 
 		Matiere springboot = new Matiere("Spring boot", 3);
 
-		springboot = Application.getInstance().getMatiereDao().create(springboot);
+//		springboot = Application.getInstance().getMatiereDao().create(springboot);
 
 		Formateur eric = new Formateur("e.sultan@ajc-ingenierie.fr");
 		eric.setCivilite(Civilite.M);
@@ -99,14 +99,14 @@ public class TestFormation {
 		eric.getCompetences().add(angular);
 		eric.getCompetences().add(springboot);
 
-		Application.getInstance().getFormateurDao().create(eric);
+//		Application.getInstance().getFormateurDao().create(eric);
 		
 		Matiere servletJsp = new Matiere("Servlet/JSP", 2);
-		servletJsp = Application.getInstance().getMatiereDao().create(servletJsp);
+//		servletJsp = Application.getInstance().getMatiereDao().create(servletJsp);
 		
 		eric.getCompetences().add(servletJsp);
 		
-		Application.getInstance().getFormateurDao().update(eric);
+//		Application.getInstance().getFormateurDao().update(eric);
 		
 	}
 

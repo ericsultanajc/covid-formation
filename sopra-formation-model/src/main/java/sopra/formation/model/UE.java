@@ -2,28 +2,38 @@ package sopra.formation.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "teaching_unit")
 public class UE {
 	@Id
+	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name="coded")
 	private Integer code;
 	@Column(name="duration")
 	private Integer duree;
 	@Column(name="sequence")
 	private int ordre;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name="course_id")
 	private Filiere filiere;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name="formateur_id")
 	private Formateur formateur;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name="materials_id")
 	private Matiere matiere;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name="room_id")
 	private Salle salle;
 
 	public UE() {
@@ -43,6 +53,14 @@ public class UE {
 		this.code = code;
 		this.duree = duree;
 		this.ordre = ordre;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public Long getId() {
