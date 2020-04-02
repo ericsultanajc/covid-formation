@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity // obligatoire
 @Table(name = "rating") // optionnel 
@@ -12,6 +13,8 @@ public class Evaluation {
 	@Id // obligatoire
 	@GeneratedValue // optionnel
 	private Long id;
+	@Version
+	private int version;
 	@Column(name="behaviour", nullable = false)
 	private Integer comportemental;
 	@Column(name="technical", nullable = false)
@@ -68,6 +71,14 @@ public class Evaluation {
 
 	public void setCommentaires(String commentaires) {
 		this.commentaires = commentaires;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	@Override

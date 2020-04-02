@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name="Person")
@@ -20,6 +21,8 @@ public abstract class Personne {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name="civility", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Civilite civilite;
@@ -43,9 +46,8 @@ public abstract class Personne {
 		this.email = email;
 	}
 
-	public Personne(Long id, Civilite civilite, String nom, String prenom, String email, String telephone) {
+	public Personne(Civilite civilite, String nom, String prenom, String email, String telephone) {
 		super();
-		this.id = id;
 		this.civilite = civilite;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -111,6 +113,14 @@ public abstract class Personne {
 
 	public void setAdresse(String rue, String complement, String codePostal, String ville) {
 		this.adresse = new Adresse(rue, complement, codePostal, ville);
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	@Override

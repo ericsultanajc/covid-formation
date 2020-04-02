@@ -15,7 +15,7 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @DiscriminatorValue("trainer")
 public class Formateur extends Personne {
-	@Column(name="referent", nullable = false)
+	@Column(name="referent")
 	private Boolean referent;
 	
 	@Column(name="experience")
@@ -39,8 +39,8 @@ public class Formateur extends Personne {
 		super(email);
 	}
 	
-	public Formateur(Long id, Civilite civilite, String nom, String prenom, String email, String telephone, Boolean referent, Integer experience) {
-		super(id, civilite, nom, prenom, email, telephone);
+	public Formateur(Civilite civilite, String nom, String prenom, String email, String telephone, Boolean referent, Integer experience) {
+		super(civilite, nom, prenom, email, telephone);
 		this.referent = referent;
 		this.experience = experience;
 	}

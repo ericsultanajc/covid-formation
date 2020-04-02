@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table (name = "subject")
@@ -17,6 +18,8 @@ public class Matiere {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name="name", nullable = false)
 	private String nom;
 	@Column(name="duration")
@@ -29,13 +32,7 @@ public class Matiere {
 	public Matiere() {
 		super();
 	}
-	public Matiere(Long id, String nom, Integer duree) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.duree = duree;
-	}
-
+	
 	public Matiere(String nom, Integer duree) {
 		super();
 		this.nom = nom;
@@ -88,6 +85,14 @@ public class Matiere {
 
 	public void addFormateur(Formateur formateur) {
 		this.formateurs.add(formateur);
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	@Override

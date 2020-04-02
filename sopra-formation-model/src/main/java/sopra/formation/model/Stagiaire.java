@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 @Entity
 @DiscriminatorValue("student")
 public class Stagiaire extends Personne {
-	@Column(name="date_of_birth", nullable = false)
+	@Column(name="date_of_birth")
 	@Temporal(TemporalType.DATE)
 	private Date dtNaissance;
 	@Column(name="study_grade")
@@ -37,9 +37,9 @@ public class Stagiaire extends Personne {
 		super(email);
 	}
 
-	public Stagiaire(Long id, Civilite civilite, String nom, String prenom, String email, String telephone,
+	public Stagiaire(Civilite civilite, String nom, String prenom, String email, String telephone,
 			Date dtNaissance, NiveauEtude niveauEtude) {
-		super(id, civilite, nom, prenom, email, telephone);
+		super(civilite, nom, prenom, email, telephone);
 		this.dtNaissance = dtNaissance;
 		this.niveauEtude = niveauEtude;
 	}

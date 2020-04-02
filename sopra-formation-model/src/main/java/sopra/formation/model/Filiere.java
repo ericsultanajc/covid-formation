@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 @Entity
 @Table (name="course")
@@ -23,7 +24,8 @@ public class Filiere {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+	@Version
+	private int version;
 	@Column(name="title", length = 100, nullable = false)
 	private String intitule;
 	
@@ -148,6 +150,14 @@ public class Filiere {
 
 	public void setReferent(Formateur referent) {
 		this.referent = referent;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	@Override
