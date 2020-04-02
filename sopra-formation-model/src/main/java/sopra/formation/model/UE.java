@@ -4,33 +4,36 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.Version;
 
-@Entity // obligatoire
-@Table(name = "ue") // optionnel 
+@Entity
+@Table(name = "module")
 public class UE {
-	@Id // obligatoire
-	@GeneratedValue // optionnel
+	@Id
+	@GeneratedValue
 	private Long id;
-	@Column(name="code", columnDefinition="DECIMAL(5)", nullable=false)
-	@Size(max=5)
+	@Version
+	private int version;
+	@Column(nullable = false)
 	private Integer code;
-	@Column(name="tem", columnDefinition="VARCHAR(3)", nullable=false)
-	@Size(max=3)
+	@Column(name = "duration", nullable = false)
 	private Integer duree;
-	@Column(name="ord", columnDefinition="VARCHAR(3)", nullable=false)
-	@Size(max=3)
-	private Integer ordre;
-	@Transient
+	@Column(name = "position", nullable = false)
+	private int ordre;
+	@ManyToOne
+	@JoinColumn(name="course_id")
 	private Filiere filiere;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name="trainer_id")
 	private Formateur formateur;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name="subject_id")
 	private Matiere matiere;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name="classroom_id")
 	private Salle salle;
 
 	public UE() {
@@ -114,6 +117,15 @@ public class UE {
 
 	public void setSalle(Salle salle) {
 		this.salle = salle;
+	}
+	
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	@Override

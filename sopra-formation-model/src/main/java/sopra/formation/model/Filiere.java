@@ -2,45 +2,50 @@ package sopra.formation.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
-
-@Entity // obligatoire
-@Table(name = "studypath")
+@Entity
+@Table(name = "course")
 public class Filiere {
-	@Id // obligatoire
-	@Column(name="id", columnDefinition="VARCHAR(10)", nullable=false)
-	@Size(max=10)
+	@Id
+	@GeneratedValue
 	private Long id;
-	@Column(name="intitule", columnDefinition="VARCHAR(100)", nullable=false)
-	@Size(max=100)
+	@Version
+	private int version;
+	@Column(name = "title", length = 100, nullable = false)
+	@Size(max = 100)
 	private String intitule;
-	@Column(name="promotion", columnDefinition="VARCHAR(100)")
-	@Size(max=100)
+	@Column(length = 255)
 	private String promotion;
-	@Column(name="dtDebut", columnDefinition="VARCHAR(100)")
-	@Size(max=100)
 	@Temporal(TemporalType.DATE)
+	@Column(name = "startdate")
 	private Date dtDebut;
-	@Column(name="duree", columnDefinition="DECIMAL(3)")
-	@Size(max=100)
+	@Column(name = "duration")
 	private Integer duree;
-	@Transient
+	@Enumerated(EnumType.STRING)
+	@Column(name = "plan", length = 10)
 	private Dispositif dispositif;
-	@Transient
-	private ArrayList<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
-	@Transient
-	private ArrayList<UE> ues = new ArrayList<UE>();
-	@Transient
+	@OneToMany(mappedBy = "filiere")
+	private List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
+	@OneToMany(mappedBy = "filiere")
+	private List<UE> ues = new ArrayList<UE>();
+	@ManyToOne
+	@JoinColumn(name = "trainer_id")
 	private Formateur referent;
 
 	public Filiere() {
@@ -110,11 +115,11 @@ public class Filiere {
 		this.dispositif = dispositif;
 	}
 
-	public ArrayList<Stagiaire> getStagiaires() {
+	public List<Stagiaire> getStagiaires() {
 		return stagiaires;
 	}
 
-	public void setStagiaires(ArrayList<Stagiaire> stagiaires) {
+	public void setStagiaires(List<Stagiaire> stagiaires) {
 		this.stagiaires = stagiaires;
 	}
 
@@ -122,11 +127,11 @@ public class Filiere {
 		this.stagiaires.add(stagiaire);
 	}
 
-	public ArrayList<UE> getUes() {
+	public List<UE> getUes() {
 		return ues;
 	}
 
-	public void setUes(ArrayList<UE> ues) {
+	public void setUes(List<UE> ues) {
 		this.ues = ues;
 	}
 
@@ -140,6 +145,16 @@ public class Filiere {
 
 	public void setReferent(Formateur referent) {
 		this.referent = referent;
+	}
+	
+	
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	@Override

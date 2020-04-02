@@ -2,39 +2,40 @@ package sopra.formation.model;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.Version;
 
-@Entity // obligatoire
-@Table(name = "people") // optionnel 
+@Entity
+@Table(name = "person")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="disc")
+@DiscriminatorColumn(name = "disc", discriminatorType = DiscriminatorType.STRING, length = 15)
 public abstract class Personne {
-	@Id // obligatoire
-	@GeneratedValue // optionnel
+	@Id
+	@GeneratedValue
 	private Long id;
-	@Transient
+	@Version
+	private int version;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "civility", length = 5)
 	private Civilite civilite;
-	@Column(name="name", columnDefinition="VARCHAR(100)", nullable=false)
-	@Size(max=100)
+	@Column(name = "last_name", length = 100, nullable = false)
 	private String nom;
-	@Column(name="surname", columnDefinition="VARCHAR(100)")
-	@Size(max=100)
+	@Column(name = "first_name", length = 100)
 	private String prenom;
-	@Column(name="mail", columnDefinition="VARCHAR(255)")
-	@Size(max=255)
+	@Column(length = 255, nullable = false)
 	private String email;
-	@Column(name="phonenumber", columnDefinition="VARCHAR(15)", nullable=false)
-	@Size(max=15)
+	@Column(name = "phonenumber", length = 15)
 	private String telephone;
-	@Transient
+	@Embedded
 	private Adresse adresse;
 
 	public Personne() {
@@ -114,6 +115,15 @@ public abstract class Personne {
 
 	public void setAdresse(String rue, String complement, String codePostal, String ville) {
 		this.adresse = new Adresse(rue, complement, codePostal, ville);
+	}
+	
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	@Override

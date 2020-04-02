@@ -5,8 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Entity // obligatoire
 @Table(name = "rating") // optionnel 
@@ -14,14 +14,14 @@ public class Evaluation {
 	@Id // obligatoire
 	@GeneratedValue // optionnel
 	private Long id;
-	@Column(name="comportemental", columnDefinition="DECIMAL(10)", nullable=false)
-	@Size(max=10)
+	@Version
+	private int version;
+	@Column(name="behaviour", nullable = false)
 	private Integer comportemental;
-	@Column(name="technique", columnDefinition="DECIMAL(10)", nullable=false)
-	@Size(max=10)
+	@Column(name="technical")
+	@NotNull
 	private Integer technique;
-	@Column(name="comments", columnDefinition="VARCHAR(255)")
-	@Size(max=255)
+	@Column(name="comments", length = 4000)
 	private String commentaires;
 
 	public Evaluation() {
@@ -73,6 +73,16 @@ public class Evaluation {
 
 	public void setCommentaires(String commentaires) {
 		this.commentaires = commentaires;
+	}
+	
+	
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	@Override
