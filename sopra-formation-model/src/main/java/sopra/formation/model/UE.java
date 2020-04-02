@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "module")
@@ -14,6 +15,8 @@ public class UE {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(nullable = false)
 	private Integer code;
 	@Column(name = "duration", nullable = false)
@@ -114,6 +117,14 @@ public class UE {
 
 	public void setSalle(Salle salle) {
 		this.salle = salle;
+	}
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	@Override

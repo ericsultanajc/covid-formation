@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "classroom")
@@ -17,6 +18,8 @@ public class Salle {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name = "name", nullable = false)
 	private String nom;
 	@Column(name = "capacity")
@@ -95,6 +98,14 @@ public class Salle {
 
 	public void addUe(UE ue) {
 		this.ues.add(ue);
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	@Override
