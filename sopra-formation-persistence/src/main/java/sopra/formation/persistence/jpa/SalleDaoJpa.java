@@ -7,6 +7,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import sopra.formation.Application;
+import sopra.formation.model.Filiere;
 import sopra.formation.model.Salle;
 import sopra.formation.persistence.ISalleDao;
 
@@ -123,5 +124,37 @@ public class SalleDaoJpa implements ISalleDao{
 				em.close();
 			}
 		}
+	}
+
+	@Override
+	public List<Salle> findAllByFiliere(Filiere filiere) {
+		List<Salle> salles = null;
+
+		EntityManager em = null;
+		EntityTransaction tx = null;
+
+		try {
+			em = Application.getInstance().getEmf().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+
+			TypedQuery<Salle> query = em.createQuery("from Salle s join s.ues u join u.Filiere f where f.nom = :nom", Salle.class);
+			
+			
+			salles = query.getResultList();
+
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+
+		return salles;
 	}
 }
