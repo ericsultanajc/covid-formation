@@ -2,6 +2,11 @@ package sopra.formation.test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
 import sopra.formation.Application;
 import sopra.formation.model.Adresse;
@@ -24,8 +29,34 @@ public class TestJPADao {
 	}
 	
 	public static void testRequete() {
-		System.out.println(Application.getInstance().getSalleDao().findAllByFiliere("Covid"));
-	}
+		List<Salle> salles = null;
+
+		EntityManager em = null;
+		EntityTransaction tx = null;
+
+		try {
+			em = Application.getInstance().getEmf().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+
+			TypedQuery<Salle> query = em.createQuery("select s from Salle s join s.ues u join u.filiere f where f.intitule = :intitule", Salle.class);
+			query.setParameter("intitule", "Sopra COVID");
+			
+			salles = query.getResultList();
+			System.out.println(salles);
+
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+		}
 	
 	public static void testComplet() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
