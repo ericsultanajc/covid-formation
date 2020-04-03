@@ -124,4 +124,39 @@ public class FormateurDaoJpa implements IFormateurDao {
 		}
 	}
 
+	@Override
+	public Formateur findByEmail(String email) {
+		List<Formateur> formateurs = null;
+
+		EntityManager em = null;
+		EntityTransaction tx = null;
+
+		try {
+			em = Application.getInstance().getEmf().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+
+			TypedQuery<Formateur> query = em.createQuery("select f from Formateur f where f.email = email",
+					Formateur.class);
+
+			query.setParameter("email", email);
+
+			formateurs = query.getResultList();
+
+			tx.commit();
+
+		} catch (Exception e) {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+
+		return formateurs;
+	}
+
 }
