@@ -4,9 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -15,6 +16,8 @@ public class UE {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name="code", length = 4, nullable=false)
 	@Size(max=4)
 	private Integer code;
@@ -24,13 +27,17 @@ public class UE {
 	@Column(name="ordere", length = 4)
 	@Size(max=4)
 	private int ordre;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name="course_id")
 	private Filiere filiere;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name="trainer_id")
 	private Formateur formateur;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name="matter_id")
 	private Matiere matiere;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name="hall_id")
 	private Salle salle;
 
 	public UE() {
@@ -58,6 +65,14 @@ public class UE {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+		public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public Integer getCode() {

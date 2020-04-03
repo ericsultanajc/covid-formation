@@ -2,6 +2,7 @@ package sopra.formation.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,11 +10,13 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -22,6 +25,8 @@ public class Filiere {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name="title", length = 100, nullable=false)
 	@Size(max=100)
 	private String intitule;
@@ -38,11 +43,12 @@ public class Filiere {
 	@Enumerated(EnumType.STRING)
 	@Size(max=100)
 	private Dispositif dispositif;
-	@Transient
-	private ArrayList<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
-	@Transient
-	private ArrayList<UE> ues = new ArrayList<UE>();
-	@Transient
+	@OneToMany(mappedBy = "filiere")
+	private List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
+	@OneToMany(mappedBy = "filiere")
+	private List<UE> ues = new ArrayList<UE>();
+	@ManyToOne
+	@JoinColumn(name="trainer_id")
 	private Formateur referent;
 
 	public Filiere() {
@@ -54,14 +60,23 @@ public class Filiere {
 		this.promotion = promotion;
 	}
 
-	public Filiere(Long id, String intitule, String promotion, Date dtDebut, Integer duree, Dispositif dispositif) {
+	public Filiere(String intitule, String promotion, Date dtDebut, Integer duree, Dispositif dispositif) {
 		super();
-		this.id = id;
 		this.intitule = intitule;
 		this.promotion = promotion;
 		this.dtDebut = dtDebut;
 		this.duree = duree;
 		this.dispositif = dispositif;
+	}
+
+	
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public Long getId() {
@@ -112,11 +127,11 @@ public class Filiere {
 		this.dispositif = dispositif;
 	}
 
-	public ArrayList<Stagiaire> getStagiaires() {
+	public List<Stagiaire> getStagiaires() {
 		return stagiaires;
 	}
 
-	public void setStagiaires(ArrayList<Stagiaire> stagiaires) {
+	public void setStagiaires(List<Stagiaire> stagiaires) {
 		this.stagiaires = stagiaires;
 	}
 
@@ -124,11 +139,11 @@ public class Filiere {
 		this.stagiaires.add(stagiaire);
 	}
 
-	public ArrayList<UE> getUes() {
+	public List<UE> getUes() {
 		return ues;
 	}
 
-	public void setUes(ArrayList<UE> ues) {
+	public void setUes(List<UE> ues) {
 		this.ues = ues;
 	}
 

@@ -1,14 +1,16 @@
 package sopra.formation.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -17,25 +19,20 @@ public class Matiere {
 	@Id 
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name="name", nullable=false)
 	private String nom;
 	@Column(name="time", length = 4)
 	@Size(max=4)
 	private Integer duree;
-	@Transient
-	private ArrayList<UE> ues = new ArrayList<UE>();
-	@Transient
-	private ArrayList<Formateur> formateurs = new ArrayList<Formateur>();
+	@OneToMany(mappedBy = "matiere")
+	private List<UE> ues = new ArrayList<UE>();
+	@ManyToMany(mappedBy = "competences")
+	private List<Formateur> formateurs = new ArrayList<Formateur>();
 
 	public Matiere() {
 		super();
-	}
-
-	public Matiere(Long id, String nom, Integer duree) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.duree = duree;
 	}
 
 	public Matiere(String nom, Integer duree) {
@@ -50,6 +47,15 @@ public class Matiere {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public String getNom() {
@@ -68,7 +74,7 @@ public class Matiere {
 		this.duree = duree;
 	}
 
-	public ArrayList<UE> getUes() {
+	public List<UE> getUes() {
 		return ues;
 	}
 
@@ -80,7 +86,7 @@ public class Matiere {
 		this.ues.add(ue);
 	}
 
-	public ArrayList<Formateur> getFormateurs() {
+	public List<Formateur> getFormateurs() {
 		return formateurs;
 	}
 

@@ -2,6 +2,7 @@ package sopra.formation.model;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,8 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -22,6 +22,8 @@ public abstract class Personne {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name="title", length = 15, nullable=false)
 	@Enumerated(EnumType.STRING)
 	@Size(max=15)
@@ -35,7 +37,7 @@ public abstract class Personne {
 	@Column(name="phone_number", length = 25)
 	@Size(max=25)
 	private String telephone;
-	@Transient
+	@Embedded
 	private Adresse adresse;
 
 	public Personne() {
@@ -63,6 +65,17 @@ public abstract class Personne {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	
+	
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public Civilite getCivilite() {

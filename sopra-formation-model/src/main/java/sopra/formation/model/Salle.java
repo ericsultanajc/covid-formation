@@ -1,14 +1,17 @@
 package sopra.formation.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -17,6 +20,8 @@ public class Salle {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name="name", nullable=false)
 	private String nom;
 	@Column(name="capacity", length = 8)
@@ -25,10 +30,10 @@ public class Salle {
 	@Column(name="projector", length = 20)
 	@Size(max=20)
 	private Boolean videoProjecteur;
-	@Transient
+	@Embedded
 	private Adresse adr;
-	@Transient
-	private ArrayList<UE> ues = new ArrayList<UE>();
+	@OneToMany(mappedBy = "salle")
+	private List<UE> ues = new ArrayList<UE>();
 
 	public Salle() {
 		super();
@@ -53,6 +58,15 @@ public class Salle {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public String getNom() {
@@ -87,11 +101,11 @@ public class Salle {
 		this.adr = adr;
 	}
 
-	public ArrayList<UE> getUes() {
+	public List<UE> getUes() {
 		return ues;
 	}
 
-	public void setUes(ArrayList<UE> ues) {
+	public void setUes(List<UE> ues) {
 		this.ues = ues;
 	}
 

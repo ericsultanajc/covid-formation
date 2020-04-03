@@ -7,26 +7,29 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
 @Entity
 @DiscriminatorValue("student")
 public class Stagiaire extends Personne {
-	@Column(name="date_of_birth", nullable=false)
+	@Column(name="date_of_birth")
 	@Temporal(TemporalType.DATE)
 	private Date dtNaissance;
-	@Column(name="study_level", length = 15, nullable=false)
+	@Column(name="study_level", length = 15)
 	@Enumerated(EnumType.STRING)
 	@Size(max=15)
-
 	private NiveauEtude niveauEtude;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name="course_id")
 	private Filiere filiere;
-	@Transient
+	@OneToOne
+	@JoinColumn(name="evaluation_id")
 	private Evaluation evaluation;
 
 	public Stagiaire() {
@@ -43,7 +46,8 @@ public class Stagiaire extends Personne {
 		this.dtNaissance = dtNaissance;
 		this.niveauEtude = niveauEtude;
 	}
-
+	
+	
 	public Date getDtNaissance() {
 		return dtNaissance;
 	}
