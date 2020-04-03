@@ -1,9 +1,17 @@
 package sopra.formation.model;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Adresse {
+	@Column(name = "street")
 	private String rue;
+	@Column(name = "additional")
 	private String complement;
+	@Column(name = "zipcode")
 	private String codePostal;
+	@Column(name = "city")
 	private String ville;
 
 	public Adresse() {

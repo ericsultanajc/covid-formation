@@ -7,9 +7,11 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 @Entity
 @DiscriminatorValue("student")
@@ -20,9 +22,11 @@ public class Stagiaire extends Personne {
 	@Column(name="studies_level")
 	@Enumerated(EnumType.STRING)
 	private NiveauEtude niveauEtude;
-	@Transient
+	@ManyToOne
+	@JoinColumn (name = "filiere_id")
 	private Filiere filiere;
-	@Transient
+	@OneToOne
+	@JoinColumn(name = "evaluation_id")
 	private Evaluation evaluation;
 
 	public Stagiaire() {
@@ -33,9 +37,9 @@ public class Stagiaire extends Personne {
 		super(email);
 	}
 
-	public Stagiaire(Long id, Civilite civilite, String nom, String prenom, String email, String telephone,
+	public Stagiaire(Civilite civilite, String nom, String prenom, String email, String telephone,
 			Date dtNaissance, NiveauEtude niveauEtude) {
-		super(id, civilite, nom, prenom, email, telephone);
+		super(civilite, nom, prenom, email, telephone);
 		this.dtNaissance = dtNaissance;
 		this.niveauEtude = niveauEtude;
 	}
