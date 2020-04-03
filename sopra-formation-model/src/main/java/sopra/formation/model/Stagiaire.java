@@ -3,29 +3,30 @@ package sopra.formation.model;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
+
 
 @Entity // obligatoire
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorValue("stagiaire")
 public class Stagiaire extends Personne {
-	@Column(name="birth_date", nullable = false)
+	@Column(name="birth_date")
 	@Temporal(TemporalType.DATE)
 	private Date dtNaissance;
-	@Transient
+	@Column(name="study_level")
+	@Enumerated(EnumType.STRING)
 	private NiveauEtude niveauEtude;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name="filiere_id")
 	private Filiere filiere;
-	@Transient
+	@OneToOne
 	private Evaluation evaluation;
 
 	public Stagiaire() {
@@ -36,13 +37,14 @@ public class Stagiaire extends Personne {
 		super(email);
 	}
 
-	public Stagiaire(Long id, Civilite civilite, String nom, String prenom, String email, String telephone,
+	public Stagiaire(Civilite civilite, String nom, String prenom, String email, String telephone,
 			Date dtNaissance, NiveauEtude niveauEtude) {
-		super(id, civilite, nom, prenom, email, telephone);
+		super(civilite, nom, prenom, email, telephone);
 		this.dtNaissance = dtNaissance;
 		this.niveauEtude = niveauEtude;
 	}
-
+	
+	
 	public Date getDtNaissance() {
 		return dtNaissance;
 	}

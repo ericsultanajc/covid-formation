@@ -1,28 +1,28 @@
 package sopra.formation.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity // obligatoire
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorValue("formateur")
 public class Formateur extends Personne {
-	@Column(name="referent_person", nullable = false)
+	@Column(name="referent_person")
 	private Boolean referent;
 	@Column(name="background")
 	private Integer experience;
-	@Transient
-	private ArrayList<UE> ues = new ArrayList<UE>();
-	@Transient
-	private ArrayList<Matiere> competences = new ArrayList<Matiere>();
+	@OneToMany(mappedBy = "formateur")
+	private List<UE> ues = new ArrayList<UE>();
+	@ManyToMany
+	@JoinTable(name="skills", joinColumns=@JoinColumn(name="formateur_id"), inverseJoinColumns=@JoinColumn(name="matiere_id"))
+	private List<Matiere> competences = new ArrayList<Matiere>();
 
 	public Formateur() {
 		super();
@@ -32,8 +32,8 @@ public class Formateur extends Personne {
 		super(email);
 	}
 	
-	public Formateur(Long id, Civilite civilite, String nom, String prenom, String email, String telephone, Boolean referent, Integer experience) {
-		super(id, civilite, nom, prenom, email, telephone);
+	public Formateur(Civilite civilite, String nom, String prenom, String email, String telephone, Boolean referent, Integer experience) {
+		super(civilite, nom, prenom, email, telephone);
 		this.referent = referent;
 		this.experience = experience;
 	}
@@ -54,7 +54,7 @@ public class Formateur extends Personne {
 		this.experience = experience;
 	}
 
-	public ArrayList<UE> getUes() {
+	public List<UE> getUes() {
 		return ues;
 	}
 
@@ -66,7 +66,7 @@ public class Formateur extends Personne {
 		this.ues.add(ue);
 	}
 
-	public ArrayList<Matiere> getCompetences() {
+	public List<Matiere> getCompetences() {
 		return competences;
 	}
 
@@ -82,5 +82,7 @@ public class Formateur extends Personne {
 	public String toString() {
 		return "Formateur [referent=" + referent + ", experience=" + experience + ", competences=" + competences + "]";
 	}
+
+
 
 }

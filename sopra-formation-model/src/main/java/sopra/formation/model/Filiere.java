@@ -2,39 +2,48 @@ package sopra.formation.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.persistence.Version;
 
 @Entity // obligatoire
 @Table(name = "sector") // optionnel 
 public class Filiere {
 	@Id // obligatoire
+	@GeneratedValue
 	private Long id;
-	@Column(name="name", nullable = false)
+	@Version
+	private int version;
+	@Column(name="name")
 	private String intitule;
 	@Column(name="promotion")
 	private String promotion;
-	@Column(name="start_date", nullable = false)
+	@Column(name="start_date")
 	@Temporal(TemporalType.DATE)
 	private Date dtDebut;
-	@Column(name="duration", nullable = false)
+	@Column(name="duration")
 	private Integer duree;
-	@Column(name="facility", nullable = false)
+	@Column(name="facility")
 	@Enumerated(EnumType.STRING)
 	private Dispositif dispositif;
-	@Transient
-	private ArrayList<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
-	@Transient
-	private ArrayList<UE> ues = new ArrayList<UE>();
-	@Transient
+	@OneToMany(mappedBy = "filiere")
+	private List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
+	@OneToMany(mappedBy = "filiere")
+	private List<UE> ues = new ArrayList<UE>();
+	@ManyToOne
 	private Formateur referent;
 
 	public Filiere() {
@@ -46,9 +55,8 @@ public class Filiere {
 		this.promotion = promotion;
 	}
 
-	public Filiere(Long id, String intitule, String promotion, Date dtDebut, Integer duree, Dispositif dispositif) {
+	public Filiere(String intitule, String promotion, Date dtDebut, Integer duree, Dispositif dispositif) {
 		super();
-		this.id = id;
 		this.intitule = intitule;
 		this.promotion = promotion;
 		this.dtDebut = dtDebut;
@@ -62,6 +70,14 @@ public class Filiere {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public String getIntitule() {
@@ -104,7 +120,7 @@ public class Filiere {
 		this.dispositif = dispositif;
 	}
 
-	public ArrayList<Stagiaire> getStagiaires() {
+	public List<Stagiaire> getStagiaires() {
 		return stagiaires;
 	}
 
@@ -116,7 +132,7 @@ public class Filiere {
 		this.stagiaires.add(stagiaire);
 	}
 
-	public ArrayList<UE> getUes() {
+	public List<UE> getUes() {
 		return ues;
 	}
 

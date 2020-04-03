@@ -5,11 +5,13 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.Version;
 
 @Entity // obligatoire
 @Table(name = "people") // optionnel 
@@ -17,17 +19,20 @@ import javax.persistence.Transient;
 @DiscriminatorColumn(name="disc")
 public abstract class Personne {
 	@Id // obligatoire
+	@GeneratedValue
 	private Long id;
-	@Column(name="civility", nullable = false)
+	@Version
+	private int version;
+	@Column(name="civility")
 	@Enumerated(EnumType.STRING)
 	private Civilite civilite;
-	@Column(name="last_name", nullable = false)
+	@Column(name="last_name")
 	private String nom;
 	@Column(name="first_name")
 	private String prenom;
-	@Column(name="mail", nullable = false)
+	@Column(name="mail")
 	private String email;
-	@Column(name="phone_number", nullable = false)
+	@Column(name="phone_number")
 	private String telephone;
 	@Transient
 	private Adresse adresse;
@@ -41,9 +46,8 @@ public abstract class Personne {
 		this.email = email;
 	}
 
-	public Personne(Long id, Civilite civilite, String nom, String prenom, String email, String telephone) {
+	public Personne(Civilite civilite, String nom, String prenom, String email, String telephone) {
 		super();
-		this.id = id;
 		this.civilite = civilite;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -57,6 +61,14 @@ public abstract class Personne {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public Civilite getCivilite() {
@@ -113,7 +125,7 @@ public abstract class Personne {
 
 	@Override
 	public String toString() {
-		return "Personne [id=" + id + ", civilite=" + civilite + ", nom=" + nom + ", prenom=" + prenom + ", email="
+		return "Personne [civilite=" + civilite + ", nom=" + nom + ", prenom=" + prenom + ", email="
 				+ email + ", telephone=" + telephone + ", adresse=" + adresse + "]";
 	}
 
