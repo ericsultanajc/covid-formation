@@ -1,8 +1,7 @@
 package sopra.formation;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import sopra.formation.persistence.IEvaluationDao;
 import sopra.formation.persistence.IFiliereDao;
@@ -11,36 +10,38 @@ import sopra.formation.persistence.IMatiereDao;
 import sopra.formation.persistence.ISalleDao;
 import sopra.formation.persistence.IStagiaireDao;
 import sopra.formation.persistence.IUEDao;
+import sopra.formation.persistence.jpa.EvaluationDaoJpa;
+import sopra.formation.persistence.jpa.FiliereDaoJpa;
+import sopra.formation.persistence.jpa.FormateurDaoJpa;
+import sopra.formation.persistence.jpa.MatiereDaoJpa;
+import sopra.formation.persistence.jpa.SalleDaoJpa;
+import sopra.formation.persistence.jpa.StagiaireDaoJpa;
+import sopra.formation.persistence.jpa.UEDaoJpa;
 
 public class Application {
 	private static Application instance = null;
 
-	private final IEvaluationDao evaluationDao = null;
-	private final IFiliereDao filiereDao = null;
-	private final IFormateurDao formateurDao = null;
-	private final IMatiereDao matiereDao = null;
-	private final ISalleDao salleDao = null;
-	private final IStagiaireDao stagiaireDao = null;
-	private final IUEDao ueDao = null;
+	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("sopra-formation");
+	private final IEvaluationDao evaluationDao = new EvaluationDaoJpa();
+	private final IFiliereDao filiereDao = new FiliereDaoJpa();
+	private final IFormateurDao formateurDao = new FormateurDaoJpa();
+	private final IMatiereDao matiereDao = new MatiereDaoJpa();
+	private final ISalleDao salleDao = new SalleDaoJpa();
+	private final IStagiaireDao stagiaireDao = new StagiaireDaoJpa();
+	private final IUEDao ueDao = new UEDaoJpa();
 
 	private Application() {
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public static Application getInstance() {
 		if (instance == null) {
 			instance = new Application();
 		}
-
 		return instance;
 	}
 
-	public Connection getConnection() throws SQLException {
-		return DriverManager.getConnection("jdbc:postgresql://localhost/formation", "postgres", "manager");
+	public EntityManagerFactory getEmf() {
+		return emf;
 	}
 
 	public IEvaluationDao getEvaluationDao() {

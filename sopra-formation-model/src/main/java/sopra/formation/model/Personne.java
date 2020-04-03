@@ -24,6 +24,8 @@ public abstract class Personne {
 	@Id // obligatoire
 	@GeneratedValue // optionnel
 	private Long id;
+	@Column(name = "version")
+	private int Version;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "civility", length = 5)
 	private Civilite civilite;
@@ -63,6 +65,14 @@ public abstract class Personne {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public int getVersion() {
+		return Version;
+	}
+
+	public void setVersion(int version) {
+		Version = version;
 	}
 
 	public Civilite getCivilite() {

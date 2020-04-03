@@ -20,6 +20,8 @@ public class Salle {
 	@Id // obligatoire
 	@GeneratedValue // optionnel
 	private Long id;
+	@Column(name = "version")
+	private int Version;
 	@Column(name = "name", length = 100)
 	private String nom;
 	@Column(name = "capacity")
@@ -54,6 +56,14 @@ public class Salle {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public int getVersion() {
+		return Version;
+	}
+
+	public void setVersion(int version) {
+		Version = version;
 	}
 
 	public String getNom() {

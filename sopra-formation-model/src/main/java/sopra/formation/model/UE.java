@@ -2,6 +2,7 @@ package sopra.formation.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -15,6 +16,8 @@ public class UE {
 	@Id // obligatoire
 	@GeneratedValue // optionnel
 	private Long id;
+	@Column(name = "version")
+	private int Version;
 	@Column(name = "code", nullable = false)
 	private Integer code;
 	@Column(name = "time", nullable = false)
@@ -61,6 +64,14 @@ public class UE {
 		this.id = id;
 	}
 
+	public int getVersion() {
+		return Version;
+	}
+
+	public void setVersion(int version) {
+		Version = version;
+	}
+	
 	public Integer getCode() {
 		return code;
 	}

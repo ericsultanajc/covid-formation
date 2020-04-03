@@ -20,6 +20,8 @@ public class Matiere {
 	@Id // obligatoire
 	@GeneratedValue // optionnel
 	private Long id;
+	@Column(name = "version")
+	private int Version;
 	@Column(name = "name", nullable = false, length = 100)
 	private String nom;
 	@Column(name = "time", nullable = false)
@@ -52,6 +54,14 @@ public class Matiere {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public int getVersion() {
+		return Version;
+	}
+
+	public void setVersion(int version) {
+		Version = version;
 	}
 
 	public String getNom() {
