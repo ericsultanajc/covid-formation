@@ -127,7 +127,7 @@ public class SalleDaoJpa implements ISalleDao{
 	}
 
 	@Override
-	public List<Salle> findAllByFiliere(Filiere filiere) {
+	public List<Salle> findAllByFiliere(String nom) {
 		List<Salle> salles = null;
 
 		EntityManager em = null;
@@ -138,8 +138,8 @@ public class SalleDaoJpa implements ISalleDao{
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Salle> query = em.createQuery("from Salle s join s.ues u join u.Filiere f where f.nom = :nom", Salle.class);
-			
+			TypedQuery<Salle> query = em.createQuery("from Salle s join s.ues u join u.filiere f where f.intitule = :intitule", Salle.class);
+			query.setParameter("intitule", nom);
 			
 			salles = query.getResultList();
 

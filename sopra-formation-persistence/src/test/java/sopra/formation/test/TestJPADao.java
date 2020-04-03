@@ -19,8 +19,12 @@ import sopra.formation.model.UE;
 public class TestJPADao {
 
 	public static void main(String[] args) {
-		testComplet();
+		testRequete();
 
+	}
+	
+	public static void testRequete() {
+		System.out.println(Application.getInstance().getSalleDao().findAllByFiliere("Covid"));
 	}
 	
 	public static void testComplet() {
