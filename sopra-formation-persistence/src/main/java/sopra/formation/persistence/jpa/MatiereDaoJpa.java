@@ -125,4 +125,8 @@ public class MatiereDaoJpa implements IMatiereDao {
 			}
 		}
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master

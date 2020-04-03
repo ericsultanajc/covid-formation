@@ -33,13 +33,6 @@ public class Matiere {
 		super();
 	}
 
-	public Matiere(Long id, String nom, Integer duree) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.duree = duree;
-	}
-
 	public Matiere(String nom, Integer duree) {
 		super();
 		this.nom = nom;
@@ -52,6 +45,14 @@ public class Matiere {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public String getNom() {

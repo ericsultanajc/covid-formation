@@ -24,16 +24,16 @@ public class UE {
 	@Column(name = "position", nullable = false)
 	private int ordre;
 	@ManyToOne
-	@JoinColumn(name="course_id")
+	@JoinColumn(name = "course_id")
 	private Filiere filiere;
 	@ManyToOne
-	@JoinColumn(name="trainer_id")
+	@JoinColumn(name = "trainer_id")
 	private Formateur formateur;
 	@ManyToOne
-	@JoinColumn(name="subject_id")
+	@JoinColumn(name = "subject_id")
 	private Matiere matiere;
 	@ManyToOne
-	@JoinColumn(name="classroom_id")
+	@JoinColumn(name = "classroom_id")
 	private Salle salle;
 
 	public UE() {
@@ -47,20 +47,20 @@ public class UE {
 		this.ordre = ordre;
 	}
 
-	public UE(Long id, Integer code, Integer duree, int ordre) {
-		super();
-		this.id = id;
-		this.code = code;
-		this.duree = duree;
-		this.ordre = ordre;
-	}
-
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public Integer getCode() {

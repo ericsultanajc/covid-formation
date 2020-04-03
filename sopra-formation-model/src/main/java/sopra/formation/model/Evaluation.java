@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "rating") // optionnel
 public class Evaluation {
 	@Id // obligatoire
-	@GeneratedValue // optionnel
+	@GeneratedValue // optionnelle
 	private Long id;
 	@Version
 	private int version;
@@ -35,20 +35,20 @@ public class Evaluation {
 		this.commentaires = commentaires;
 	}
 
-	public Evaluation(Long id, Integer comportemental, Integer technique, String commentaires) {
-		super();
-		this.id = id;
-		this.comportemental = comportemental;
-		this.technique = technique;
-		this.commentaires = commentaires;
-	}
-
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public Integer getComportemental() {

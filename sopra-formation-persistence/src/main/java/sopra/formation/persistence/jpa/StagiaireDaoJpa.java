@@ -125,4 +125,74 @@ public class StagiaireDaoJpa implements IStagiaireDao {
 			}
 		}
 	}
+<<<<<<< HEAD
 }
+=======
+
+	@Override
+	public List<Stagiaire> findAllByFormateur(String nom) {
+		List<Stagiaire> stagiaires = null;
+
+		EntityManager em = null;
+		EntityTransaction tx = null;
+
+		try {
+			em = Application.getInstance().getEmf().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+
+			TypedQuery<Stagiaire> query = em.createNamedQuery("Stagiaire.findAllByFormateur", Stagiaire.class);
+			
+			query.setParameter("nom", nom);
+
+			stagiaires = query.getResultList();
+
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+
+		return stagiaires;
+	}
+
+	@Override
+	public List<Stagiaire> findAllByVille(String ville) {
+		List<Stagiaire> stagiaires = null;
+
+		EntityManager em = null;
+		EntityTransaction tx = null;
+
+		try {
+			em = Application.getInstance().getEmf().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+
+			TypedQuery<Stagiaire> query = em.createNamedQuery("Stagiaire.findAllByVille", Stagiaire.class);
+
+			query.setParameter("ville", ville);
+			
+			stagiaires = query.getResultList();
+
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+
+		return stagiaires;
+	}
+}
+>>>>>>> master

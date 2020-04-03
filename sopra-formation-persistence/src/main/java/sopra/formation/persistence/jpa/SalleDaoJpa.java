@@ -125,4 +125,8 @@ public class SalleDaoJpa implements ISalleDao {
 			}
 		}
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master

@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -45,7 +46,7 @@ public class Filiere {
 	private List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
 	@OneToMany(mappedBy = "filiere")
 	private List<UE> ues = new ArrayList<UE>();
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "trainer_id")
 	private Formateur referent;
 
@@ -58,9 +59,8 @@ public class Filiere {
 		this.promotion = promotion;
 	}
 
-	public Filiere(Long id, String intitule, String promotion, Date dtDebut, Integer duree, Dispositif dispositif) {
+	public Filiere(String intitule, String promotion, Date dtDebut, Integer duree, Dispositif dispositif) {
 		super();
-		this.id = id;
 		this.intitule = intitule;
 		this.promotion = promotion;
 		this.dtDebut = dtDebut;
@@ -74,6 +74,14 @@ public class Filiere {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public String getIntitule() {
