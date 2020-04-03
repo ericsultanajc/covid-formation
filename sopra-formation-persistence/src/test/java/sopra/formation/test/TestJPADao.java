@@ -24,12 +24,31 @@ import sopra.formation.model.UE;
 public class TestJPADao {
 
 	public static void main(String[] args) {
-		testRequete();
+		testRequeteDao();
 
 	}
+	public static void testRequeteDao() {
+		System.out.println("##### Query 1");
+		System.out.println(Application.getInstance().getSalleDao().findAllByFiliere("JAVA SPRING ANGULAR"));
+		
+		System.out.println("##### Query 2");
+		System.out.println(Application.getInstance().getSalleDao().findAllByVille("Merignac"));
+		
+		System.out.println("##### Query 3");
+		System.out.println(Application.getInstance().getFormateurDao().findAllByEmail("eric.sultan@ajc-ingenierie.com"));
+
+		System.out.println("##### Query 4");
+		System.out.println(Application.getInstance().getFiliereDao().findAllByVille("Merignac"));
+
+	}
+
+		
+	
 	
 	public static void testRequete() {
 		List<Salle> salles = null;
+		List<Formateur> formateurs = null;
+		List<Filiere> filieres = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -38,12 +57,37 @@ public class TestJPADao {
 			em = Application.getInstance().getEmf().createEntityManager();
 			tx = em.getTransaction();
 			tx.begin();
-
-			TypedQuery<Salle> query = em.createQuery("select s from Salle s join s.ues u join u.filiere f where f.intitule = :intitule", Salle.class);
-			query.setParameter("intitule", "Sopra COVID");
 			
-			salles = query.getResultList();
+			System.out.println("##### Query 1");
+			TypedQuery<Salle> query1 = em.createQuery("select s from Salle s join s.ues u join u.filiere f where f.intitule = :intitule", Salle.class);
+			query1.setParameter("intitule", "JAVA SPRING ANGULAR");
+			
+			salles = query1.getResultList();
 			System.out.println(salles);
+			
+			System.out.println("##### Query 2");
+
+			TypedQuery<Salle> query2 = em.createQuery("select s from Salle s where s.adr.ville = :ville", Salle.class);
+			query2.setParameter("ville", "Merignac");
+			
+			salles = query2.getResultList();
+			System.out.println(salles);
+			
+			System.out.println("##### Query 3");
+
+			TypedQuery<Formateur> query3 = em.createQuery("select f from Formateur f where f.email = :email", Formateur.class);
+			query3.setParameter("email", "eric.sultan@ajc-ingenierie.com");
+			
+			formateurs = query3.getResultList();
+			System.out.println(formateurs);
+			
+			System.out.println("##### Query 4");
+
+			TypedQuery<Filiere> query4 = em.createQuery("select f from Filiere f join f.ues u join u.salle s where s.adr.ville = :ville", Filiere.class);
+			query4.setParameter("ville", "Merignac");
+			
+			filieres = query4.getResultList();
+			System.out.println(filieres);
 
 			tx.commit();
 		} catch (Exception e) {

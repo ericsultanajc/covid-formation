@@ -126,4 +126,35 @@ public class FiliereDaoJpa implements IFiliereDao{
 		}
 	}
 
+	@Override
+	public List<Filiere> findAllByVille(String ville) {
+		List<Filiere> filieres = null;
+
+		EntityManager em = null;
+		EntityTransaction tx = null;
+
+		try {
+			em = Application.getInstance().getEmf().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+
+			TypedQuery<Filiere> query = em.createQuery("select f from Filiere f join f.ues u join u.salle s where s.adr.ville = :ville", Filiere.class);
+			query.setParameter("ville", "Merignac");
+			filieres = query.getResultList();
+
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+
+		return filieres;
+	}
+
 }

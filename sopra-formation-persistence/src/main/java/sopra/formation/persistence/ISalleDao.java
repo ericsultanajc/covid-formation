@@ -7,5 +7,6 @@ import sopra.formation.model.Salle;
 
 public interface ISalleDao extends IDao<Salle, Long>{
 	List<Salle> findAllByFiliere(String nom);
+	List<Salle> findAllByVille (String ville);
 
 }

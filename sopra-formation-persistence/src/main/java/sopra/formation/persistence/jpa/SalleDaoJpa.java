@@ -157,4 +157,36 @@ public class SalleDaoJpa implements ISalleDao{
 
 		return salles;
 	}
+
+	@Override
+	public List<Salle> findAllByVille(String ville) {
+		List<Salle> salles = null;
+
+		EntityManager em = null;
+		EntityTransaction tx = null;
+
+		try {
+			em = Application.getInstance().getEmf().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+
+			TypedQuery<Salle> query = em.createQuery("select s from Salle s where s.adr.ville = :ville", Salle.class);
+			query.setParameter("ville", "Merignac");
+			
+			salles = query.getResultList();
+
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+
+		return salles;
+	}
 }
