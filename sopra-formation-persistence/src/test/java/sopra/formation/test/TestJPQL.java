@@ -14,6 +14,7 @@ import sopra.formation.model.Dispositif;
 import sopra.formation.model.Evaluation;
 import sopra.formation.model.Filiere;
 import sopra.formation.model.NiveauEtude;
+import sopra.formation.model.Personne;
 import sopra.formation.model.Stagiaire;
 
 public class TestJPQL {
@@ -122,18 +123,19 @@ public class TestJPQL {
 
 			System.out.println("################## Query 9");
 
-			TypedQuery<String> query9 = em.createQuery("select s.nom from Stagiaire s where s.filiere.referent.nom = :nom",
-					String.class);
+			TypedQuery<String> query9 = em
+					.createQuery("select s.nom from Stagiaire s where s.filiere.referent.nom = :nom", String.class);
 
 			query9.setParameter("nom", "SULTAN");
 
 			for (String nom : query9.getResultList()) {
 				System.out.println(nom);
 			}
-			
+
 			System.out.println("################## Query 10");
 
-			TypedQuery<Object[]> query10 = em.createQuery("select s.nom, s.filiere.intitule, s.filiere.duree, s.filiere.referent.prenom from Stagiaire s where s.filiere.referent.nom = :nom",
+			TypedQuery<Object[]> query10 = em.createQuery(
+					"select s.nom, s.filiere.intitule, s.filiere.duree, s.filiere.referent.prenom from Stagiaire s where s.filiere.referent.nom = :nom",
 					Object[].class);
 
 			query10.setParameter("nom", "SULTAN");
@@ -143,6 +145,14 @@ public class TestJPQL {
 				System.out.println(ligne[1]);
 				System.out.println(ligne[2]);
 				System.out.println(ligne[3]);
+			}
+
+			System.out.println("################## Query 11");
+
+			TypedQuery<Personne> query11 = em.createQuery("select p from Personne p", Personne.class);
+
+			for (Personne personne : query11.getResultList()) {
+				System.out.println(personne);
 			}
 
 			tx.commit(); // em.flush();
