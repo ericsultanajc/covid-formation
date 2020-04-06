@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 
 import sopra.formation.Application;
 import sopra.formation.model.Evaluation;
+import sopra.formation.model.Filiere;
 import sopra.formation.model.Formateur;
 import sopra.formation.persistence.IFormateurDao;
 
@@ -127,4 +128,39 @@ public class FormateurDao implements IFormateurDao {
 		}
 	}
 
+	@Override
+	public Formateur findByFiliere(Filiere filiere) {
+		Formateur formateur = null;
+
+		EntityManager em = null;
+		EntityTransaction tx = null;
+
+		try {
+			em = Application.getInstance().getEmf().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+
+			TypedQuery<Formateur> query = em.createQuery("select form from Filiere f join f.referent form where f = :filiere", Formateur.class);
+
+			query.setParameter("filiere", filiere);
+			
+			formateur = query.getSingleResult();
+
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+
+		return formateur;
+	}
+
+
+	
 }

@@ -12,10 +12,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 
 @Entity // obligatoire
 @DiscriminatorValue("stagiaire")
+//@NamedQueries({
+//	@NamedQuery(name = "Stagiaire.findAllByFormateur", query = "select s from Stagiaire s join s.filiere f join f.referent ref where ref.nom = :nom"),
+//	@NamedQuery(name = "Stagiaire.findAllByVille", query = "select s from Stagiaire s where s.adresse.ville = :ville") })
 public class Stagiaire extends Personne {
 	@Column(name="birth_date")
 	@Temporal(TemporalType.DATE)
@@ -37,8 +42,8 @@ public class Stagiaire extends Personne {
 		super(email);
 	}
 
-	public Stagiaire(Civilite civilite, String nom, String prenom, String email, String telephone,
-			Date dtNaissance, NiveauEtude niveauEtude) {
+	public Stagiaire(Civilite civilite, String nom, String prenom, String email, String telephone, Date dtNaissance,
+			NiveauEtude niveauEtude) {
 		super(civilite, nom, prenom, email, telephone);
 		this.dtNaissance = dtNaissance;
 		this.niveauEtude = niveauEtude;

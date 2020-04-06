@@ -4,4 +4,8 @@ import sopra.formation.model.Filiere;
 
 public interface IFiliereDao extends IDao<Filiere, Long>{
 
+	Filiere findByPromotion(String promotion);
+	
+	Filiere findWithReferent(Long id);
+	
 }

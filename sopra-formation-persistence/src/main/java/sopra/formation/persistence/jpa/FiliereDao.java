@@ -128,4 +128,70 @@ public class FiliereDao implements IFiliereDao{
 		
 	}
 
+	@Override
+	public Filiere findByPromotion(String promotion) {
+		Filiere filiere = null;
+
+		EntityManager em = null;
+		EntityTransaction tx = null;
+
+		try {
+			em = Application.getInstance().getEmf().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+
+			TypedQuery<Filiere> query = em.createQuery("from Filiere f where f.promotion = ?0", Filiere.class);
+
+			query.setParameter(0, promotion);
+
+			filiere = query.getSingleResult();
+
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+
+		return filiere;
+	}
+
+	@Override
+	public Filiere findWithReferent(Long id) {
+		Filiere filiere = null;
+
+		EntityManager em = null;
+		EntityTransaction tx = null;
+
+		try {
+			em = Application.getInstance().getEmf().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+
+			TypedQuery<Filiere> query = em.createQuery("from Filiere f left join fetch f.referent r where f.id = :id", Filiere.class);
+
+			query.setParameter("id", id);
+
+			filiere = query.getSingleResult();
+
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+
+		return filiere;
+	}
+	
 }

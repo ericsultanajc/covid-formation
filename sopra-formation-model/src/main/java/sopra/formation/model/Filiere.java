@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -43,7 +44,8 @@ public class Filiere {
 	private List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
 	@OneToMany(mappedBy = "filiere")
 	private List<UE> ues = new ArrayList<UE>();
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "trainer_id")
 	private Formateur referent;
 
 	public Filiere() {
