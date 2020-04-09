@@ -3,7 +3,8 @@ package sopra.formation.test;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import sopra.formation.Application;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import sopra.formation.model.Adresse;
 import sopra.formation.model.Civilite;
 import sopra.formation.model.Dispositif;
@@ -26,15 +27,16 @@ import sopra.formation.persistence.IUEDao;
 public class TestFormationDao {
 
 	public static void main(String[] args) throws ParseException {
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-		IEvaluationDao evaluationDao = Application.getInstance().getEvaluationDao();
-		IFiliereDao filiereDao = Application.getInstance().getFiliereDao();
-		IFormateurDao formateurDao = Application.getInstance().getFormateurDao();
-		IMatiereDao matiereDao = Application.getInstance().getMatiereDao();
-		ISalleDao salleDao = Application.getInstance().getSalleDao();
-		IStagiaireDao stagiaireDao = Application.getInstance().getStagiaireDao();
-		IUEDao ueDao = Application.getInstance().getUeDao();
+		IEvaluationDao evaluationDao = context.getBean(IEvaluationDao.class);
+		IFiliereDao filiereDao = context.getBean(IFiliereDao.class);
+		IFormateurDao formateurDao = context.getBean(IFormateurDao.class);
+		IMatiereDao matiereDao = context.getBean(IMatiereDao.class);
+		ISalleDao salleDao = context.getBean(ISalleDao.class);
+		IStagiaireDao stagiaireDao = context.getBean(IStagiaireDao.class);
+		IUEDao ueDao = context.getBean(IUEDao.class);
 
 		Evaluation evalCecile = new Evaluation(14, 17, "RAS");
 		evalCecile = evaluationDao.save(evalCecile);

@@ -3,192 +3,58 @@ package sopra.formation.persistence.jpa;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import sopra.formation.Application;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import sopra.formation.model.Stagiaire;
 import sopra.formation.persistence.IStagiaireDao;
 
+@Repository
+@Transactional
 public class StagiaireDaoJpa implements IStagiaireDao {
 
+	@PersistenceContext
+	private EntityManager em;
+
 	@Override
+	@Transactional(readOnly = true)
 	public List<Stagiaire> findAll() {
-		List<Stagiaire> stagiaires = null;
-
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
-		try {
-			em = Application.getInstance().getEmf().createEntityManager();
-			tx = em.getTransaction();
-			tx.begin();
-
-			TypedQuery<Stagiaire> query = em.createQuery("from Stagiaire", Stagiaire.class);
-
-			stagiaires = query.getResultList();
-
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		} finally {
-			if (em != null) {
-				em.close();
-			}
-		}
-
-		return stagiaires;
+		TypedQuery<Stagiaire> query = em.createQuery("from Stagiaire", Stagiaire.class);
+		return query.getResultList();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Stagiaire find(Long id) {
-		Stagiaire stagiaire = null;
-
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
-		try {
-			em = Application.getInstance().getEmf().createEntityManager();
-			tx = em.getTransaction();
-			tx.begin();
-
-			stagiaire = em.find(Stagiaire.class, id);
-
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		} finally {
-			if (em != null) {
-				em.close();
-			}
-		}
-
-		return stagiaire;
+		return em.find(Stagiaire.class, id);
 	}
 
 	@Override
 	public Stagiaire save(Stagiaire obj) {
-		Stagiaire stagiaire = null;
-
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
-		try {
-			em = Application.getInstance().getEmf().createEntityManager();
-			tx = em.getTransaction();
-			tx.begin();
-
-			stagiaire = em.merge(obj);
-
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		} finally {
-			if (em != null) {
-				em.close();
-			}
-		}
-
-		return stagiaire;
+		return em.merge(obj);
 	}
 
 	@Override
 	public void delete(Stagiaire obj) {
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
-		try {
-			em = Application.getInstance().getEmf().createEntityManager();
-			tx = em.getTransaction();
-			tx.begin();
-
-			em.remove(em.merge(obj));
-
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		} finally {
-			if (em != null) {
-				em.close();
-			}
-		}
+		em.remove(em.merge(obj));
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Stagiaire> findAllByFormateur(String nom) {
-		List<Stagiaire> stagiaires = null;
-
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
-		try {
-			em = Application.getInstance().getEmf().createEntityManager();
-			tx = em.getTransaction();
-			tx.begin();
-
-			TypedQuery<Stagiaire> query = em.createNamedQuery("Stagiaire.findAllByFormateur", Stagiaire.class);
-			
-			query.setParameter("nom", nom);
-
-			stagiaires = query.getResultList();
-
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		} finally {
-			if (em != null) {
-				em.close();
-			}
-		}
-
-		return stagiaires;
+		TypedQuery<Stagiaire> query = em.createNamedQuery("Stagiaire.findAllByFormateur", Stagiaire.class);
+		query.setParameter("nom", nom);
+		return query.getResultList();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Stagiaire> findAllByVille(String ville) {
-		List<Stagiaire> stagiaires = null;
-
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
-		try {
-			em = Application.getInstance().getEmf().createEntityManager();
-			tx = em.getTransaction();
-			tx.begin();
-
-			TypedQuery<Stagiaire> query = em.createNamedQuery("Stagiaire.findAllByVille", Stagiaire.class);
-
-			query.setParameter("ville", ville);
-			
-			stagiaires = query.getResultList();
-
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		} finally {
-			if (em != null) {
-				em.close();
-			}
-		}
-
-		return stagiaires;
+		TypedQuery<Stagiaire> query = em.createNamedQuery("Stagiaire.findAllByVille", Stagiaire.class);
+		query.setParameter("ville", ville);
+		return query.getResultList();
 	}
 }
