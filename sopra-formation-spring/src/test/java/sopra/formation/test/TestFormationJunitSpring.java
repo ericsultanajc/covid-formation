@@ -13,6 +13,7 @@ import sopra.formation.persistence.IStagiaireDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/application-context.xml")
+//@ContextConfiguration(classes = ApplicationConfig.class)
 public class TestFormationJunitSpring {
 
 	@Autowired
