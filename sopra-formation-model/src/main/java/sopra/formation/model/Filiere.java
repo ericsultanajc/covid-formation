@@ -8,16 +8,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
@@ -29,26 +28,25 @@ public class Filiere {
 	private Long id;
 	@Version
 	private int version;
-	@Column(name = "title" , length = 20)
-	@Size (max = 20)
+	@Column(name = "title", length = 100, nullable = false)
+	@Size(max = 100)
 	private String intitule;
-	@Column(name = "group_name", length = 10)
-	@Size (max = 10)
+	@Column(length = 255)
 	private String promotion;
-	@Column(name = "beginning_date")
 	@Temporal(TemporalType.DATE)
+	@Column(name = "startdate")
 	private Date dtDebut;
 	@Column(name = "duration")
 	private Integer duree;
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(name = "plan", length = 10)
 	private Dispositif dispositif;
 	@OneToMany(mappedBy = "filiere")
 	private List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
 	@OneToMany(mappedBy = "filiere")
 	private List<UE> ues = new ArrayList<UE>();
-	@ManyToOne
-	@JoinColumn(name = "referent_id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "trainer_id")
 	private Formateur referent;
 
 	public Filiere() {
@@ -77,7 +75,6 @@ public class Filiere {
 		this.id = id;
 	}
 
-	
 	public int getVersion() {
 		return version;
 	}
@@ -130,7 +127,7 @@ public class Filiere {
 		return stagiaires;
 	}
 
-	public void setStagiaires(ArrayList<Stagiaire> stagiaires) {
+	public void setStagiaires(List<Stagiaire> stagiaires) {
 		this.stagiaires = stagiaires;
 	}
 
@@ -142,7 +139,7 @@ public class Filiere {
 		return ues;
 	}
 
-	public void setUes(ArrayList<UE> ues) {
+	public void setUes(List<UE> ues) {
 		this.ues = ues;
 	}
 

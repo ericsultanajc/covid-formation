@@ -61,7 +61,7 @@ public class Formateur extends Personne {
 		return ues;
 	}
 
-	public void setUes(ArrayList<UE> ues) {
+	public void setUes(List<UE> ues) {
 		this.ues = ues;
 	}
 
@@ -73,7 +73,7 @@ public class Formateur extends Personne {
 		return competences;
 	}
 
-	public void setCompetences(ArrayList<Matiere> competences) {
+	public void setCompetences(List<Matiere> competences) {
 		this.competences = competences;
 	}
 

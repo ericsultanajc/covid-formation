@@ -45,20 +45,20 @@ public class UE {
 		this.ordre = ordre;
 	}
 
-	public UE(Long id, Integer code, Integer duree, int ordre) {
-		super();
-		this.id = id;
-		this.code = code;
-		this.duree = duree;
-		this.ordre = ordre;
-	}
-
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public Integer getCode() {

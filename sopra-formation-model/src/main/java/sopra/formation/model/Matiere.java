@@ -37,13 +37,6 @@ public class Matiere {
 		super();
 	}
 
-	public Matiere(Long id, String nom, Integer duree) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.duree = duree;
-	}
-
 	public Matiere(String nom, Integer duree) {
 		super();
 		this.nom = nom;
@@ -87,7 +80,7 @@ public class Matiere {
 		return ues;
 	}
 
-	public void setUes(ArrayList<UE> ues) {
+	public void setUes(List<UE> ues) {
 		this.ues = ues;
 	}
 
@@ -99,7 +92,7 @@ public class Matiere {
 		return formateurs;
 	}
 
-	public void setFormateurs(ArrayList<Formateur> formateurs) {
+	public void setFormateurs(List<Formateur> formateurs) {
 		this.formateurs = formateurs;
 	}
 
