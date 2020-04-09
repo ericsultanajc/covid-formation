@@ -34,14 +34,12 @@ public class Filiere {
 	private String promotion;
 	@Column (name ="Start_date")
 	@Temporal(TemporalType.DATE)
-	@Column(name = "startdate")
 	private Date dtDebut;
 	@Column (name = "duration")
 	@Min(0)
 	private Integer duree;
 	@Column (name = "device")
 	@Enumerated(EnumType.STRING)
-	@Column(name = "plan", length = 10)
 	private Dispositif dispositif;
 	@OneToMany (mappedBy = "filiere")
 	private List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
@@ -67,14 +65,6 @@ public class Filiere {
 		this.dtDebut = dtDebut;
 		this.duree = duree;
 		this.dispositif = dispositif;
-	}
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
 	}
 
 	public Long getId() {

@@ -40,14 +40,6 @@ public class Evaluation {
 		return id;
 	}
 
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
-	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
