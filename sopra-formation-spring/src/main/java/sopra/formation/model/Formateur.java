@@ -3,28 +3,22 @@ package sopra.formation.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Min;
 
 @Entity
-@DiscriminatorValue("trainer")
+@DiscriminatorValue("Formateur")
 public class Formateur extends Personne {
-	@Column
 	private Boolean referent;
-	@Column(name = "expertise")
-	@Min(0)
 	private Integer experience;
 	@OneToMany(mappedBy = "formateur")
 	private List<UE> ues = new ArrayList<UE>();
 	@ManyToMany
-	@JoinTable (name="skill",joinColumns = @JoinColumn(name="formateur_id"),inverseJoinColumns = @JoinColumn(name="matiere_id"))
+	@JoinTable(name = "skill", joinColumns = @JoinColumn(name = "trainer_id"), inverseJoinColumns = @JoinColumn(name = "subject_id"))
 	private List<Matiere> competences = new ArrayList<Matiere>();
 
 	public Formateur() {
@@ -34,8 +28,9 @@ public class Formateur extends Personne {
 	public Formateur(String email) {
 		super(email);
 	}
-	
-	public Formateur(Civilite civilite, String nom, String prenom, String email, String telephone, Boolean referent, Integer experience) {
+
+	public Formateur(Civilite civilite, String nom, String prenom, String email, String telephone,
+			Boolean referent, Integer experience) {
 		super(civilite, nom, prenom, email, telephone);
 		this.referent = referent;
 		this.experience = experience;

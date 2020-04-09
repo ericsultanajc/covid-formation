@@ -13,18 +13,18 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table (name = "room")
+@Table(name = "classroom")
 public class Salle {
 	@Id
 	@GeneratedValue
 	private Long id;
 	@Version
 	private int version;
-	@Column (name="name",nullable = false,length = 100)
+	@Column(name = "name", nullable = false)
 	private String nom;
-	@Column (name="capacity")
+	@Column(name = "capacity")
 	private Integer capacite;
-	@Column (name="video_projector")
+	@Column(name = "video_projector")
 	private Boolean videoProjecteur;
 	@Embedded
 	private Adresse adr;
@@ -55,7 +55,6 @@ public class Salle {
 		this.id = id;
 	}
 	
-
 	public int getVersion() {
 		return version;
 	}

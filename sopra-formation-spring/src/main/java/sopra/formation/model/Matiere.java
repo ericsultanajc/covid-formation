@@ -13,20 +13,20 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table (name = "matter")
+@Table(name = "subject")
 public class Matiere {
 	@Id
 	@GeneratedValue
 	private Long id;
 	@Version
 	private int version;
-	@Column (name = "name",nullable = false)
+	@Column(name = "name", length = 100, nullable = false)
 	private String nom;
-	@Column (name ="duration")
+	@Column(name = "duration", nullable = false)
 	private Integer duree;
-	@OneToMany(mappedBy="matiere")
+	@OneToMany(mappedBy = "matiere")
 	private List<UE> ues = new ArrayList<UE>();
-	@ManyToMany (mappedBy = "competences")
+	@ManyToMany(mappedBy = "competences")
 	private List<Formateur> formateurs = new ArrayList<Formateur>();
 
 	public Matiere() {
@@ -47,10 +47,6 @@ public class Matiere {
 		this.id = id;
 	}
 	
-	public int getVersion() {
-		return version;
-	}
-
 	public int getVersion() {
 		return version;
 	}

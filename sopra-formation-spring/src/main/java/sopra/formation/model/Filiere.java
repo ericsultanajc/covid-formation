@@ -18,37 +18,33 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
-import javax.validation.constraints.Min;
 
-@Entity 
-@Table(name = "faculty") 
+@Entity
+@Table(name = "course")
 public class Filiere {
-	@Id // obligatoire
+	@Id
 	@GeneratedValue
 	private Long id;
 	@Version
 	private int version;
-	@Column (name = "entitled", nullable = false)
+	@Column(name = "title", length = 100, nullable = false)
 	private String intitule;
-	@Column (name= "promotion_name",nullable = false)
+	@Column(length = 255)
 	private String promotion;
-	@Column (name ="Start_date")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "startdate")
 	private Date dtDebut;
-	@Column (name = "duration")
-	@Min(0)
+	@Column(name = "duration")
 	private Integer duree;
-	@Column (name = "device")
 	@Enumerated(EnumType.STRING)
 	@Column(name = "plan", length = 10)
 	private Dispositif dispositif;
-	@OneToMany (mappedBy = "filiere")
+	@OneToMany(mappedBy = "filiere")
 	private List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
-	@OneToMany (mappedBy = "filiere")
+	@OneToMany(mappedBy = "filiere")
 	private List<UE> ues = new ArrayList<UE>();
-	@ManyToOne
-	@JoinColumn (name = "referent_id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "trainer_id")
 	private Formateur referent;
 
 	public Filiere() {
@@ -67,14 +63,6 @@ public class Filiere {
 		this.dtDebut = dtDebut;
 		this.duree = duree;
 		this.dispositif = dispositif;
-	}
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
 	}
 
 	public Long getId() {

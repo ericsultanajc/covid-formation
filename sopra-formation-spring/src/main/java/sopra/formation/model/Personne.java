@@ -2,6 +2,7 @@ package sopra.formation.model;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,25 +15,25 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table (name = "people")
+@Table(name = "person")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "disc")
+@DiscriminatorColumn(name = "disc", discriminatorType = DiscriminatorType.STRING, length = 15)
 public abstract class Personne {
 	@Id
 	@GeneratedValue
 	private Long id;
 	@Version
 	private int version;
-	@Column (name = "civility",nullable = false)
 	@Enumerated(EnumType.STRING)
+	@Column(name = "civility", length = 5)
 	private Civilite civilite;
-	@Column (name = "name",nullable = false)
+	@Column(name = "last_name", length = 100, nullable = false)
 	private String nom;
-	@Column(name = "first_name")
+	@Column(name = "first_name", length = 100)
 	private String prenom;
-	@Column (nullable = false)
+	@Column(length = 255, nullable = false)
 	private String email;
-	@Column(name = "phone_number",length = 15)
+	@Column(name = "phonenumber", length = 15)
 	private String telephone;
 	@Embedded
 	private Adresse adresse;
@@ -63,10 +64,6 @@ public abstract class Personne {
 		this.id = id;
 	}
 	
-	public int getVersion() {
-		return version;
-	}
-
 	public int getVersion() {
 		return version;
 	}
