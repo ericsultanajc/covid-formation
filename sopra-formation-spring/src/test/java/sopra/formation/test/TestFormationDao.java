@@ -27,6 +27,8 @@ import sopra.formation.persistence.IUEDao;
 public class TestFormationDao {
 
 	public static void main(String[] args) throws ParseException {
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
@@ -144,6 +146,8 @@ public class TestFormationDao {
 		covidServletJsp.setMatiere(servletJsp);
 		covidServletJsp.setSalle(wim);
 		covidServletJsp = ueDao.save(covidServletJsp);
+		
+		context.close();
 
 		context.close();
 	}

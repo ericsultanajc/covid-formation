@@ -23,15 +23,18 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @PropertySource("classpath:datasource.properties")
 public class ApplicationConfig {
-	
+
+	@Autowired
+	private Environment env;
+
 	@Bean
 	public BasicDataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("org.postgresql.Driver");
-		dataSource.setUrl("jdbc:postgresql://localhost:5432/training");
-		dataSource.setUsername("postgres");
-		dataSource.setPassword("manager");
-		dataSource.setMaxTotal(10);
+		dataSource.setDriverClassName(env.getProperty("db.driver"));
+		dataSource.setUrl(env.getProperty("db.url"));
+		dataSource.setUsername(env.getProperty("db.user"));
+		dataSource.setPassword(env.getProperty("db.pwd"));
+		dataSource.setMaxTotal(Integer.valueOf(env.getProperty("db.max")));
 		return dataSource;
 	}
 
@@ -49,7 +52,7 @@ public class ApplicationConfig {
 	private Properties hibernateProperties() {
 		Properties properties = new Properties();
 		properties.setProperty("hibernate.hbm2ddl.auto", "update");
-		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL93Dialect");
+		properties.setProperty("hibernate.dialect", env.getProperty("db.dialect"));
 		properties.setProperty("hibernate.show_sql", "true");
 		return properties;
 	}
