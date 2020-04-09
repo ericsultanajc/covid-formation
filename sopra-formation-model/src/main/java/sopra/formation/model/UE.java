@@ -55,14 +55,6 @@ public class UE {
 		this.id = id;
 	}
 
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
-	}
-
 	public Integer getCode() {
 		return code;
 	}

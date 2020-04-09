@@ -46,7 +46,7 @@ public class Matiere {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public int getVersion() {
 		return version;
 	}
@@ -93,14 +93,6 @@ public class Matiere {
 
 	public void addFormateur(Formateur formateur) {
 		this.formateurs.add(formateur);
-	}
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
 	}
 
 	@Override

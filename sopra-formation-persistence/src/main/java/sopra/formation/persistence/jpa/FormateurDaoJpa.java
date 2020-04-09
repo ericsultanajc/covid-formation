@@ -1,16 +1,11 @@
 package sopra.formation.persistence.jpa;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-
 import sopra.formation.Application;
-<<<<<<< HEAD
-=======
 import sopra.formation.model.Filiere;
->>>>>>> master
 import sopra.formation.model.Formateur;
 import sopra.formation.persistence.IFormateurDao;
 
@@ -129,9 +124,6 @@ public class FormateurDaoJpa implements IFormateurDao {
 			}
 		}
 	}
-<<<<<<< HEAD
-}
-=======
 
 	@Override
 	public Formateur findByFiliere(Filiere filiere) {
@@ -199,4 +191,3 @@ public class FormateurDaoJpa implements IFormateurDao {
 		return formateur;
 	}
 }
->>>>>>> master

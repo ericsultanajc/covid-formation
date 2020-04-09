@@ -192,6 +192,3 @@ public class SalleDaoJpa implements ISalleDao {
 		return salles;
 	}
 }
-=======
-}
->>>>>>> master

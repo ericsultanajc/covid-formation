@@ -30,6 +30,7 @@ public class TestReadWriteExample {
 
 	}
 
+	@SuppressWarnings("unused")
 	private static void lecture() {
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -123,6 +124,7 @@ public class TestReadWriteExample {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private static void lectureScanner() {
 		Scanner scan = null;
 		String line = "";
@@ -165,6 +167,7 @@ public class TestReadWriteExample {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private static void ecriture() {
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -194,6 +197,7 @@ public class TestReadWriteExample {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private static void ecritureFilesWriteString() {
 		Path filePath = Paths.get("formateurs.txt");
 		try {
@@ -206,6 +210,7 @@ public class TestReadWriteExample {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private static void ecritureFilesWrite() {
 		String fileName = "formateurs.txt";
 		List<String> lignes = Arrays.asList("1;M;SULTAN;Eric;e.sultan@ajc-ingenierie.fr;22",

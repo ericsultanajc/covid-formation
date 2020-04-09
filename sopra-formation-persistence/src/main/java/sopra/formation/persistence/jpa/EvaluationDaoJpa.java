@@ -1,17 +1,12 @@
 package sopra.formation.persistence.jpa;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-
 import sopra.formation.Application;
 import sopra.formation.model.Evaluation;
-<<<<<<< HEAD
-=======
 import sopra.formation.model.NiveauEtude;
->>>>>>> master
 import sopra.formation.persistence.IEvaluationDao;
 
 public class EvaluationDaoJpa implements IEvaluationDao {
@@ -129,9 +124,6 @@ public class EvaluationDaoJpa implements IEvaluationDao {
 			}
 		}
 	}
-<<<<<<< HEAD
-}
-=======
 
 	@Override
 	public List<Evaluation> findAllByComportementalAndTechnique(Integer comportemental, Integer technique) {
@@ -199,4 +191,3 @@ public class EvaluationDaoJpa implements IEvaluationDao {
 		return evaluations;
 	}
 }
->>>>>>> master

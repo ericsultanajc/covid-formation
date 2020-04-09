@@ -125,9 +125,6 @@ public class FiliereDaoJpa implements IFiliereDao {
 			}
 		}
 	}
-<<<<<<< HEAD
-}
-=======
 
 	@Override
 	public Filiere findByPromotion(String promotion) {
@@ -230,4 +227,3 @@ public class FiliereDaoJpa implements IFiliereDao {
 		return filieres;
 	}
 }
->>>>>>> master

@@ -125,9 +125,6 @@ public class StagiaireDaoJpa implements IStagiaireDao {
 			}
 		}
 	}
-<<<<<<< HEAD
-}
-=======
 
 	@Override
 	public List<Stagiaire> findAllByFormateur(String nom) {
@@ -195,4 +192,3 @@ public class StagiaireDaoJpa implements IStagiaireDao {
 		return stagiaires;
 	}
 }
->>>>>>> master

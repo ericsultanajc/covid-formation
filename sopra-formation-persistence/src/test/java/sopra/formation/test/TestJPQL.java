@@ -1,6 +1,5 @@
 package sopra.formation.test;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,9 +7,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import sopra.formation.Application;
-import sopra.formation.model.Adresse;
-import sopra.formation.model.Civilite;
-import sopra.formation.model.Dispositif;
 import sopra.formation.model.Evaluation;
 import sopra.formation.model.Filiere;
 import sopra.formation.model.NiveauEtude;
