@@ -10,30 +10,30 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name = "teaching_unit")
+@Table(name = "module")
 public class UE {
 	@Id
 	@GeneratedValue
 	private Long id;
 	@Version
 	private int version;
-	@Column(name="coded")
+	@Column(nullable = false)
 	private Integer code;
-	@Column(name="duration")
+	@Column(name = "duration", nullable = false)
 	private Integer duree;
-	@Column(name="sequence")
+	@Column(name = "position", nullable = false)
 	private int ordre;
 	@ManyToOne
-	@JoinColumn(name="course_id")
+	@JoinColumn(name = "course_id")
 	private Filiere filiere;
 	@ManyToOne
-	@JoinColumn(name="formateur_id")
+	@JoinColumn(name = "trainer_id")
 	private Formateur formateur;
 	@ManyToOne
-	@JoinColumn(name="materials_id")
+	@JoinColumn(name = "subject_id")
 	private Matiere matiere;
 	@ManyToOne
-	@JoinColumn(name="room_id")
+	@JoinColumn(name = "classroom_id")
 	private Salle salle;
 
 	public UE() {
@@ -45,22 +45,6 @@ public class UE {
 		this.code = code;
 		this.duree = duree;
 		this.ordre = ordre;
-	}
-
-	public UE(Long id, Integer code, Integer duree, int ordre) {
-		super();
-		this.id = id;
-		this.code = code;
-		this.duree = duree;
-		this.ordre = ordre;
-	}
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
 	}
 
 	public Long getId() {

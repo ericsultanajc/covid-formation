@@ -1,6 +1,5 @@
 package sopra.formation.model;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -18,7 +18,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "course")
@@ -28,25 +27,24 @@ public class Filiere {
 	private Long id;
 	@Version
 	private int version;
-	@Column(name="title", length = 100)
-	@Size(max = 100)
+	@Column(name = "title", length = 100, nullable = false)
 	private String intitule;
-	@Column(name="advancement", length = 100)
-	@Size(max = 100)
+	@Column(length = 255)
 	private String promotion;
-	@Column(name="date_start")
 	@Temporal(TemporalType.DATE)
+	@Column(name = "startdate")
 	private Date dtDebut;
-	@Column(name="duration")
+	@Column(name = "duration")
 	private Integer duree;
 	@Enumerated(EnumType.STRING)
+	@Column(name = "plan", length = 10)
 	private Dispositif dispositif;
-	@OneToMany(mappedBy="filiere")
-	private List<Stagiaire> stagiaires = new ArrayList <Stagiaire>();
-	@OneToMany(mappedBy="filiere")
-	private List<UE> ues = new ArrayList <UE>();
-	@ManyToOne
-	@JoinColumn(name ="formateur_id")
+	@OneToMany(mappedBy = "filiere")
+	private List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
+	@OneToMany(mappedBy = "filiere")
+	private List<UE> ues = new ArrayList<UE>();
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "trainer_id")
 	private Formateur referent;
 
 	public Filiere() {
@@ -65,14 +63,6 @@ public class Filiere {
 		this.dtDebut = dtDebut;
 		this.duree = duree;
 		this.dispositif = dispositif;
-	}
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
 	}
 
 	public Long getId() {

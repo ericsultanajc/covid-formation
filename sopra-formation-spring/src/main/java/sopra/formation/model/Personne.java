@@ -2,8 +2,11 @@ package sopra.formation.model;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -12,24 +15,25 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name = "people")
+@Table(name = "person")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type_personne")
+@DiscriminatorColumn(name = "disc", discriminatorType = DiscriminatorType.STRING, length = 15)
 public abstract class Personne {
 	@Id
 	@GeneratedValue
 	private Long id;
 	@Version
 	private int version;
-	@Column(name="title")
+	@Enumerated(EnumType.STRING)
+	@Column(name = "civility", length = 5)
 	private Civilite civilite;
-	@Column(name="lastname", length = 100)
+	@Column(name = "last_name", length = 100, nullable = false)
 	private String nom;
-	@Column(name="firstname", length = 100)
+	@Column(name = "first_name", length = 100)
 	private String prenom;
-	@Column(name="mail", length = 100)
+	@Column(length = 255, nullable = false)
 	private String email;
-	@Column(name="phonenumber", length = 100)
+	@Column(name = "phonenumber", length = 15)
 	private String telephone;
 	@Embedded
 	private Adresse adresse;
@@ -50,14 +54,6 @@ public abstract class Personne {
 		this.prenom = prenom;
 		this.email = email;
 		this.telephone = telephone;
-	}
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
 	}
 
 	public Long getId() {

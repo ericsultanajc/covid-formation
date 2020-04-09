@@ -3,22 +3,22 @@ package sopra.formation.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
-@DiscriminatorValue ("formateur")
+@DiscriminatorValue("Formateur")
 public class Formateur extends Personne {
-	@Column(name="referent")
 	private Boolean referent;
-	@Column(name="experiment")
 	private Integer experience;
-	@OneToMany(mappedBy="formateur")
+	@OneToMany(mappedBy = "formateur")
 	private List<UE> ues = new ArrayList<UE>();
 	@ManyToMany
+	@JoinTable(name = "skill", joinColumns = @JoinColumn(name = "trainer_id"), inverseJoinColumns = @JoinColumn(name = "subject_id"))
 	private List<Matiere> competences = new ArrayList<Matiere>();
 
 	public Formateur() {

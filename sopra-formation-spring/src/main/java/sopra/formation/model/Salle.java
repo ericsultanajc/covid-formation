@@ -13,22 +13,22 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name = "room")
+@Table(name = "classroom")
 public class Salle {
 	@Id
 	@GeneratedValue
 	private Long id;
 	@Version
 	private int version;
-	@Column(name="name", length = 100)
+	@Column(name = "name", nullable = false)
 	private String nom;
-	@Column(name="capacity")
+	@Column(name = "capacity")
 	private Integer capacite;
-	@Column(name="video_projector")
+	@Column(name = "video_projector")
 	private Boolean videoProjecteur;
 	@Embedded
 	private Adresse adr;
-	@OneToMany(mappedBy="matiere")
+	@OneToMany(mappedBy = "salle")
 	private List<UE> ues = new ArrayList<UE>();
 
 	public Salle() {
@@ -45,14 +45,6 @@ public class Salle {
 		this.nom = nom;
 		this.capacite = capacite;
 		this.videoProjecteur = videoProjecteur;
-	}
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
 	}
 
 	public Long getId() {
