@@ -1,5 +1,7 @@
 package sopra.formation.test;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 import sopra.formation.Application;
 import sopra.formation.model.Filiere;
 import sopra.formation.model.Formateur;
@@ -17,7 +19,7 @@ public class TestJPQLLazy {
 		
 		System.out.println(covidWithFetch.getReferent().getNom());
 		
-
+				
 	}
 
 }

@@ -17,28 +17,29 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.persistence.Version;
+import javax.validation.constraints.Size;
 
-@Entity // obligatoire
-@Table(name = "sector") // optionnel 
+@Entity
+@Table(name = "course")
 public class Filiere {
-	@Id // obligatoire
+	@Id
 	@GeneratedValue
 	private Long id;
 	@Version
 	private int version;
-	@Column(name="name")
+	@Column(name = "title", length = 100, nullable = false)
+	@Size(max = 100)
 	private String intitule;
-	@Column(name="promotion")
+	@Column(length = 255)
 	private String promotion;
-	@Column(name="start_date")
 	@Temporal(TemporalType.DATE)
+	@Column(name = "startdate")
 	private Date dtDebut;
-	@Column(name="duration")
+	@Column(name = "duration")
 	private Integer duree;
-	@Column(name="facility")
 	@Enumerated(EnumType.STRING)
+	@Column(name = "plan", length = 10)
 	private Dispositif dispositif;
 	@OneToMany(mappedBy = "filiere")
 	private List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
@@ -74,6 +75,10 @@ public class Filiere {
 		this.id = id;
 	}
 	
+	public int getVersion() {
+		return version;
+	}
+
 	public int getVersion() {
 		return version;
 	}
@@ -126,7 +131,7 @@ public class Filiere {
 		return stagiaires;
 	}
 
-	public void setStagiaires(ArrayList<Stagiaire> stagiaires) {
+	public void setStagiaires(List<Stagiaire> stagiaires) {
 		this.stagiaires = stagiaires;
 	}
 
@@ -138,7 +143,7 @@ public class Filiere {
 		return ues;
 	}
 
-	public void setUes(ArrayList<UE> ues) {
+	public void setUes(List<UE> ues) {
 		this.ues = ues;
 	}
 

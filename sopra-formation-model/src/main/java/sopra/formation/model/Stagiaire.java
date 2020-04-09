@@ -9,29 +9,28 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-
-@Entity // obligatoire
-@DiscriminatorValue("stagiaire")
-//@NamedQueries({
-//	@NamedQuery(name = "Stagiaire.findAllByFormateur", query = "select s from Stagiaire s join s.filiere f join f.referent ref where ref.nom = :nom"),
-//	@NamedQuery(name = "Stagiaire.findAllByVille", query = "select s from Stagiaire s where s.adresse.ville = :ville") })
+@Entity
+@DiscriminatorValue("Stagiaire")
+@NamedQueries({
+		@NamedQuery(name = "Stagiaire.findAllByFormateur", query = "select s from Stagiaire s join s.filiere f join f.referent ref where ref.nom = :nom"),
+		@NamedQuery(name = "Stagiaire.findAllByVille", query = "select s from Stagiaire s where s.adresse.ville = :ville") })
 public class Stagiaire extends Personne {
-	@Column(name="birth_date")
 	@Temporal(TemporalType.DATE)
+	@Column(name = "birthdate")
 	private Date dtNaissance;
-	@Column(name="study_level")
+	@Column(name = "study_level", length = 15)
 	@Enumerated(EnumType.STRING)
 	private NiveauEtude niveauEtude;
 	@ManyToOne
-	@JoinColumn(name="filiere_id")
+	@JoinColumn(name = "course_id")
 	private Filiere filiere;
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "rating_id")
 	private Evaluation evaluation;
 
 	public Stagiaire() {

@@ -6,6 +6,8 @@ import sopra.formation.model.Evaluation;
 import sopra.formation.model.NiveauEtude;
 
 public interface IEvaluationDao extends IDao<Evaluation, Long>{
+	List<Evaluation> findAllByComportementalAndTechnique(Integer comportemental, Integer technique);
+	List<Evaluation> findAllByStagiaireNiveau(NiveauEtude niveauEtude);
 
 	List<Evaluation> findAllByComportementalAndTechnique(Integer comportemental, Integer technique);
 	List<Evaluation> findAllByStagiaireNiveau(NiveauEtude niveauEtude);
