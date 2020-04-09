@@ -107,7 +107,9 @@ public class TestFormationJunitSpring {
 		Assert.assertEquals(sdf.parseObject("03/09/1993"), stagiaireFind.getDtNaissance());
 		Assert.assertEquals(NiveauEtude.BAC_5, stagiaireFind.getNiveauEtude());
 		Assert.assertEquals(adrDamien, stagiaireFind.getAdresse());
+		Assert.assertNotNull(stagiaireFind.getEvaluation());
 		Assert.assertEquals(evaluation.getId(), stagiaireFind.getEvaluation().getId());
+		Assert.assertNotNull(stagiaireFind.getFiliere());
 		Assert.assertEquals(filiere.getId(), stagiaireFind.getFiliere().getId());
 		
 		damien.setCivilite(Civilite.MLLE);
@@ -152,9 +154,12 @@ public class TestFormationJunitSpring {
 		
 		Assert.assertEquals(2, (formateurSize));
 
-		stagiairesFind = stagiaireDao.findAllByVille("Merignac");
+		stagiairesFind = stagiaireDao.findAllByVille("Canejan");
 		int villeSize = stagiairesFind.size();
-		Assert.assertEquals(0, (villeSize));
+		Assert.assertEquals(4, (villeSize));
+		
+		evaluationDao.delete(evaluation);
+		filiereDao.delete(filiere);
 
 
 	}
