@@ -3,7 +3,6 @@ package sopra.formation.persistence.jpa;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -24,6 +23,7 @@ public class FiliereDaoJpa implements IFiliereDao {
 	@Transactional(readOnly = true)
 	public List<Filiere> findAll() {
 		TypedQuery<Filiere> query = em.createQuery("from Filiere", Filiere.class);
+
 		return query.getResultList();
 	}
 
@@ -44,8 +44,8 @@ public class FiliereDaoJpa implements IFiliereDao {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Filiere findByPromotion(String promotion) {
-
 		TypedQuery<Filiere> query = em.createQuery("from Filiere f where f.promotion = ?0", Filiere.class);
 
 		query.setParameter(0, promotion);
@@ -54,8 +54,8 @@ public class FiliereDaoJpa implements IFiliereDao {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Filiere findWithReferent(Long id) {
-
 		TypedQuery<Filiere> query = em.createQuery("from Filiere f left join fetch f.referent r where f.id = :id",
 				Filiere.class);
 
@@ -65,6 +65,7 @@ public class FiliereDaoJpa implements IFiliereDao {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Filiere> findAllByVille(String ville) {
 		TypedQuery<Filiere> query = em.createQuery(
 				"select f from Filiere f join f.ues ue join ue.salle s where s.adr.ville = :ville", Filiere.class);
@@ -72,6 +73,5 @@ public class FiliereDaoJpa implements IFiliereDao {
 		query.setParameter("ville", ville);
 
 		return query.getResultList();
-
 	}
 }

@@ -3,7 +3,6 @@ package sopra.formation.persistence.jpa;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -26,7 +25,6 @@ public class SalleDaoJpa implements ISalleDao {
 		TypedQuery<Salle> query = em.createQuery("from Salle", Salle.class);
 
 		return query.getResultList();
-
 	}
 
 	@Override
@@ -46,6 +44,7 @@ public class SalleDaoJpa implements ISalleDao {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Salle> findAllByFiliere(Long id) {
 		TypedQuery<Salle> query = em.createQuery("select distinct ue.salle from UE ue where ue.filiere.id = :id",
 				Salle.class);
@@ -56,12 +55,12 @@ public class SalleDaoJpa implements ISalleDao {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Salle> findAllByVille(String ville) {
 		TypedQuery<Salle> query = em.createQuery("select s from Salle s where s.adr.ville = :ville", Salle.class);
 
 		query.setParameter("ville", ville);
 
 		return query.getResultList();
-
 	}
 }

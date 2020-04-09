@@ -3,7 +3,6 @@ package sopra.formation.persistence.jpa;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -46,6 +45,7 @@ public class FormateurDaoJpa implements IFormateurDao {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Formateur findByFiliere(Filiere filiere) {
 		TypedQuery<Formateur> query = em
 				.createQuery("select form from Filiere f join f.referent form where f = :filiere", Formateur.class);
@@ -56,6 +56,7 @@ public class FormateurDaoJpa implements IFormateurDao {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Formateur findByEmail(String email) {
 		TypedQuery<Formateur> query = em.createQuery("select f from Formateur f where f.email = :email",
 				Formateur.class);

@@ -3,7 +3,6 @@ package sopra.formation.persistence.jpa;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -45,6 +44,7 @@ public class StagiaireDaoJpa implements IStagiaireDao {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Stagiaire> findAllByFormateur(String nom) {
 		TypedQuery<Stagiaire> query = em.createNamedQuery("Stagiaire.findAllByFormateur", Stagiaire.class);
 
@@ -54,6 +54,7 @@ public class StagiaireDaoJpa implements IStagiaireDao {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Stagiaire> findAllByVille(String ville) {
 		TypedQuery<Stagiaire> query = em.createNamedQuery("Stagiaire.findAllByVille", Stagiaire.class);
 
