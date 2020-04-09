@@ -149,42 +149,6 @@ public class TestJPQL {
 				System.out.println(ligne[3]);
 			}
 
-			System.out.println("################## Query 11"); // lister les salles utilisées par filière
-
-			List<Salle> salles = new ArrayList<Salle>();
-			ISalleDao salleDao = Application.getInstance().getSalleDao();
-			salles = salleDao.findAllByVille("Mérignac");
-			System.out.println(salles);
-
-			System.out.println("################## Query 12"); // lister les salles par ville
-
-			List<Salle> salles2 = new ArrayList<Salle>();
-			salles2 = salleDao.findAllByVille("Mérignac");
-			System.out.println(salles2);
-
-			System.out.println("################## Query 13"); // trouver un formateur par son email
-
-			TypedQuery<Salle> query13 = em
-					.createQuery("select sal from Salle sal join sal.adresse adr where adr.ville= :nom", Salle.class);
-
-			query13.setParameter("nom", "villes");
-
-			for (Salle salles : query13.getResultList()) {
-				System.out.println(salles);
-			}
-
-			System.out.println("################## Query 14"); // lister toutes les filières qui ont eu lieu dans une
-																// ville
-
-			TypedQuery<Salle> query14 = em
-					.createQuery("select sal from Salle sal join sal.adresse adr where adr.ville= :nom", Salle.class);
-
-			query14.setParameter("nom", "villes");
-
-			for (Salle salles : query14.getResultList()) {
-				System.out.println(salles);
-			}
-
 			tx.commit(); // em.flush();
 		} catch (Exception e) {
 			if (tx != null && tx.isActive()) {

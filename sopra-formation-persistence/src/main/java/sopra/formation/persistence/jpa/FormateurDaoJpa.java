@@ -126,7 +126,7 @@ public class FormateurDaoJpa implements IFormateurDao {
 
 	@Override
 	public Formateur findByEmail(String email) {
-		List<Formateur> formateurs = null;
+		Formateur formateur = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -136,12 +136,12 @@ public class FormateurDaoJpa implements IFormateurDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Formateur> query = em.createQuery("select f from Formateur f where f.email = email",
+			TypedQuery<Formateur> query = em.createQuery("select f from Formateur f where f.email = :email",
 					Formateur.class);
 
 			query.setParameter("email", email);
 
-			formateurs = query.getResultList();
+			formateur = query.getSingleResult();
 
 			tx.commit();
 
@@ -156,7 +156,7 @@ public class FormateurDaoJpa implements IFormateurDao {
 			}
 		}
 
-		return formateurs;
+		return formateur;
 	}
 
 }

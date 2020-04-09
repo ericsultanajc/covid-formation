@@ -1,6 +1,8 @@
 package sopra.formation.test;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -17,6 +19,7 @@ import sopra.formation.model.NiveauEtude;
 import sopra.formation.model.Salle;
 import sopra.formation.model.Stagiaire;
 import sopra.formation.model.UE;
+import sopra.formation.persistence.ISalleDao;
 
 public class TestSimpleJPA {
 
@@ -259,6 +262,8 @@ public class TestSimpleJPA {
 			travailEnEquipe.setFormateur(armand);
 			travailEnEquipe.setSalle(sanFransisco);
 			em.persist(travailEnEquipe);
+
+			System.out.println("###############################################################");
 
 			tx.commit();
 		} catch (Exception e) {
