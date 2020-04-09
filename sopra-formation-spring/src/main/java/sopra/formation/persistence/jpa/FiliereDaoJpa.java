@@ -17,7 +17,11 @@ import sopra.formation.persistence.IFiliereDao;
 public class FiliereDaoJpa implements IFiliereDao {
 
 	@PersistenceContext
+<<<<<<< Updated upstream
 	private EntityManager em;
+=======
+	private EntityManager em; // entityManagerFactory.createEntityManager()
+>>>>>>> Stashed changes
 
 	@Override
 	@Transactional(readOnly = true)
@@ -46,6 +50,10 @@ public class FiliereDaoJpa implements IFiliereDao {
 	@Override
 	@Transactional(readOnly = true)
 	public Filiere findByPromotion(String promotion) {
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 		TypedQuery<Filiere> query = em.createQuery("from Filiere f where f.promotion = ?0", Filiere.class);
 
 		query.setParameter(0, promotion);
@@ -56,6 +64,10 @@ public class FiliereDaoJpa implements IFiliereDao {
 	@Override
 	@Transactional(readOnly = true)
 	public Filiere findWithReferent(Long id) {
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 		TypedQuery<Filiere> query = em.createQuery("from Filiere f left join fetch f.referent r where f.id = :id",
 				Filiere.class);
 
@@ -67,6 +79,10 @@ public class FiliereDaoJpa implements IFiliereDao {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Filiere> findAllByVille(String ville) {
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 		TypedQuery<Filiere> query = em.createQuery(
 				"select f from Filiere f join f.ues ue join ue.salle s where s.adr.ville = :ville", Filiere.class);
 

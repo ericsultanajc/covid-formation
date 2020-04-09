@@ -11,13 +11,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sopra.formation.model.Matiere;
 import sopra.formation.persistence.IMatiereDao;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 @Repository
 @Transactional
 public class MatiereDaoJpa implements IMatiereDao {
 
 	@PersistenceContext
+<<<<<<< Updated upstream
 	private EntityManager em;
+=======
+	private EntityManager em; // entityManagerFactory.createEntityManager()
+>>>>>>> Stashed changes
 
 	@Override
 	@Transactional(readOnly = true)

@@ -22,12 +22,6 @@ public class TestSpringWithJava {
 
 		System.out.println(emf);
 
-		IEvaluationDao evaluationDao = context.getBean(IEvaluationDao.class);
-
-		Evaluation evaluation = new Evaluation(12, 15, "Bonne évolution");
-
-		evaluationDao.save(evaluation);
-
 		context.close();
 	}
 

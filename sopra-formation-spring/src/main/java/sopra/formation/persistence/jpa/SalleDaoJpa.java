@@ -17,12 +17,20 @@ import sopra.formation.persistence.ISalleDao;
 public class SalleDaoJpa implements ISalleDao {
 
 	@PersistenceContext
+<<<<<<< Updated upstream
 	private EntityManager em;
+=======
+	private EntityManager em; // entityManagerFactory.createEntityManager()
+>>>>>>> Stashed changes
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Salle> findAll() {
+<<<<<<< Updated upstream
 		TypedQuery<Salle> query = em.createQuery("from Salle", Salle.class);
+=======
+		TypedQuery<Salle> query = em.createQuery("from Evaluation", Salle.class);
+>>>>>>> Stashed changes
 
 		return query.getResultList();
 	}
@@ -46,6 +54,10 @@ public class SalleDaoJpa implements ISalleDao {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Salle> findAllByFiliere(Long id) {
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 		TypedQuery<Salle> query = em.createQuery("select distinct ue.salle from UE ue where ue.filiere.id = :id",
 				Salle.class);
 

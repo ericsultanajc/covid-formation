@@ -1,5 +1,7 @@
 package sopra.formation.test;
 
+import java.text.ParseException;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.sql.DataSource;
@@ -13,7 +15,15 @@ import sopra.formation.persistence.IEvaluationDao;
 public class TestSpringXML {
 
 	public static void main(String[] args) {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
+		
+//		try {
+//			TestFormationDao.main(args);
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+//		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
 
 //		DataSource datasource = context.getBean(DataSource.class);
 //
@@ -23,13 +33,7 @@ public class TestSpringXML {
 //
 //		System.out.println(emf);
 
-		IEvaluationDao evaluationDao = context.getBean(IEvaluationDao.class);
-
-		Evaluation evaluation = new Evaluation(12, 15, "Bonne évolution");
-
-		evaluationDao.save(evaluation);
-		
-		context.close();
+//		context.close();
 	}
 
 }

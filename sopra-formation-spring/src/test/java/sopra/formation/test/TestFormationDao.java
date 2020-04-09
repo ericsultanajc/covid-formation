@@ -30,6 +30,8 @@ public class TestFormationDao {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
 
 		IEvaluationDao evaluationDao = context.getBean(IEvaluationDao.class);
 		IFiliereDao filiereDao = context.getBean(IFiliereDao.class);
@@ -86,7 +88,7 @@ public class TestFormationDao {
 
 		cecile.setFiliere(covid);
 		cecile = stagiaireDao.save(cecile);
-		
+
 		Formateur eric = new Formateur("e.sultan@ajc-ingenierie.fr");
 		eric.setCivilite(Civilite.M);
 		eric.setNom("SULTAN");
@@ -130,14 +132,14 @@ public class TestFormationDao {
 		covidAngular.setMatiere(angular);
 		covidAngular.setSalle(wim);
 		covidAngular = ueDao.save(covidAngular);
-		
+
 		UE covidSpringBoot = new UE(1245, 3, 2);
 		covidSpringBoot.setFiliere(covid);
 		covidSpringBoot.setFormateur(eric);
 		covidSpringBoot.setMatiere(springboot);
 		covidSpringBoot.setSalle(wim);
 		covidSpringBoot = ueDao.save(covidSpringBoot);
-		
+
 		UE covidServletJsp = new UE(0034, 2, 1);
 		covidServletJsp.setFiliere(covid);
 		covidServletJsp.setFormateur(eric);
@@ -147,6 +149,7 @@ public class TestFormationDao {
 		
 		context.close();
 
+		context.close();
 	}
 
 }

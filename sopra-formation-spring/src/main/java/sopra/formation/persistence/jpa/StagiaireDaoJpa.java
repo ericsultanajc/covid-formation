@@ -17,7 +17,11 @@ import sopra.formation.persistence.IStagiaireDao;
 public class StagiaireDaoJpa implements IStagiaireDao {
 
 	@PersistenceContext
+<<<<<<< Updated upstream
 	private EntityManager em;
+=======
+	private EntityManager em; // entityManagerFactory.createEntityManager()
+>>>>>>> Stashed changes
 
 	@Override
 	@Transactional(readOnly = true)
@@ -46,6 +50,10 @@ public class StagiaireDaoJpa implements IStagiaireDao {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Stagiaire> findAllByFormateur(String nom) {
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 		TypedQuery<Stagiaire> query = em.createNamedQuery("Stagiaire.findAllByFormateur", Stagiaire.class);
 
 		query.setParameter("nom", nom);
