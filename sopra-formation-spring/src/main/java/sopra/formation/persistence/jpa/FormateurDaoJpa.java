@@ -20,9 +20,6 @@ public class FormateurDaoJpa implements IFormateurDao {
 	@PersistenceContext
 	private EntityManager em; // entityManagerFactory.createEntityManager()
 
-	@PersistenceContext
-	private EntityManager em;
-
 	@Override
 	@Transactional(readOnly = true)
 	public List<Formateur> findAll() {

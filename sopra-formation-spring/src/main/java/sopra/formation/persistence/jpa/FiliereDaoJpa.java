@@ -19,9 +19,6 @@ public class FiliereDaoJpa implements IFiliereDao {
 	@PersistenceContext
 	private EntityManager em; // entityManagerFactory.createEntityManager()
 
-	@PersistenceContext
-	private EntityManager em;
-
 	@Override
 	@Transactional(readOnly = true)
 	public List<Filiere> findAll() {
