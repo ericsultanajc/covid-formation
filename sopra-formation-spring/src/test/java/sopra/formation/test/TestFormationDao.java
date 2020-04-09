@@ -143,6 +143,8 @@ public class TestFormationDao {
 		covidServletJsp.setMatiere(servletJsp);
 		covidServletJsp.setSalle(wim);
 		covidServletJsp = ueDao.save(covidServletJsp);
+		
+		context.close();
 
 		context.close();
 	}
