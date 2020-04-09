@@ -13,9 +13,7 @@ import javax.persistence.OneToMany;
 @Entity
 @DiscriminatorValue("Formateur")
 public class Formateur extends Personne {
-	@Column(name = "referent")
 	private Boolean referent;
-	@Column(name = "expertise", length = 3)
 	private Integer experience;
 	@OneToMany(mappedBy = "formateur")
 	private List<UE> ues = new ArrayList<UE>();

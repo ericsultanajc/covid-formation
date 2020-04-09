@@ -22,6 +22,7 @@ public class Application {
 	private static Application instance = null;
 
 	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("sopra-formation");
+
 	private final IEvaluationDao evaluationDao = new EvaluationDaoJpa();
 	private final IFiliereDao filiereDao = new FiliereDaoJpa();
 	private final IFormateurDao formateurDao = new FormateurDaoJpa();

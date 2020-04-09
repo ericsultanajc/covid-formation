@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
 
 @Entity // obligatoire
 @Table(name = "rating") // optionnel
@@ -19,7 +18,6 @@ public class Evaluation {
 	@Column(name = "behaviour", nullable = false)
 	private Integer comportemental;
 	@Column(name = "technical")
-	@NotNull
 	private Integer technique;
 	@Column(name = "comments", length = 4000)
 	private String commentaires;
@@ -41,10 +39,6 @@ public class Evaluation {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-	
-	public int getVersion() {
-		return Version;
 	}
 
 	public int getVersion() {

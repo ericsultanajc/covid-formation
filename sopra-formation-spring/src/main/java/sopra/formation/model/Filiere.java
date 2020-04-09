@@ -18,7 +18,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "course")
@@ -29,7 +28,6 @@ public class Filiere {
 	@Version
 	private int version;
 	@Column(name = "title", length = 100, nullable = false)
-	@Size(max = 100)
 	private String intitule;
 	@Column(length = 255)
 	private String promotion;

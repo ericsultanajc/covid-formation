@@ -1,7 +1,6 @@
 package sopra.formation.test;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,9 +14,8 @@ import sopra.formation.model.Dispositif;
 import sopra.formation.model.Evaluation;
 import sopra.formation.model.Filiere;
 import sopra.formation.model.NiveauEtude;
-import sopra.formation.model.Salle;
+import sopra.formation.model.Personne;
 import sopra.formation.model.Stagiaire;
-import sopra.formation.persistence.ISalleDao;
 
 public class TestJPQL {
 
@@ -147,6 +145,14 @@ public class TestJPQL {
 				System.out.println(ligne[1]);
 				System.out.println(ligne[2]);
 				System.out.println(ligne[3]);
+			}
+
+			System.out.println("################## Query 11");
+
+			TypedQuery<Personne> query11 = em.createQuery("select p from Personne p", Personne.class);
+
+			for (Personne personne : query11.getResultList()) {
+				System.out.println(personne);
 			}
 
 			tx.commit(); // em.flush();
