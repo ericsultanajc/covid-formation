@@ -15,14 +15,14 @@ public class TestSpringXML {
 	public static void main(String[] args) {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
 
-//		DataSource datasource = context.getBean(DataSource.class);
-//
-//		System.out.println(datasource);
-//
-//		EntityManagerFactory emf = context.getBean(EntityManagerFactory.class);
-//
-//		System.out.println(emf);
+		DataSource datasource = context.getBean(DataSource.class);
 
+		System.out.println(datasource);
+
+		EntityManagerFactory emf = context.getBean(EntityManagerFactory.class);
+
+		System.out.println(emf);
+		
 		IEvaluationDao evaluationDao = context.getBean(IEvaluationDao.class);
 
 		Evaluation evaluation = new Evaluation(12, 15, "Bonne évolution");

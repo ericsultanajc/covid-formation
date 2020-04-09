@@ -3,7 +3,11 @@ package sopra.formation.test;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import sopra.formation.Application;
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import sopra.formation.model.Adresse;
 import sopra.formation.model.Civilite;
 import sopra.formation.model.Dispositif;
@@ -28,13 +32,24 @@ public class TestFormationDao {
 	public static void main(String[] args) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-		IEvaluationDao evaluationDao = Application.getInstance().getEvaluationDao();
-		IFiliereDao filiereDao = Application.getInstance().getFiliereDao();
-		IFormateurDao formateurDao = Application.getInstance().getFormateurDao();
-		IMatiereDao matiereDao = Application.getInstance().getMatiereDao();
-		ISalleDao salleDao = Application.getInstance().getSalleDao();
-		IStagiaireDao stagiaireDao = Application.getInstance().getStagiaireDao();
-		IUEDao ueDao = Application.getInstance().getUeDao();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
+
+		DataSource datasource = context.getBean(DataSource.class);
+
+		System.out.println(datasource);
+
+		EntityManagerFactory emf = context.getBean(EntityManagerFactory.class);
+
+		System.out.println(emf);
+
+		IEvaluationDao evaluationDao = context.getBean(IEvaluationDao.class);
+		IFiliereDao filiereDao = context.getBean(IFiliereDao.class);
+		IFormateurDao formateurDao = context.getBean(IFormateurDao.class);
+		IMatiereDao matiereDao = context.getBean(IMatiereDao.class);
+		ISalleDao salleDao = context.getBean(ISalleDao.class);
+		IStagiaireDao stagiaireDao = context.getBean(IStagiaireDao.class);
+		IUEDao ueDao = context.getBean(IUEDao.class);
+		
 
 		Evaluation evalCecile = new Evaluation(14, 17, "RAS");
 		evalCecile = evaluationDao.save(evalCecile);
@@ -83,7 +98,7 @@ public class TestFormationDao {
 
 		cecile.setFiliere(covid);
 		cecile = stagiaireDao.save(cecile);
-		
+
 		Formateur eric = new Formateur("e.sultan@ajc-ingenierie.fr");
 		eric.setCivilite(Civilite.M);
 		eric.setNom("SULTAN");
@@ -127,20 +142,22 @@ public class TestFormationDao {
 		covidAngular.setMatiere(angular);
 		covidAngular.setSalle(wim);
 		covidAngular = ueDao.save(covidAngular);
-		
+
 		UE covidSpringBoot = new UE(1245, 3, 2);
 		covidSpringBoot.setFiliere(covid);
 		covidSpringBoot.setFormateur(eric);
 		covidSpringBoot.setMatiere(springboot);
 		covidSpringBoot.setSalle(wim);
 		covidSpringBoot = ueDao.save(covidSpringBoot);
-		
+
 		UE covidServletJsp = new UE(0034, 2, 1);
 		covidServletJsp.setFiliere(covid);
 		covidServletJsp.setFormateur(eric);
 		covidServletJsp.setMatiere(servletJsp);
 		covidServletJsp.setSalle(wim);
 		covidServletJsp = ueDao.save(covidServletJsp);
+
+		context.close();
 
 	}
 
