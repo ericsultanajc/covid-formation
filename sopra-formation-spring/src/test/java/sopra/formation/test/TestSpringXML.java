@@ -8,7 +8,6 @@ import javax.persistence.PersistenceException;
 import javax.sql.DataSource;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.dao.DataAccessException;
 
 import sopra.formation.model.Adresse;
 import sopra.formation.model.Civilite;
