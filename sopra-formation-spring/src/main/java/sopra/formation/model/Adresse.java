@@ -64,4 +64,37 @@ public class Adresse {
 				+ "]";
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Adresse other = (Adresse) obj;
+		if (codePostal == null) {
+			if (other.codePostal != null)
+				return false;
+		} else if (!codePostal.equals(other.codePostal))
+			return false;
+		if (complement == null) {
+			if (other.complement != null)
+				return false;
+		} else if (!complement.equals(other.complement))
+			return false;
+		if (rue == null) {
+			if (other.rue != null)
+				return false;
+		} else if (!rue.equals(other.rue))
+			return false;
+		if (ville == null) {
+			if (other.ville != null)
+				return false;
+		} else if (!ville.equals(other.ville))
+			return false;
+		return true;
+	}
+
+	
 }

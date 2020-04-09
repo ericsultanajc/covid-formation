@@ -37,10 +37,6 @@ public class Stagiaire extends Personne {
 		super();
 	}
 
-	public Stagiaire(String email) {
-		super(email);
-	}
-
 	public Stagiaire(Civilite civilite, String nom, String prenom, String email, String telephone, Date dtNaissance,
 			NiveauEtude niveauEtude) {
 		super(civilite, nom, prenom, email, telephone);

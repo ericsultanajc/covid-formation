@@ -41,7 +41,8 @@ public class TestFormationDao {
 		Evaluation evalCecile = new Evaluation(14, 17, "RAS");
 		evalCecile = evaluationDao.save(evalCecile);
 
-		Stagiaire cecile = new Stagiaire("cecile.larrouy@outlook.fr");
+		Stagiaire cecile = new Stagiaire();
+		cecile.setEmail("cecile.larrouy@outlook.fr");
 		cecile.setCivilite(Civilite.M);
 		cecile.setNom("LARROUY");
 		cecile.setPrenom("Cécile");
@@ -56,7 +57,8 @@ public class TestFormationDao {
 		Evaluation evalKevin = new Evaluation(12, 15, "Bonne évolution");
 		evalKevin = evaluationDao.save(evalKevin);
 
-		Stagiaire kevin = new Stagiaire("kevin.bougis@gmail.com");
+		Stagiaire kevin = new Stagiaire();
+		kevin.setEmail("kevin.bougis@gmail.com");
 		kevin.setCivilite(Civilite.M);
 		kevin.setNom("BOUGIS");
 		kevin.setPrenom("Kévin");
