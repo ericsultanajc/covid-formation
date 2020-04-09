@@ -16,6 +16,7 @@ import sopra.formation.model.NiveauEtude;
 import sopra.formation.model.Salle;
 import sopra.formation.model.Stagiaire;
 import sopra.formation.model.UE;
+
 import sopra.formation.persistence.IEvaluationDao;
 import sopra.formation.persistence.IFiliereDao;
 import sopra.formation.persistence.IFormateurDao;

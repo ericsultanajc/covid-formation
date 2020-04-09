@@ -16,6 +16,9 @@ import sopra.formation.persistence.IFormateurDao;
 @Repository
 @Transactional
 public class FormateurDaoJpa implements IFormateurDao {
+	
+	@PersistenceContext
+	private EntityManager em; // entityManagerFactory.createEntityManager()
 
 	@PersistenceContext
 	private EntityManager em;
