@@ -17,13 +17,16 @@
 	<!-- Indiquer dans quel(s) paquetage(s) scanner pour trouver des annotations -->
 	<context:component-scan base-package="sopra.formation.persistence.jpa"/>
 	
+	<!-- Charge le fichier datasource.properties en mémoire -->
+	<context:property-placeholder location="classpath:datasource.properties"/>
+	
 	<!-- On crée la dataSource -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://localhost:5432/training" />
-		<property name="username" value="postgres" />
-		<property name="password" value="manager" />
-		<property name="maxTotal" value="10" />
+		<property name="driverClassName" value="${db.driver}" />
+		<property name="url" value="${db.url}" />
+		<property name="username" value="${db.user}" />
+		<property name="password" value="${db.pwd}" />
+		<property name="maxTotal" value="${db.max}" />
 	</bean>
 	
 	<!-- On crée un entityManagerFactory local à partir de la dataSource -->
