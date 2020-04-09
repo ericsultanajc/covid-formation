@@ -1,13 +1,6 @@
 package sopra.formation.test;
 
-import java.text.ParseException;
-
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceException;
-import javax.sql.DataSource;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.dao.DataAccessException;
 
 import sopra.formation.model.Evaluation;
 import sopra.formation.persistence.IEvaluationDao;
@@ -25,15 +18,17 @@ public class TestSpringXML {
 		
 //		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
 
-//		DataSource datasource = context.getBean(DataSource.class);
-//
-//		System.out.println(datasource);
-//
-//		EntityManagerFactory emf = context.getBean(EntityManagerFactory.class);
-//
-//		System.out.println(emf);
+		IEvaluationDao evaluationDao = context.getBean(IEvaluationDao.class);
 
-//		context.close();
+		Evaluation evaluation = new Evaluation(12, 15, "Bonne évolution");
+
+		evaluation= evaluationDao.save(evaluation);
+		
+		Evaluation evalutionFind = evaluationDao.find(evaluation.getId());
+		
+		System.out.println(evalutionFind);
+		
+		context.close();
 	}
 
 }
