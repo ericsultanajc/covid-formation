@@ -3,192 +3,76 @@ package sopra.formation.persistence.jpa;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import sopra.formation.Application;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import sopra.formation.model.Salle;
 import sopra.formation.persistence.ISalleDao;
 
+@Repository
+@Transactional
 public class SalleDaoJpa implements ISalleDao {
 
+	@PersistenceContext
+	private EntityManager em;
+
 	@Override
+	@Transactional(readOnly = true)
 	public List<Salle> findAll() {
-		List<Salle> salles = null;
 
-		EntityManager em = null;
-		EntityTransaction tx = null;
+		TypedQuery<Salle> query = em.createQuery("from Salle", Salle.class);
 
-		try {
-			em = Application.getInstance().getEmf().createEntityManager();
-			tx = em.getTransaction();
-			tx.begin();
+		return query.getResultList();
 
-			TypedQuery<Salle> query = em.createQuery("from Salle", Salle.class);
-
-			salles = query.getResultList();
-
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		} finally {
-			if (em != null) {
-				em.close();
-			}
-		}
-
-		return salles;
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Salle find(Long id) {
-		Salle salle = null;
 
-		EntityManager em = null;
-		EntityTransaction tx = null;
+		return em.find(Salle.class, id);
 
-		try {
-			em = Application.getInstance().getEmf().createEntityManager();
-			tx = em.getTransaction();
-			tx.begin();
-
-			salle = em.find(Salle.class, id);
-
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		} finally {
-			if (em != null) {
-				em.close();
-			}
-		}
-
-		return salle;
 	}
 
 	@Override
 	public Salle save(Salle obj) {
-		Salle salle = null;
 
-		EntityManager em = null;
-		EntityTransaction tx = null;
+		return em.merge(obj);
 
-		try {
-			em = Application.getInstance().getEmf().createEntityManager();
-			tx = em.getTransaction();
-			tx.begin();
-
-			salle = em.merge(obj);
-
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		} finally {
-			if (em != null) {
-				em.close();
-			}
-		}
-
-		return salle;
 	}
 
 	@Override
 	public void delete(Salle obj) {
-		EntityManager em = null;
-		EntityTransaction tx = null;
 
-		try {
-			em = Application.getInstance().getEmf().createEntityManager();
-			tx = em.getTransaction();
-			tx.begin();
+		em.remove(em.merge(obj));
 
-			em.remove(em.merge(obj));
-
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		} finally {
-			if (em != null) {
-				em.close();
-			}
-		}
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Salle> findAllByFiliere(Long id) {
-		List<Salle> salles = null;
 
-		EntityManager em = null;
-		EntityTransaction tx = null;
+		TypedQuery<Salle> query = em.createQuery("select distinct ue.salle from UE ue where ue.filiere.id = :id",
+				Salle.class);
 
-		try {
-			em = Application.getInstance().getEmf().createEntityManager();
-			tx = em.getTransaction();
-			tx.begin();
+		query.setParameter("id", id);
 
-			TypedQuery<Salle> query = em.createQuery("select distinct ue.salle from UE ue where ue.filiere.id = :id", Salle.class);
+		return query.getResultList();
 
-			query.setParameter("id", id);
-			
-			salles = query.getResultList();
-
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		} finally {
-			if (em != null) {
-				em.close();
-			}
-		}
-
-		return salles;
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Salle> findAllByVille(String ville) {
-		List<Salle> salles = null;
 
-		EntityManager em = null;
-		EntityTransaction tx = null;
+		TypedQuery<Salle> query = em.createQuery("select s from Salle s where s.adr.ville = :ville", Salle.class);
 
-		try {
-			em = Application.getInstance().getEmf().createEntityManager();
-			tx = em.getTransaction();
-			tx.begin();
+		query.setParameter("ville", ville);
 
-			TypedQuery<Salle> query = em.createQuery("select s from Salle s where s.adr.ville = :ville", Salle.class);
+		return query.getResultList();
 
-			query.setParameter("ville", ville);
-			
-			salles = query.getResultList();
-
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		} finally {
-			if (em != null) {
-				em.close();
-			}
-		}
-
-		return salles;
 	}
 }
