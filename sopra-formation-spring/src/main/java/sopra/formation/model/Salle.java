@@ -1,6 +1,5 @@
 package sopra.formation.model;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,16 +105,6 @@ public class Salle {
 
 	public void addUe(UE ue) {
 		this.ues.add(ue);
-	}
-	
-	
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
 	}
 
 	@Override

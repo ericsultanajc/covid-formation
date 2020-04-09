@@ -118,15 +118,6 @@ public class UE {
 	public void setSalle(Salle salle) {
 		this.salle = salle;
 	}
-	
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
-	}
 
 	@Override
 	public String toString() {

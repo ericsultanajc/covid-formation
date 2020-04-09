@@ -1,8 +1,7 @@
 package sopra.formation;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -20,7 +19,7 @@ import sopra.formation.persistence.jpa.FormateurDaoJpa;
 import sopra.formation.persistence.jpa.MatiereDaoJpa;
 import sopra.formation.persistence.jpa.SalleDaoJpa;
 import sopra.formation.persistence.jpa.StagiaireDaoJpa;
-import sopra.formation.persistence.jpa.UeDaoJpa;
+import sopra.formation.persistence.jpa.UEDaoJpa;
 
 
 
@@ -28,27 +27,17 @@ public class Application {
 
 	private static Application instance = null;
 
-
 	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("sopra-formation");
 
-
 	private final IEvaluationDao evaluationDao = new EvaluationDaoJpa();
-
 	private final IFiliereDao filiereDao = new FiliereDaoJpa();
-
 	private final IFormateurDao formateurDao = new FormateurDaoJpa();
-
 	private final IMatiereDao matiereDao = new MatiereDaoJpa();
-
 	private final ISalleDao salleDao = new SalleDaoJpa();
-
 	private final IStagiaireDao stagiaireDao = new StagiaireDaoJpa();
-
-	private final IUEDao ueDao = new UeDaoJpa();
-
+	private final IUEDao ueDao = new UEDaoJpa();
 
 	private Application() {
-
 	}
 
 
@@ -65,11 +54,8 @@ public class Application {
 
 	}
 
-
 	public EntityManagerFactory getEmf() {
-
 		return emf;
-
 	}
 
 

@@ -7,14 +7,14 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import sopra.formation.Application;
-import sopra.formation.model.Matiere;
-import sopra.formation.persistence.IMatiereDao;
+import sopra.formation.model.UE;
+import sopra.formation.persistence.IUEDao;
 
-public class MatiereDaoJpa implements IMatiereDao {
+public class UEDaoJpa implements IUEDao {
 
 	@Override
-	public List<Matiere> findAll() {
-		List<Matiere> matieres = null;
+	public List<UE> findAll() {
+		List<UE> ues = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -24,9 +24,9 @@ public class MatiereDaoJpa implements IMatiereDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Matiere> query = em.createQuery("from Matiere", Matiere.class);
+			TypedQuery<UE> query = em.createQuery("from UE", UE.class);
 
-			matieres = query.getResultList();
+			ues = query.getResultList();
 
 			tx.commit();
 		} catch (Exception e) {
@@ -40,12 +40,12 @@ public class MatiereDaoJpa implements IMatiereDao {
 			}
 		}
 
-		return matieres;
+		return ues;
 	}
 
 	@Override
-	public Matiere find(Long id) {
-		Matiere matiere = null;
+	public UE find(Long id) {
+		UE ue = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -55,7 +55,7 @@ public class MatiereDaoJpa implements IMatiereDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			matiere = em.find(Matiere.class, id);
+			ue = em.find(UE.class, id);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -69,12 +69,12 @@ public class MatiereDaoJpa implements IMatiereDao {
 			}
 		}
 
-		return matiere;
+		return ue;
 	}
 
 	@Override
-	public Matiere save(Matiere obj) {
-		Matiere matiere = null;
+	public UE save(UE obj) {
+		UE ue = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -84,7 +84,7 @@ public class MatiereDaoJpa implements IMatiereDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			matiere = em.merge(obj);
+			ue = em.merge(obj);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -98,11 +98,11 @@ public class MatiereDaoJpa implements IMatiereDao {
 			}
 		}
 
-		return matiere;
+		return ue;
 	}
 
 	@Override
-	public void delete(Matiere obj) {
+	public void delete(UE obj) {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 

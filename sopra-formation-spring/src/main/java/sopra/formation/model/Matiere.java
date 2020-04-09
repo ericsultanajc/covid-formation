@@ -95,16 +95,6 @@ public class Matiere {
 		this.formateurs.add(formateur);
 	}
 
-	
-	
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
-	}
-
 	@Override
 	public String toString() {
 		return "Matiere [id=" + id + ", nom=" + nom + ", duree=" + duree + "]";
