@@ -99,7 +99,6 @@ public class TestFormationJunit4 {
 		IFiliereDao filiereDao = context.getBean(IFiliereDao.class);
 		IFormateurDao formateurDao = context.getBean(IFormateurDao.class);
 		IStagiaireDao stagiaireDao = context.getBean(IStagiaireDao.class);
-		IFiliereDao filiereDao = context.getBean(IFiliereDao.class);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -124,7 +123,8 @@ public class TestFormationJunit4 {
 		int startSizeByVille = stagiaireDao.findAllByVille("Paris").size();
 		int startSizeByFormateur = stagiaireDao.findAllByFormateur("SULTAN").size();
 
-		Stagiaire cecile = new Stagiaire("cecile.larrouy@outlook.fr");
+		Stagiaire cecile = new Stagiaire();
+		cecile.setEmail("cecile.larrouy@outlook.fr");
 		cecile.setCivilite(Civilite.MLLE);
 		cecile.setNom("LARROUY");
 		cecile.setPrenom("Cécile");
@@ -211,78 +211,4 @@ public class TestFormationJunit4 {
 		filiereDao.delete(elysee);
 		filiereDao.delete(covid);
 	}
-
-		Evaluation evaluation = new Evaluation(12, 15, "Bonne évolution");
-		evaluation = evaluationDao.save(evaluation);
-		
-		Filiere filiere = new Filiere("Java Spring Angular", "Covid", sdf.parse("09/03/2020"), 5, Dispositif.POEI);
-		filiere = filiereDao.save(filiere);
-		
-		Adresse adrDamien = new Adresse("5 impasse Granet", "aucun", "33610", "Canejan");
-		
-		Stagiaire damien = new Stagiaire(Civilite.M, "Dubreuil", "Damien", "dubreuil.damien@laposte.net", "0645872052",sdf.parse("03/09/1993"),NiveauEtude.BAC_5);
-		damien.setAdresse(adrDamien);
-		damien.setEvaluation(evaluation);
-		damien.setFiliere(filiere);
-		damien = stagiaireDao.save(damien);
-		Stagiaire stagiaireFind = stagiaireDao.find(damien.getId());
-		
-		Assert.assertEquals(Civilite.M, stagiaireFind.getCivilite());
-		Assert.assertEquals("Dubreuil", stagiaireFind.getNom());
-		Assert.assertEquals("Damien", stagiaireFind.getPrenom());
-		Assert.assertEquals("dubreuil.damien@laposte.net", stagiaireFind.getEmail());
-		Assert.assertEquals("0645872052", stagiaireFind.getTelephone());
-		Assert.assertEquals(sdf.parseObject("03/09/1993"), stagiaireFind.getDtNaissance());
-		Assert.assertEquals(NiveauEtude.BAC_5, stagiaireFind.getNiveauEtude());
-		Assert.assertEquals(adrDamien, stagiaireFind.getAdresse());
-		Assert.assertEquals(evaluation.getId(), stagiaireFind.getEvaluation().getId());
-		Assert.assertEquals(filiere.getId(), stagiaireFind.getFiliere().getId());
-		
-		damien.setCivilite(Civilite.MLLE);
-		damien.setNom("Hector");
-		damien.setPrenom("Remi");
-		damien.setEmail("niarf33@hotmail.fr");
-		damien.setTelephone("0557835614");
-		damien.setDtNaissance(sdf.parse("26/09/1993"));
-		damien.setNiveauEtude(NiveauEtude.BAC_8);
-		
-		damien = stagiaireDao.save(damien);
-		stagiaireFind = stagiaireDao.find(damien.getId());
-		
-		Assert.assertEquals(Civilite.MLLE, stagiaireFind.getCivilite());
-		Assert.assertEquals("Hector", stagiaireFind.getNom());
-		Assert.assertEquals("Remi", stagiaireFind.getPrenom());
-		Assert.assertEquals("niarf33@hotmail.fr", stagiaireFind.getEmail());
-		Assert.assertEquals("0557835614", stagiaireFind.getTelephone());
-		Assert.assertEquals(sdf.parseObject("26/09/1993"), stagiaireFind.getDtNaissance());
-		Assert.assertEquals(NiveauEtude.BAC_8, stagiaireFind.getNiveauEtude());
-		Assert.assertEquals(adrDamien, stagiaireFind.getAdresse());
-		Assert.assertEquals(evaluation.getId(), stagiaireFind.getEvaluation().getId());
-		Assert.assertEquals(filiere.getId(), stagiaireFind.getFiliere().getId());
-
-		int testSize = stagiaireDao.findAll().size();
-
-		if ((testSize - startSize) != 1) {
-			Assert.fail("FindAll size en erreur");
-		}
-		stagiaireDao.delete(damien);
-
-		stagiaireFind = stagiaireDao.find(damien.getId());
-
-		Assert.assertNull(stagiaireFind);
-
-		int endSize = stagiaireDao.findAll().size();
-
-		Assert.assertEquals(0, (endSize - startSize));
-		
-		List<Stagiaire> stagiairesFind = stagiaireDao.findAllByFormateur("SULTAN");
-		int formateurSize = stagiairesFind.size();
-		
-		Assert.assertEquals(2, (formateurSize));
-
-		stagiairesFind = stagiaireDao.findAllByVille("Merignac");
-		int villeSize = stagiairesFind.size();
-		Assert.assertEquals(0, (villeSize));
-		}
-
 }

@@ -108,7 +108,8 @@ public class TestFormationJunitSpring {
 		int startSizeByVille = stagiaireDao.findAllByVille("Paris").size();
 		int startSizeByFormateur = stagiaireDao.findAllByFormateur("SULTAN").size();
 		
-		Stagiaire cecile = new Stagiaire("cecile.larrouy@outlook.fr");
+		Stagiaire cecile = new Stagiaire();
+		cecile.setEmail("cecile.larrouy@outlook.fr");
 		cecile.setCivilite(Civilite.MLLE);
 		cecile.setNom("LARROUY");
 		cecile.setPrenom("Cécile");
