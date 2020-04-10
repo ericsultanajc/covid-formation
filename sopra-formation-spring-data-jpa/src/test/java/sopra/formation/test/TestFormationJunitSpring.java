@@ -2,11 +2,15 @@ package sopra.formation.test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Optional;
 
 import org.junit.Assert;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import junit.framework.TestCase;
 import sopra.formation.model.Adresse;
 import sopra.formation.model.Civilite;
 import sopra.formation.model.Dispositif;
@@ -15,36 +19,47 @@ import sopra.formation.model.Filiere;
 import sopra.formation.model.Formateur;
 import sopra.formation.model.NiveauEtude;
 import sopra.formation.model.Stagiaire;
-import sopra.formation.persistence.IEvaluationDao;
-import sopra.formation.persistence.IFiliereDao;
-import sopra.formation.persistence.IFormateurDao;
-import sopra.formation.persistence.IStagiaireDao;
+import sopra.formation.persistence.IEvaluationRepository;
+import sopra.formation.persistence.IFiliereRepository;
+import sopra.formation.persistence.IFormateurRepository;
+import sopra.formation.persistence.IStagiaireRepository;
 
-public class TestFormationJunit3 extends TestCase {
-	private ClassPathXmlApplicationContext context;
-	
-	protected void setUp() throws Exception {
-		context = new ClassPathXmlApplicationContext("application-context.xml");
-	}
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "/application-context.xml")
+//@ContextConfiguration(classes = ApplicationConfig.class)
+public class TestFormationJunitSpring {
 
-	protected void tearDown() throws Exception {
-		context.close();
-	}
+	@Autowired
+	private IEvaluationRepository evaluationDao;
 
-	public void testEvaluation() {
-		IEvaluationDao evaluationDao = context.getBean(IEvaluationDao.class);
+	@Autowired
+	private IFiliereRepository filiereDao;
 
+	@Autowired
+	private IFormateurRepository formateurDao;
+
+	@Autowired
+	private IStagiaireRepository stagiaireDao;
+
+	@Test
+	public void evaluation() {
 		int startSize = evaluationDao.findAll().size();
-
+		
 		Evaluation evaluation = new Evaluation(12, 15, "Bonne évolution");
 
 		evaluation = evaluationDao.save(evaluation);
 
-		Evaluation evalutionFind = evaluationDao.find(evaluation.getId());
+		Optional<Evaluation> optEvaluation = evaluationDao.findById(evaluation.getId());
 
-		Assert.assertEquals((Integer) 12, evalutionFind.getComportemental());
-		Assert.assertEquals((Integer) 15, evalutionFind.getTechnique());
-		Assert.assertEquals("Bonne évolution", evalutionFind.getCommentaires());
+		if (optEvaluation.isEmpty()) {
+			Assert.fail("Erreur sur findById");
+		}
+
+		Evaluation evaluationFind = optEvaluation.get();
+
+		Assert.assertEquals((Integer) 12, evaluationFind.getComportemental());
+		Assert.assertEquals((Integer) 15, evaluationFind.getTechnique());
+		Assert.assertEquals("Bonne évolution", evaluationFind.getCommentaires());
 
 		evaluation.setComportemental(16);
 		evaluation.setTechnique(13);
@@ -52,11 +67,17 @@ public class TestFormationJunit3 extends TestCase {
 
 		evaluation = evaluationDao.save(evaluation);
 
-		evalutionFind = evaluationDao.find(evaluation.getId());
+		optEvaluation = evaluationDao.findById(evaluation.getId());
 
-		Assert.assertEquals((Integer) 16, evalutionFind.getComportemental());
-		Assert.assertEquals((Integer) 13, evalutionFind.getTechnique());
-		Assert.assertEquals("Baisse de régime", evalutionFind.getCommentaires());
+		if (optEvaluation.isEmpty()) {
+			Assert.fail("Erreur sur findById");
+		}
+
+		evaluationFind = optEvaluation.get();
+
+		Assert.assertEquals((Integer) 16, evaluationFind.getComportemental());
+		Assert.assertEquals((Integer) 13, evaluationFind.getTechnique());
+		Assert.assertEquals("Baisse de régime", evaluationFind.getCommentaires());
 
 		int testSize = evaluationDao.findAll().size();
 
@@ -66,21 +87,19 @@ public class TestFormationJunit3 extends TestCase {
 
 		evaluationDao.delete(evaluation);
 
-		evalutionFind = evaluationDao.find(evaluation.getId());
+		optEvaluation = evaluationDao.findById(evaluation.getId());
 
-		Assert.assertNull(evalutionFind);
+		if (optEvaluation.isPresent()) {
+			Assert.fail("Erreur sur delete");
+		}
 
 		int endSize = evaluationDao.findAll().size();
 
 		Assert.assertEquals(0, (endSize - startSize));
 	}
 
-	public void testStagiaire() throws ParseException {
-		IEvaluationDao evaluationDao = context.getBean(IEvaluationDao.class);
-		IFiliereDao filiereDao = context.getBean(IFiliereDao.class);
-		IFormateurDao formateurDao = context.getBean(IFormateurDao.class);
-		IStagiaireDao stagiaireDao = context.getBean(IStagiaireDao.class);
-
+	@Test
+	public void stagiaire() throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 		Formateur eric = new Formateur("e.sultan@ajc-ingenierie.fr");
@@ -101,8 +120,8 @@ public class TestFormationJunit3 extends TestCase {
 		evalCecilia = evaluationDao.save(evalCecilia);
 
 		int startSize = stagiaireDao.findAll().size();
-		int startSizeByVille = stagiaireDao.findAllByVille("Paris").size();
-		int startSizeByFormateur = stagiaireDao.findAllByFormateur("SULTAN").size();
+//		int startSizeByVille = stagiaireDao.findAllByVille("Paris").size();
+//		int startSizeByFormateur = stagiaireDao.findAllByFormateur("SULTAN").size();
 
 		Stagiaire cecile = new Stagiaire("cecile.larrouy@outlook.fr");
 		cecile.setCivilite(Civilite.MLLE);
@@ -117,7 +136,13 @@ public class TestFormationJunit3 extends TestCase {
 
 		cecile = stagiaireDao.save(cecile);
 
-		Stagiaire cecileFind = stagiaireDao.find(cecile.getId());
+		Optional<Stagiaire> optStagiaire = stagiaireDao.findById(cecile.getId());
+
+		if (optStagiaire.isEmpty()) {
+			Assert.fail("Erreur sur findById");
+		}
+
+		Stagiaire cecileFind = optStagiaire.get();
 
 		Assert.assertEquals(Civilite.MLLE, cecileFind.getCivilite());
 		Assert.assertEquals("LARROUY", cecileFind.getNom());
@@ -146,7 +171,13 @@ public class TestFormationJunit3 extends TestCase {
 
 		cecile = stagiaireDao.save(cecile);
 
-		cecileFind = stagiaireDao.find(cecile.getId());
+		optStagiaire = stagiaireDao.findById(cecile.getId());
+
+		if (optStagiaire.isEmpty()) {
+			Assert.fail("Erreur sur findById");
+		}
+
+		cecileFind = optStagiaire.get();
 
 		Assert.assertEquals(Civilite.MME, cecileFind.getCivilite());
 		Assert.assertEquals("SARKOZY", cecileFind.getNom());
@@ -171,19 +202,21 @@ public class TestFormationJunit3 extends TestCase {
 			Assert.fail("FindAll size en erreur");
 		}
 
-		int testSizeByVille = stagiaireDao.findAllByVille("Paris").size();
-
-		Assert.assertEquals(1, testSizeByVille - startSizeByVille);
-
-		int testSizeByFormateur = stagiaireDao.findAllByFormateur("SULTAN").size();
-
-		Assert.assertEquals("Erreur dans la requête findAllByFormateur", 1, testSizeByFormateur - startSizeByFormateur);
+//		int testSizeByVille = stagiaireDao.findAllByVille("Paris").size();
+//
+//		Assert.assertEquals(1, testSizeByVille - startSizeByVille);
+//
+//		int testSizeByFormateur = stagiaireDao.findAllByFormateur("SULTAN").size();
+//
+//		Assert.assertEquals("Erreur dans la requête findAllByFormateur", 1, testSizeByFormateur - startSizeByFormateur);
 
 		stagiaireDao.delete(cecile);
 
-		cecileFind = stagiaireDao.find(cecile.getId());
+		optStagiaire = stagiaireDao.findById(cecile.getId());
 
-		Assert.assertNull(cecileFind);
+		if (optStagiaire.isPresent()) {
+			Assert.fail("Erreur sur delete");
+		}
 
 		evaluationDao.delete(evalCecilia);
 		evaluationDao.delete(evalCecile);
