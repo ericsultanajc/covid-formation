@@ -39,23 +39,7 @@ public class TestFormationDao {
 		IStagiaireDao stagiaireDao = context.getBean(IStagiaireDao.class);
 		IUEDao ueDao = context.getBean(IUEDao.class);
 
-		DataSource datasource = context.getBean(DataSource.class);
-
-		System.out.println(datasource);
-
-		EntityManagerFactory emf = context.getBean(EntityManagerFactory.class);
-
-		System.out.println(emf);
-
-		IEvaluationDao evaluationDao = context.getBean(IEvaluationDao.class);
-		IFiliereDao filiereDao = context.getBean(IFiliereDao.class);
-		IFormateurDao formateurDao = context.getBean(IFormateurDao.class);
-		IMatiereDao matiereDao = context.getBean(IMatiereDao.class);
-		ISalleDao salleDao = context.getBean(ISalleDao.class);
-		IStagiaireDao stagiaireDao = context.getBean(IStagiaireDao.class);
-		IUEDao ueDao = context.getBean(IUEDao.class);
-		
-
+	
 		Evaluation evalCecile = new Evaluation(14, 17, "RAS");
 		evalCecile = evaluationDao.save(evalCecile);
 
