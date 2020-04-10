@@ -27,19 +27,17 @@ import sopra.formation.persistence.IUEDao;
 public class TestFormationDao {
 
 	public static void main(String[] args) throws ParseException {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
-		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
+		ClassPathXmlApplicationContext appliContext = new ClassPathXmlApplicationContext("application-context.xml");
 
-		IEvaluationDao evaluationDao = context.getBean(IEvaluationDao.class);
-		IFiliereDao filiereDao = context.getBean(IFiliereDao.class);
-		IFormateurDao formateurDao = context.getBean(IFormateurDao.class);
-		IMatiereDao matiereDao = context.getBean(IMatiereDao.class);
-		ISalleDao salleDao = context.getBean(ISalleDao.class);
-		IStagiaireDao stagiaireDao = context.getBean(IStagiaireDao.class);
-		IUEDao ueDao = context.getBean(IUEDao.class);
+		IEvaluationDao evaluationDao = appliContext.getBean(IEvaluationDao.class);
+		IFiliereDao filiereDao = appliContext.getBean(IFiliereDao.class);
+		IFormateurDao formateurDao = appliContext.getBean(IFormateurDao.class);
+		IMatiereDao matiereDao = appliContext.getBean(IMatiereDao.class);
+		ISalleDao salleDao = appliContext.getBean(ISalleDao.class);
+		IStagiaireDao stagiaireDao = appliContext.getBean(IStagiaireDao.class);
+		IUEDao ueDao = appliContext.getBean(IUEDao.class);
 
 		Evaluation evalCecile = new Evaluation(14, 17, "RAS");
 		evalCecile = evaluationDao.save(evalCecile);
@@ -147,9 +145,9 @@ public class TestFormationDao {
 		covidServletJsp.setSalle(wim);
 		covidServletJsp = ueDao.save(covidServletJsp);
 		
-		context.close();
+		appliContext.close();
 
-		context.close();
+		appliContext.close();
 	}
 
 }

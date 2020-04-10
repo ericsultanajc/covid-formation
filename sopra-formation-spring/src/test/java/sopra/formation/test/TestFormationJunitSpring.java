@@ -1,5 +1,7 @@
 package sopra.formation.test;
 
+import static org.junit.Assert.assertEquals;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -41,12 +43,20 @@ public class TestFormationJunitSpring {
 	private IStagiaireDao stagiaireDao;
 
 	@Test
-	public void evaluation() {
+	public void evaluation() throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		int startSize = evaluationDao.findAll().size();
 
 		Evaluation evaluation = new Evaluation(12, 15, "Bonne évolution");
-
 		evaluation = evaluationDao.save(evaluation);
+
+		Stagiaire manon = new Stagiaire(Civilite.MLLE, "CHARLES", "Manon", "charles.manon@yahoo.com", "06.35.24.43.32",
+				sdf.parse("06/08/1992"), NiveauEtude.BAC_5);
+		manon.setEvaluation(evaluation);
+		manon = stagiaireDao.save(manon);
+
+		int startSizeByComportementalAndTechnique = evaluationDao.findAllByComportementalAndTechnique(10, 14).size();
+		int startSizeByStagiaireNiveau = evaluationDao.findAllByStagiaireNiveau(NiveauEtude.BAC_5).size();
 
 		Evaluation evalutionFind = evaluationDao.find(evaluation.getId());
 
@@ -72,7 +82,16 @@ public class TestFormationJunitSpring {
 			Assert.fail("FindAll size en erreur");
 		}
 
+		int testSizeByStagiaireNiveau = evaluationDao.findAllByStagiaireNiveau(NiveauEtude.BAC_5).size();
+		Assert.assertEquals("Erreur dans la requête findAllByStagiaireNiveau", 1,
+				testSizeByStagiaireNiveau - startSizeByStagiaireNiveau);
+
+		int testSizeByComportementalAndTechnique = evaluationDao.findAllByComportementalAndTechnique(10, 14).size();
+		Assert.assertEquals("Erreur dans la requête findAllByComportementalAndTechnique", 1,
+				testSizeByComportementalAndTechnique - startSizeByComportementalAndTechnique);
+
 		evaluationDao.delete(evaluation);
+		stagiaireDao.delete(manon);
 
 		evalutionFind = evaluationDao.find(evaluation.getId());
 
@@ -81,6 +100,7 @@ public class TestFormationJunitSpring {
 		int endSize = evaluationDao.findAll().size();
 
 		Assert.assertEquals(0, (endSize - startSize));
+
 	}
 
 	@Test
@@ -107,7 +127,7 @@ public class TestFormationJunitSpring {
 		int startSize = stagiaireDao.findAll().size();
 		int startSizeByVille = stagiaireDao.findAllByVille("Paris").size();
 		int startSizeByFormateur = stagiaireDao.findAllByFormateur("SULTAN").size();
-		
+
 		Stagiaire cecile = new Stagiaire("cecile.larrouy@outlook.fr");
 		cecile.setCivilite(Civilite.MLLE);
 		cecile.setNom("LARROUY");
@@ -178,11 +198,11 @@ public class TestFormationJunitSpring {
 		int testSizeByVille = stagiaireDao.findAllByVille("Paris").size();
 
 		Assert.assertEquals(1, testSizeByVille - startSizeByVille);
-		
+
 		int testSizeByFormateur = stagiaireDao.findAllByFormateur("SULTAN").size();
 
 		Assert.assertEquals("Erreur dans la requête findAllByFormateur", 1, testSizeByFormateur - startSizeByFormateur);
-		
+
 		stagiaireDao.delete(cecile);
 
 		cecileFind = stagiaireDao.find(cecile.getId());

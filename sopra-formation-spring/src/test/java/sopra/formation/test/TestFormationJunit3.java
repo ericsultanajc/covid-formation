@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 
 import org.junit.Assert;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.util.Assert;
 
 import junit.framework.TestCase;
 import sopra.formation.model.Adresse;
@@ -38,8 +37,8 @@ public class TestFormationJunit3 extends TestCase {
 
 		Evaluation evaluationFind = evaluationDao.find(evaluation.getId());
 		
-		Assert.assertEquals((Integer)16, evaluationFind.getComportemental());
-		Assert.assertEquals((Integer)12, evaluationFind.getTechnique());
+		Assert.assertEquals((Integer)12, evaluationFind.getComportemental());
+		Assert.assertEquals((Integer)15, evaluationFind.getTechnique());
 		Assert.assertEquals("Bonne évolution", evaluationFind.getCommentaires());
 		
 		evaluation.setComportemental(16);
@@ -59,6 +58,7 @@ public class TestFormationJunit3 extends TestCase {
 	}
 
 	public void testStagiaire() throws ParseException {
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
 		IEvaluationDao evaluationDao = context.getBean(IEvaluationDao.class);
 		IFiliereDao filiereDao = context.getBean(IFiliereDao.class);
 		IFormateurDao formateurDao = context.getBean(IFormateurDao.class);
