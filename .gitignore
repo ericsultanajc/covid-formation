@@ -22,3 +22,11 @@ sopra-formation-spring/target/
 sopra-formation-spring/.classpath
 
 sopra-formation-spring/.project
+
+sopra-formation-spring-data-jpa/.settings/
+
+sopra-formation-spring-data-jpa/target/
+
+sopra-formation-spring-data-jpa/.classpath
+
+sopra-formation-spring-data-jpa/.project

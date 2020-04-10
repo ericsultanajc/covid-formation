@@ -2,6 +2,7 @@ package sopra.formation.test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Optional;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,11 +19,10 @@ import sopra.formation.model.Filiere;
 import sopra.formation.model.Formateur;
 import sopra.formation.model.NiveauEtude;
 import sopra.formation.model.Stagiaire;
-import sopra.formation.persistence.IEvaluationDao;
-import sopra.formation.persistence.IFiliereDao;
-import sopra.formation.persistence.IFormateurDao;
-import sopra.formation.persistence.IStagiaireDao;
-import sopra.formation.persistence.jpa.StagiaireDaoJpa;
+import sopra.formation.persistence.IEvaluationRepository;
+import sopra.formation.persistence.IFiliereRepository;
+import sopra.formation.persistence.IFormateurRepository;
+import sopra.formation.persistence.IStagiaireRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/application-context.xml")
@@ -30,136 +30,72 @@ import sopra.formation.persistence.jpa.StagiaireDaoJpa;
 public class TestFormationJunitSpring {
 
 	@Autowired
-	private IEvaluationDao evaluationDao;
+	private IEvaluationRepository evaluationDao;
 
 	@Autowired
-	private IFiliereDao filiereDao;
+	private IFiliereRepository filiereDao;
 
 	@Autowired
-	private IFormateurDao formateurDao;
+	private IFormateurRepository formateurDao;
 
 	@Autowired
-	private IStagiaireDao stagiaireDao;
+	private IStagiaireRepository stagiaireDao;
 
 	@Test
 	public void evaluation() {
 		int startSize = evaluationDao.findAll().size();
+		
+		Evaluation evaluation = new Evaluation(12, 15, "Bonne évolution");
 
-	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-	
-//	@Test
-//	public void evaluation() {
-//		int startSize = evaluationDao.findAll().size();
-//
-//		Evaluation evaluation = new Evaluation(12, 15, "Bonne évolution");
-//
-//		evaluation = evaluationDao.save(evaluation);
-//
-//		Evaluation evalutionFind = evaluationDao.find(evaluation.getId());
-//
-//		Assert.assertEquals((Integer) 12, evalutionFind.getComportemental());
-//		Assert.assertEquals((Integer) 15, evalutionFind.getTechnique());
-//		Assert.assertEquals("Bonne évolution", evalutionFind.getCommentaires());
-//
-//		evaluation.setComportemental(16);
-//		evaluation.setTechnique(13);
-//		evaluation.setCommentaires("Baisse de régime");
-//
-//		evaluation = evaluationDao.save(evaluation);
-//
-//		evalutionFind = evaluationDao.find(evaluation.getId());
-//
-//		Assert.assertEquals((Integer) 16, evalutionFind.getComportemental());
-//		Assert.assertEquals((Integer) 13, evalutionFind.getTechnique());
-//		Assert.assertEquals("Baisse de régime", evalutionFind.getCommentaires());
-//
-//		int testSize = evaluationDao.findAll().size();
-//
-//		if ((testSize - startSize) != 1) {
-//			Assert.fail("FindAll size en erreur");
-//		}
-//
-//		evaluationDao.delete(evaluation);
-//
-//		evalutionFind = evaluationDao.find(evaluation.getId());
-//
-//		Assert.assertNull(evalutionFind);
-//
-//		int endSize = evaluationDao.findAll().size();
-//
-//		Assert.assertEquals(0, (endSize - startSize));
-//	}
+		evaluation = evaluationDao.save(evaluation);
 
-		
-	@Test
-	public void stagiaire() throws ParseException {
-		int startSize = stagiaireDao.findAll().size();
+		Optional<Evaluation> optEvaluation = evaluationDao.findById(evaluation.getId());
 
-		Stagiaire cecile = new Stagiaire(Civilite.MLLE, "LARROUY", "Cécile", "cecile.larrouy@outlook.fr", "0608050400", sdf.parse("23/04/1994"), NiveauEtude.BAC_5);
-		cecile = stagiaireDao.save(cecile);
-		
-		cecile.setAdresse(new Adresse("93 Boulevard George V", "Résidence Zola", "33400", "Talence"));
-		cecile = stagiaireDao.save(cecile);
-		
-		Evaluation evalCecile = new Evaluation(14, 17, "RAS");
-		evalCecile = evaluationDao.save(evalCecile);
-		cecile.setEvaluation(evalCecile);
-		cecile = stagiaireDao.save(cecile);
-		
-		Filiere covid = new Filiere("JAVA SPRING ANGULAR", "COVID", sdf.parse("09/03/2020"), 57, Dispositif.POEI);
-		covid = filiereDao.save(covid);
-		cecile.setFiliere(covid);
-		cecile = stagiaireDao.save(cecile);
-		
-		Stagiaire stagiaireFind = stagiaireDao.find(cecile.getId());
+		if (optEvaluation.isEmpty()) {
+			Assert.fail("Erreur sur findById");
+		}
 
-		Assert.assertEquals("cecile.larrouy@outlook.fr", stagiaireFind.getEmail());
-		Assert.assertEquals(Civilite.MLLE, stagiaireFind.getCivilite());
-		Assert.assertEquals("LARROUY", stagiaireFind.getNom());
-		Assert.assertEquals("Cécile", stagiaireFind.getPrenom());
-		Assert.assertEquals("0608050400", stagiaireFind.getTelephone());
-		Assert.assertEquals(sdf.parse("23/04/1994"), stagiaireFind.getDtNaissance());
-		Assert.assertEquals(NiveauEtude.BAC_5, stagiaireFind.getNiveauEtude());
-//		Assert.assertEquals(new Adresse("93 Boulevard George V", "Résidence Zola", "33400", "Talence"), stagiaireFind.getAdresse());
-//		Assert.assertNotNull(stagiaireFind.getEvaluation()); 
-		Assert.assertEquals("covid", stagiaireFind.getFiliere());
-//		Assert.assertEquals("(Integer) 14, (Integer) 17, \"RAS\"", stagiaireFind.getEvaluation());
-//		
-//		
-		cecile.setEmail("cecile.larrouy@live.fr");
-		cecile = stagiaireDao.save(cecile);
-		
-		stagiaireFind = stagiaireDao.find(cecile.getId());
-		
-		Assert.assertEquals("cecile.larrouy@live.fr", stagiaireFind.getEmail());
-		
-		int testSize = stagiaireDao.findAll().size(); 
-		
+		Evaluation evaluationFind = optEvaluation.get();
+
+		Assert.assertEquals((Integer) 12, evaluationFind.getComportemental());
+		Assert.assertEquals((Integer) 15, evaluationFind.getTechnique());
+		Assert.assertEquals("Bonne évolution", evaluationFind.getCommentaires());
+
+		evaluation.setComportemental(16);
+		evaluation.setTechnique(13);
+		evaluation.setCommentaires("Baisse de régime");
+
+		evaluation = evaluationDao.save(evaluation);
+
+		optEvaluation = evaluationDao.findById(evaluation.getId());
+
+		if (optEvaluation.isEmpty()) {
+			Assert.fail("Erreur sur findById");
+		}
+
+		evaluationFind = optEvaluation.get();
+
+		Assert.assertEquals((Integer) 16, evaluationFind.getComportemental());
+		Assert.assertEquals((Integer) 13, evaluationFind.getTechnique());
+		Assert.assertEquals("Baisse de régime", evaluationFind.getCommentaires());
+
+		int testSize = evaluationDao.findAll().size();
+
 		if ((testSize - startSize) != 1) {
 			Assert.fail("FindAll size en erreur");
 		}
-		
-		stagiaireDao.delete(cecile);
-		
-		stagiaireFind = stagiaireDao.find(cecile.getId());
 
-		Assert.assertNull(stagiaireFind);
+		evaluationDao.delete(evaluation);
 
-		int endSize = stagiaireDao.findAll().size();
+		optEvaluation = evaluationDao.findById(evaluation.getId());
+
+		if (optEvaluation.isPresent()) {
+			Assert.fail("Erreur sur delete");
+		}
+
+		int endSize = evaluationDao.findAll().size();
 
 		Assert.assertEquals(0, (endSize - startSize));
-		
-		List<Stagiaire> stagiaireFindByVille = stagiaireDao.findAllByVille("Talence"); 
-		System.out.println(stagiaireFindByVille);
-		
-		Formateur eric = new Formateur(Civilite.M, "SULTAN", "Eric", "e.sultan@ajc-ingenierie.fr", "0645104506", true, 20);
-		eric = formateurDao.save(eric);
-		
-		covid.setReferent(eric);
-		filiereDao.save(covid); 
-		
-		List<Stagiaire> stagiaireFindByFormateur = stagiaireDao.findAllByFormateur("eric"); 
-		System.out.println(stagiaireFindByFormateur);
 	}
 
 	@Test
@@ -184,9 +120,9 @@ public class TestFormationJunitSpring {
 		evalCecilia = evaluationDao.save(evalCecilia);
 
 		int startSize = stagiaireDao.findAll().size();
-		int startSizeByVille = stagiaireDao.findAllByVille("Paris").size();
-		int startSizeByFormateur = stagiaireDao.findAllByFormateur("SULTAN").size();
-		
+//		int startSizeByVille = stagiaireDao.findAllByVille("Paris").size();
+//		int startSizeByFormateur = stagiaireDao.findAllByFormateur("SULTAN").size();
+
 		Stagiaire cecile = new Stagiaire("cecile.larrouy@outlook.fr");
 		cecile.setCivilite(Civilite.MLLE);
 		cecile.setNom("LARROUY");
@@ -200,7 +136,13 @@ public class TestFormationJunitSpring {
 
 		cecile = stagiaireDao.save(cecile);
 
-		Stagiaire cecileFind = stagiaireDao.find(cecile.getId());
+		Optional<Stagiaire> optStagiaire = stagiaireDao.findById(cecile.getId());
+
+		if (optStagiaire.isEmpty()) {
+			Assert.fail("Erreur sur findById");
+		}
+
+		Stagiaire cecileFind = optStagiaire.get();
 
 		Assert.assertEquals(Civilite.MLLE, cecileFind.getCivilite());
 		Assert.assertEquals("LARROUY", cecileFind.getNom());
@@ -229,7 +171,13 @@ public class TestFormationJunitSpring {
 
 		cecile = stagiaireDao.save(cecile);
 
-		cecileFind = stagiaireDao.find(cecile.getId());
+		optStagiaire = stagiaireDao.findById(cecile.getId());
+
+		if (optStagiaire.isEmpty()) {
+			Assert.fail("Erreur sur findById");
+		}
+
+		cecileFind = optStagiaire.get();
 
 		Assert.assertEquals(Civilite.MME, cecileFind.getCivilite());
 		Assert.assertEquals("SARKOZY", cecileFind.getNom());
@@ -254,19 +202,21 @@ public class TestFormationJunitSpring {
 			Assert.fail("FindAll size en erreur");
 		}
 
-		int testSizeByVille = stagiaireDao.findAllByVille("Paris").size();
+//		int testSizeByVille = stagiaireDao.findAllByVille("Paris").size();
+//
+//		Assert.assertEquals(1, testSizeByVille - startSizeByVille);
+//
+//		int testSizeByFormateur = stagiaireDao.findAllByFormateur("SULTAN").size();
+//
+//		Assert.assertEquals("Erreur dans la requête findAllByFormateur", 1, testSizeByFormateur - startSizeByFormateur);
 
-		Assert.assertEquals(1, testSizeByVille - startSizeByVille);
-		
-		int testSizeByFormateur = stagiaireDao.findAllByFormateur("SULTAN").size();
-
-		Assert.assertEquals("Erreur dans la requête findAllByFormateur", 1, testSizeByFormateur - startSizeByFormateur);
-		
 		stagiaireDao.delete(cecile);
 
-		cecileFind = stagiaireDao.find(cecile.getId());
+		optStagiaire = stagiaireDao.findById(cecile.getId());
 
-		Assert.assertNull(cecileFind);
+		if (optStagiaire.isPresent()) {
+			Assert.fail("Erreur sur delete");
+		}
 
 		evaluationDao.delete(evalCecilia);
 		evaluationDao.delete(evalCecile);
