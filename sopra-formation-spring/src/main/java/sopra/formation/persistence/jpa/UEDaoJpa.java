@@ -17,11 +17,7 @@ import sopra.formation.persistence.IUEDao;
 public class UEDaoJpa implements IUEDao {
 
 	@PersistenceContext
-<<<<<<< Updated upstream
-	private EntityManager em;
-=======
 	private EntityManager em; // entityManagerFactory.createEntityManager()
->>>>>>> Stashed changes
 
 	@Override
 	@Transactional(readOnly = true)

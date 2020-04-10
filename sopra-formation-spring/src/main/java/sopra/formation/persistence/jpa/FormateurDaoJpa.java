@@ -18,11 +18,7 @@ import sopra.formation.persistence.IFormateurDao;
 public class FormateurDaoJpa implements IFormateurDao {
 
 	@PersistenceContext
-<<<<<<< Updated upstream
-	private EntityManager em;
-=======
 	private EntityManager em; // entityManagerFactory.createEntityManager()
->>>>>>> Stashed changes
 
 	@Override
 	@Transactional(readOnly = true)
@@ -51,10 +47,6 @@ public class FormateurDaoJpa implements IFormateurDao {
 	@Override
 	@Transactional(readOnly = true)
 	public Formateur findByFiliere(Filiere filiere) {
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 		TypedQuery<Formateur> query = em
 				.createQuery("select form from Filiere f join f.referent form where f = :filiere", Formateur.class);
 
@@ -66,10 +58,6 @@ public class FormateurDaoJpa implements IFormateurDao {
 	@Override
 	@Transactional(readOnly = true)
 	public Formateur findByEmail(String email) {
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 		TypedQuery<Formateur> query = em.createQuery("select f from Formateur f where f.email = :email",
 				Formateur.class);
 

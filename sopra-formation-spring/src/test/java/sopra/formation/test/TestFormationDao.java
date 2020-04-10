@@ -31,8 +31,6 @@ public class TestFormationDao {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
-
 		IEvaluationDao evaluationDao = context.getBean(IEvaluationDao.class);
 		IFiliereDao filiereDao = context.getBean(IFiliereDao.class);
 		IFormateurDao formateurDao = context.getBean(IFormateurDao.class);

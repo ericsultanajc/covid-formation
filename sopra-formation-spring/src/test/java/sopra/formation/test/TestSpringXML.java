@@ -16,7 +16,7 @@ public class TestSpringXML {
 //			e.printStackTrace();
 //		}
 		
-//		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
 
 		IEvaluationDao evaluationDao = context.getBean(IEvaluationDao.class);
 

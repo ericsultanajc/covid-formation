@@ -82,7 +82,7 @@ public class Stagiaire extends Personne {
 
 	@Override
 	public String toString() {
-		return "Stagiaire [dtNaissance=" + dtNaissance + ", niveauEtude=" + niveauEtude + ", evaluation=" + evaluation
+		return "Stagiaire [niveauEtude=" + niveauEtude + ", evaluation=" + evaluation
 				+ ", " + super.toString() + "]";
 	}
 
