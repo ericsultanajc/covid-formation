@@ -2,6 +2,7 @@ package sopra.formation.test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.Assert;
@@ -120,8 +121,11 @@ public class TestFormationJunitSpring {
 		evalCecilia = evaluationDao.save(evalCecilia);
 
 		int startSize = stagiaireDao.findAll().size();
-//		int startSizeByVille = stagiaireDao.findAllByVille("Paris").size();
-//		int startSizeByFormateur = stagiaireDao.findAllByFormateur("SULTAN").size();
+		
+		int startSizeByVille = stagiaireDao.findAllByVille("Paris").size();
+		
+		
+		int startSizeByFormateur = stagiaireDao.findAllByFormateur("SULTAN").size();
 
 		Stagiaire cecile = new Stagiaire("cecile.larrouy@outlook.fr");
 		cecile.setCivilite(Civilite.MLLE);
@@ -202,13 +206,13 @@ public class TestFormationJunitSpring {
 			Assert.fail("FindAll size en erreur");
 		}
 
-//		int testSizeByVille = stagiaireDao.findAllByVille("Paris").size();
+		int testSizeByVille = stagiaireDao.findAllByVille("Paris").size();
 //
-//		Assert.assertEquals(1, testSizeByVille - startSizeByVille);
+		Assert.assertEquals(1, testSizeByVille - startSizeByVille);
 //
-//		int testSizeByFormateur = stagiaireDao.findAllByFormateur("SULTAN").size();
+		int testSizeByFormateur = stagiaireDao.findAllByFormateur("SULTAN").size();
 //
-//		Assert.assertEquals("Erreur dans la requête findAllByFormateur", 1, testSizeByFormateur - startSizeByFormateur);
+		Assert.assertEquals("Erreur dans la requête findAllByFormateur", 1, testSizeByFormateur - startSizeByFormateur);
 
 		stagiaireDao.delete(cecile);
 
@@ -217,12 +221,16 @@ public class TestFormationJunitSpring {
 		if (optStagiaire.isPresent()) {
 			Assert.fail("Erreur sur delete");
 		}
+		
+
 
 		evaluationDao.delete(evalCecilia);
 		evaluationDao.delete(evalCecile);
 
 		filiereDao.delete(elysee);
 		filiereDao.delete(covid);
+		
+		
 	}
 
 }
