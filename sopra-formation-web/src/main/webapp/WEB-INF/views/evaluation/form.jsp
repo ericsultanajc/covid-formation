@@ -13,7 +13,7 @@
 </head>
 <body>
 
-	<div class="container">
+	<div class="container-fluid">
 		<c:url value="/evaluation" var="saveUrl"/>
 		<form action="${saveUrl}" method="post">
 			<input type="hidden" name="mode" value="save"> 
