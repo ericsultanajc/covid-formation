@@ -13,83 +13,88 @@
 </head>
 <body>
 
-	<div class="container">
-		<c:url value="/stagiaire" var="saveUrl" />
+	<div class="container-fluid">
+		<c:url value="/stagiaire" var="saveUrl"/>
 		<form action="${saveUrl}" method="post">
 			<input type="hidden" name="mode" value="save"> <input
-				type="hidden" name="id" value="${monStagiaire.id}"> <input
-				type="hidden" name="version" value="${monStagiaire.version}">
+				type="hidden" name="id" value="${stagiaire.id}"> <input
+				type="hidden" name="version" value="${stagiaire.version}">
 			<div id="filiereForm" class="card mt-3">
 				<div class="card-header bg-info text-white">
-					<h3>Edition du Stagiaire</h3>
+					<h3>Edition du stagiaire</h3>
 				</div>
 				<div class="card-body">
-					<div id="civilite">
-						<input required type="radio" id="monsieur" name="civilite"  value="M" ${monStagiaire.civilite=="M"?"checked":""} /> 
-							<label for="monsieur"> Monsieur</label> 
-						<input type="radio" id="madame"
-							name="civilite" value="MME" ${monStagiaire.civilite=="MME"?"checked":""} /> 
-							<label for="madame"> Madame</label> 
-						<input type="radio"
-							id="mademoiselle" name="civilite" value="MLLE" ${monStagiaire.civilite=="MLLE"?"checked":""} /> 
-							<label for="mademoiselle"> Mademoiselle</label>
+					<div class="form-group">
+						<label for="civilite">Civilité:</label> <select
+							class="form-control" id="civilite" name="civilite">
+							<c:forEach items="${civilites}" var="civ">
+								<option value="${civ}" ${stagiaire.civilite == civ ? 'selected' : ''}>${civ.label}</option>
+							</c:forEach>
+						</select>
+
 					</div>
 					<div class="form-group">
-						<label for="technique">Nom :</label> <input type="text"
-							class="form-control" id="nom" name="nom"
-							value="${monStagiaire.nom}">
+						<label for="nom">Nom:</label> <input type="text"
+							class="form-control" id="nom" name="nom" value="${stagiaire.nom}">
 					</div>
 					<div class="form-group">
-						<label for="commentaires">Prénom :</label> <input type="text"
+						<label for="prenom">Prénom:</label> <input type="text"
 							class="form-control" id="prenom" name="prenom"
-							value="${monStagiaire.prenom}">
+							value="${stagiaire.prenom}">
 					</div>
 					<div class="form-group">
-						<label for="commentaires">Email :</label> <input type="text"
+						<label for="email">Courriel:</label> <input type="text"
 							class="form-control" id="email" name="email"
-							value="${monStagiaire.email}">
+							value="${stagiaire.email}">
 					</div>
 					<div class="form-group">
-						<label for="commentaires">Téléphone :</label> <input type="text"
+						<label for="telephone">Téléphone:</label> <input type="text"
 							class="form-control" id="telephone" name="telephone"
-							value="${monStagiaire.telephone}">
+							value="${stagiaire.telephone}">
 					</div>
 					<div class="form-group">
-						<label for="commentaires">Rue :</label> <input type="text"
+						<label for="dtNaissance">Date de naissance:</label> <input
+							type="date" class="form-control" id="dtNaissance"
+							name="dtNaissance" value="${stagiaire.dtNaissance}">
+					</div>
+					<div class="form-group">
+						<label for="niveauEtude">Niveau d'étude:</label> <select
+							class="form-control" id="niveauEtude" name="niveauEtude">
+							<c:forEach items="${niveauEtudes}" var="niv">
+								<option value="${niv}"
+									${stagiaire.niveauEtude == niv ? 'selected' : ''}>${niv}</option>
+							</c:forEach>
+						</select>
+
+					</div>
+					<div class="form-group">
+						<label for="rue">Rue:</label> <input type="text"
 							class="form-control" id="rue" name="rue"
-							value="${monStagiaire.adresse.rue}">
+							value="${stagiaire.adresse.rue}">
 					</div>
 					<div class="form-group">
-						<label for="commentaires">Complément :</label> <input type="text"
+						<label for="complement">Complément:</label> <input type="text"
 							class="form-control" id="complement" name="complement"
-							value="${monStagiaire.adresse.complement}">
+							value="${stagiaire.adresse.complement}">
 					</div>
 					<div class="form-group">
-						<label for="commentaires">Code postal :</label> <input type="text"
-							class="form-control" id="codePostal" name=codePostal
-							value="${monStagiaire.adresse.codePostal}">
+						<label for="codePostal">Code postal:</label> <input type="text"
+							class="form-control" id="codePostal" name="codePostal"
+							value="${stagiaire.adresse.codePostal}">
 					</div>
 					<div class="form-group">
-						<label for="commentaires">Ville :</label> <input type="text"
+						<label for="ville">Ville:</label> <input type="text"
 							class="form-control" id="ville" name="ville"
-							value="${monStagiaire.adresse.ville}">
+							value="${stagiaire.adresse.ville}">
 					</div>
 					<div class="form-group">
-						<label for="commentaires">Date de Naissance :</label> <input type="text"
-							class="form-control" id="dtNaissance" name="dtNaissance"
-							value="${monStagiaire.dtNaissance}">
-					</div>
-					<div id="niveauEtude">
-						<input required type="radio" id="bac" name="niveauEtude" value="BAC" ${monStagiaire.niveauEtude=="BAC"?"checked":""} /> 
-							<label for="monsieur"> Bac </label> 
-						<input type="radio" id="bac" name="niveauEtude" value="BAC_2" ${monStagiaire.niveauEtude=="BAC_2"?"checked":""} /> 
-							<label for="monsieur"> Bac + 2 </label> 
-						<input type="radio" id="bac" name="niveauEtude" value="BAC_3" ${monStagiaire.niveauEtude=="BAC_3"?"checked":""} /> 
-							<label for="monsieur"> Bac + 3 </label> 								
-						<input type="radio" id="bac" name="niveauEtude" value="BAC_5" ${monStagiaire.niveauEtude=="BAC_5"?"checked":""} /> 
-							<label for="monsieur"> Bac + 5 </label> 
-						<input type="radio" id="bac" name="niveauEtude" value="BAC_5" ${monStagiaire.niveauEtude=="BAC_8"?"checked":""} /> 
-							<label for="monsieur"> Bac + 8 </label> 
+						<label for="evaluation">Evaluation:</label> <select
+							class="form-control" id="evaluation" name="evaluation">
+							<c:forEach items="${evaluations}" var="eval">
+								<option value="${eval.id}" ${stagiaire.evaluation.id == eval.id ? 'selected' : ''}>${eval.id} - ${eval.commentaires}</option>
+							</c:forEach>
+						</select>
+
 					</div>
 				</div>
 				<div class="card-footer">
@@ -98,7 +103,7 @@
 							<i class="fa fa-check"></i>
 						</button>
 						<c:url value="/stagiaire" var="cancelUrl">
-							<c:param name="mode" value="cancel" />
+							<c:param name="mode" value="cancel"/>
 						</c:url>
 						<a href="${cancelUrl}" class="btn btn-warning"> <i
 							class="fa fa-undo"></i>
