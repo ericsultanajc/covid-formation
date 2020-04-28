@@ -16,4 +16,10 @@ public interface IEvaluationRepository extends JpaRepository<Evaluation, Long>{
 
 	@Query("select s.evaluation from Stagiaire s where s.niveauEtude = :niveau")
 	List<Evaluation> findAllByStagiaireNiveau(@Param("niveau") NiveauEtude niveauEtude);
+	
+	@Query("select e from Personne p right outer join p.evaluation e where p.evaluation is null order by e.id")
+	List<Evaluation> findAllOrphan();
+	
+	@Query("select e from Personne p right outer join p.evaluation e where p.evaluation is null or p.id = :id order by e.id")
+	List<Evaluation> findAllOrphanAndCurrentStagiaire(@Param("id") Long stagiaireId);
 }
