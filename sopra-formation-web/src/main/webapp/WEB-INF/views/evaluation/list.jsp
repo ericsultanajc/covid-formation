@@ -18,7 +18,7 @@
 <%-- <%List<Evaluation> mesEvaluations = (List<Evaluation>)request.getAttribute("mesEvaluations"); %> --%>
 <body>
 
-	<div class="container">
+	<div class="container-fluid">
 		<div class="card mt-3">
 			<div class="card-header bg-info text-white">
 				<h2>Liste des évaluations</h2>
