@@ -37,6 +37,7 @@ public class Stagiaire extends Personne {
 		super();
 	}
 
+
 	public Stagiaire(String email) {
 		super(email);
 	}
