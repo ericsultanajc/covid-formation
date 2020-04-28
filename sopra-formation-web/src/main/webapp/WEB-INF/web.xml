@@ -13,8 +13,13 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 
-<!-- 	<listener> -->
-<!-- 		<listener-class>sopra.formation.web.listener.SpringContextListener</listener-class> -->
-<!-- 	</listener> -->
+
+	<context-param>
+		<param-name>PARAMETER_ENCODING</param-name>
+		<param-value>UTF-8</param-value>
+	</context-param>
+	<!-- <listener> -->
+	<!-- <listener-class>sopra.formation.web.listener.SpringContextListener</listener-class> -->
+	<!-- </listener> -->
 
 </web-app>
