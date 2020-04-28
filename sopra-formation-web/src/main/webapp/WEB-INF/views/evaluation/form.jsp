@@ -19,7 +19,7 @@
 			<input type="hidden" name="mode" value="save"> 
 			<input type="hidden" name="id" value="${monEvaluation.id}"> 
 			<input type="hidden" name="version" value="${monEvaluation.version}">
-			<div id="filiereForm" class="card mt-3">
+			<div id="evaluationForm" class="card mt-3">
 				<div class="card-header bg-info text-white">
 					<h3>Edition de l'évaluation</h3>
 				</div>
@@ -43,13 +43,13 @@
 				</div>
 				<div class="card-footer">
 					<div class="btn-group btn-group-lg float-right">
-						<button type="submit" class="btn btn-success">
+						<button type="submit" class="btn">
 							<i class="fa fa-check"></i>
 						</button>
 						<c:url value="/evaluation" var="cancelUrl">
 							<c:param name="mode" value="cancel"/>
 						</c:url>
-						<a href="${cancelUrl}" class="btn btn-warning"> <i
+						<a href="${cancelUrl}" class="btn"> <i
 							class="fa fa-undo"></i>
 						</a>
 					</div>

@@ -56,6 +56,16 @@ public abstract class Personne {
 		this.telephone = telephone;
 	}
 
+	public Personne(Civilite civilite, String nom, String prenom, String email, String telephone, Adresse adresse) {
+		super();
+		this.civilite = civilite;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.adresse = adresse;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -124,6 +134,8 @@ public abstract class Personne {
 		this.adresse = new Adresse(rue, complement, codePostal, ville);
 	}
 
+	
+	
 	@Override
 	public String toString() {
 		return "Personne [id=" + id + ", civilite=" + civilite + ", nom=" + nom + ", prenom=" + prenom + ", email="

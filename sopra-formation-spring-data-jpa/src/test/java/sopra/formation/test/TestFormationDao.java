@@ -43,7 +43,7 @@ public class TestFormationDao {
 		evalCecile = evaluationDao.save(evalCecile);
 
 		Stagiaire cecile = new Stagiaire("cecile.larrouy@outlook.fr");
-		cecile.setCivilite(Civilite.M);
+		cecile.setCivilite(Civilite.MLLE);
 		cecile.setNom("LARROUY");
 		cecile.setPrenom("Cécile");
 		cecile.setTelephone("0608050400");

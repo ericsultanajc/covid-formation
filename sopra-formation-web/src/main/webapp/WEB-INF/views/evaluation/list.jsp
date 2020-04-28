@@ -24,7 +24,7 @@
 				<h2>Liste des évaluations</h2>
 			</div>
 			<div class="card-body">
-				<table id="filiereTable" class="table table-striped">
+				<table id="evaluationTable" class="table table-striped">
 					<thead>
 						<tr>
 							<th>Identifiant</th>
@@ -76,7 +76,7 @@
 				<c:url value="/evaluation" var="addUrl">
 					<c:param name="mode" value="add"/>
 				</c:url>
-				<a href="${addUrl}" class="btn btn-success btn-lg">
+				<a href="${addUrl}" class="btn">
 					<i class="fa fa-plus"></i>
 				</a>
 			</div>
