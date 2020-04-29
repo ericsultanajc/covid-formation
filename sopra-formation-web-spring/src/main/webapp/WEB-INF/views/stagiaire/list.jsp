@@ -7,10 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Liste des stagiaires</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+<link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>">
+<link rel="stylesheet" href="<c:url value="/css/all.css"/>">
+<script src="<c:url value="/js/jquery-3.5.0.min.js"/>"></script>
+<script src="<c:url value="/js/bootstrap.bundle.min.js"/>" /></script>
 </head>
 <body>
 
@@ -39,12 +39,10 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${stagiaires}" var="stagiaire">
-							<c:url value="/stagiaire" var="editUrl">
-								<c:param name="mode" value="edit"/>
+							<c:url value="/stagiaire/edit" var="editUrl">
 								<c:param name="id" value="${stagiaire.id}"/>
 							</c:url>
-							<c:url value="/stagiaire" var="deleteUrl">
-								<c:param name="mode" value="delete"/>
+							<c:url value="/stagiaire/delete" var="deleteUrl">
 								<c:param name="id" value="${stagiaire.id}"/>
 							</c:url>
 							<tr>
@@ -66,9 +64,7 @@
 				</table>
 			</div>
 			<div class="card-footer">
-				<c:url value="/stagiaire" var="addUrl">
-					<c:param name="mode" value="add"/>
-				</c:url>
+				<c:url value="/stagiaire/add" var="addUrl"/>
 				<a href="${addUrl}" class="btn btn-success btn-lg">
 					<i class="fa fa-plus"></i>
 				</a>
