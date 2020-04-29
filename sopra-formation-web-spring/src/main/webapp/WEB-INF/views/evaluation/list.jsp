@@ -51,12 +51,10 @@
 					
 					<tbody>
 						<c:forEach items="${mesEvaluations}" var="evaluation">
-						<c:url value="/evaluation" var="editUrl">
-							<c:param name="mode" value="edit"/>
+						<c:url value="/evaluation/edit" var="editUrl">
 							<c:param name="id" value="${evaluation.id}"/>
 						</c:url>
-						<c:url value="/evaluation" var="deleteUrl">
-							<c:param name="mode" value="delete"/>
+						<c:url value="/evaluation/delete" var="deleteUrl">
 							<c:param name="id" value="${evaluation.id}"/>
 						</c:url>
 						<tr>
@@ -73,9 +71,7 @@
 				</table>
 			</div>
 			<div class="card-footer">
-				<c:url value="/evaluation" var="addUrl">
-					<c:param name="mode" value="add"/>
-				</c:url>
+				<c:url value="/evaluation/add" var="addUrl"/>
 				<a href="${addUrl}" class="btn">
 					<i class="fa fa-plus"></i>
 				</a>

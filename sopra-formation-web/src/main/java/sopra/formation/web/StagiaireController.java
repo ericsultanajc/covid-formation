@@ -58,8 +58,6 @@ public class StagiaireController extends HttpServlet {
 		} else if (mode.contentEquals("cancel")) {
 			cancel(request, response);
 		}
-		
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -133,15 +131,16 @@ public class StagiaireController extends HttpServlet {
 				&& request.getParameter("evaluation").length() > 0) ? Long.valueOf(request.getParameter("evaluation"))
 						: null;
 
-		Evaluation evaluation = new Evaluation();
-		evaluation.setId(evaluationId);
-
 		Stagiaire stagiaire = new Stagiaire(civilite, nom, prenom, email, telephone, dtNaissance, niveauEtude);
 		stagiaire.setAdresse(new Adresse(rue, complement, codePostal, ville));
 		stagiaire.setId(id);
 		stagiaire.setVersion(version);
 
-		stagiaire.setEvaluation(evaluation);
+		if (evaluationId != null) {
+			Evaluation evaluation = new Evaluation();
+			evaluation.setId(evaluationId);
+			stagiaire.setEvaluation(evaluation);
+		}
 
 		stagiaireRepo.save(stagiaire);
 

@@ -14,9 +14,9 @@
 <body>
 
 	<div class="container-fluid">
-		<c:url value="/stagiaire" var="saveUrl"/>
+		<c:url value="/stagiaire/save" var="saveUrl"/>
 		<form action="${saveUrl}" method="post">
-			<input type="hidden" name="mode" value="save"> <input
+			<input type="hidden"> <input
 				type="hidden" name="id" value="${stagiaire.id}"> <input
 				type="hidden" name="version" value="${stagiaire.version}">
 			<div id="filiereForm" class="card mt-3">
@@ -102,9 +102,7 @@
 						<button type="submit" class="btn">
 							<i class="fa fa-check"></i>
 						</button>
-						<c:url value="/stagiaire" var="cancelUrl">
-							<c:param name="mode" value="cancel"/>
-						</c:url>
+						<c:url value="/stagiaire/cancel" var="cancelUrl"/>
 						<a href="${cancelUrl}" class="btn"> <i
 							class="fa fa-undo"></i>
 						</a>
