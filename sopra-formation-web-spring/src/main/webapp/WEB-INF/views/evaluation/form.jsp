@@ -6,10 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Edition de l'évaluation</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/all.css">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
