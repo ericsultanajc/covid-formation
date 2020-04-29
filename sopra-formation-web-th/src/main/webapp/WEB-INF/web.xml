@@ -16,10 +16,6 @@
 	<!-- <listener> -->
 	<!-- <listener-class>sopra.formation.web.listener.SpringContextListener</listener-class> -->
 	<!-- </listener> -->
-	<context-param>
-		<param-name>PARAMETER_ENCODING</param-name>
-		<param-value>UTF-8</param-value>
-	</context-param>
 
 <!-- 	<filter> -->
 <!-- 		<filter-name>Set Character Encoding</filter-name> -->

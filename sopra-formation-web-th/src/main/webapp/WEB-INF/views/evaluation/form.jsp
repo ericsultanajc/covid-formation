@@ -19,7 +19,7 @@
 			<input type="hidden" name="mode" value="save"> 
 			<input type="hidden" name="id" value="${monEvaluation.id}"> 
 			<input type="hidden" name="version" value="${monEvaluation.version}">
-			<div id="evaluationForm" class="card mt-3">
+			<div id="filiereForm" class="card mt-3">
 				<div class="card-header bg-info text-white">
 					<h3>Edition de l'évaluation</h3>
 				</div>

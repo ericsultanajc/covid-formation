@@ -21,3 +21,6 @@
 	</bean>
 	
 </beans>
+	<mvc:resources mapping="/images/**" location="/images/"/>
+	<mvc:resources mapping="/js/**" location="/js/"/>
+	<mvc:resources mapping="/webfonts/**" location="/webfonts/"/>

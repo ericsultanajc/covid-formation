@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Titre de la page d'accueil</title>
+</head>
+<body>
+
+<section th:if="${eleves.length > 0}">
+	<h1>Le titre de ma section</h1>
+	
+	<ul>
+		<li th:each="el : ${eleves}" th:text="${el}"></li>
+	</ul>
+</section>
+
+<footer>
+	<p>mon pied de page</p>
+	<span th:text="${username}"></span>
+	<span>[[${username}]]</span>
+</footer>
+
+</body>
+</html>
