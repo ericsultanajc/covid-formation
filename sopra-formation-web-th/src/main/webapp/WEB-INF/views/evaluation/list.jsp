@@ -9,10 +9,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Liste des évaluations</title>
-<link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>">
-<link rel="stylesheet" href="<c:url value="/css/all.css"/>">
-<script src="<c:url value="/js/jquery-3.5.0.min.js"/>"></script>
-<script src="<c:url value="/js/bootstrap.bundle.min.js"/>" /></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
 </head>
 
 <%-- <%List<Evaluation> mesEvaluations = (List<Evaluation>)request.getAttribute("mesEvaluations"); %> --%>
@@ -51,10 +51,12 @@
 					
 					<tbody>
 						<c:forEach items="${mesEvaluations}" var="eval">
-						<c:url value="/evaluation/edit" var="editUrl">
+						<c:url value="/evaluation" var="editUrl">
+							<c:param name="mode" value="edit"/>
 							<c:param name="id" value="${eval.id}"/>
 						</c:url>
-						<c:url value="/evaluation/delete" var="deleteUrl">
+						<c:url value="/evaluation" var="deleteUrl">
+							<c:param name="mode" value="delete"/>
 							<c:param name="id" value="${eval.id}"/>
 						</c:url>
 						<tr>
@@ -71,7 +73,9 @@
 				</table>
 			</div>
 			<div class="card-footer">
-				<c:url value="/evaluation/add" var="addUrl"/>
+				<c:url value="/evaluation" var="addUrl">
+					<c:param name="mode" value="add"/>
+				</c:url>
 				<a href="${addUrl}" class="btn btn-success btn-lg">
 					<i class="fa fa-plus"></i>
 				</a>

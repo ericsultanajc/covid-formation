@@ -51,6 +51,7 @@ public class EvaluationController extends HttpServlet {
 		} else if (mode.contentEquals("cancel")) {
 			cancel(request, response);
 		}
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

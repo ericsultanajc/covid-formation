@@ -9,21 +9,20 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-	<!-- Activation des annotations Spring Web -->
+	<!-- Activation des annotations Web MVC -->
 	<mvc:annotation-driven />
+	
+	<!-- Scanner le package où se situe les Controller -->
+	<context:component-scan base-package="sopra.formation.web"/>
 
-	<!-- Précisions sur le ou les packages à scanner (idem application-context) -->
-	<context:component-scan
-		base-package="sopra.formation.web" />
-
-	<!-- Configuration des exclusions sur les url -->
-	<mvc:resources mapping="/css/**" location="/css/" />
-	<mvc:resources mapping="/images/**" location="/images/" />
-
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.JstlView" />
+	<!-- Configuration d'une exclusion sur les urls ...../css/*** vers un répertoire physique -->
+	<mvc:resources mapping="/css/**" location="/css/"/>
+	<mvc:resources mapping="/images/**" location="/images/"/>
+	<mvc:resources mapping="/js/**" location="/js/"/>
+	<mvc:resources mapping="/webfonts/**" location="/webfonts/"/>
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
 	</bean>

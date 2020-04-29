@@ -6,17 +6,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Edition de l'évaluation</title>
-<link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>">
-<link rel="stylesheet" href="<c:url value="/css/all.css"/>">
-<script src="<c:url value="/js/jquery-3.5.0.min.js"/>"></script>
-<script src="<c:url value="/js/bootstrap.bundle.min.js"/>" /></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
 </head>
 <body>
+
 	<div class="container-fluid">
-		<c:url value="/evaluation/save" var="saveUrl" />
+		<c:url value="/evaluation" var="saveUrl"/>
 		<form action="${saveUrl}" method="post">
-			<input type="hidden" name="id" value="${monEvaluation.id}"> <input
-				type="hidden" name="version" value="${monEvaluation.version}">
+			<input type="hidden" name="mode" value="save"> 
+			<input type="hidden" name="id" value="${monEvaluation.id}"> 
+			<input type="hidden" name="version" value="${monEvaluation.version}">
 			<div id="filiereForm" class="card mt-3">
 				<div class="card-header bg-info text-white">
 					<h3>Edition de l'évaluation</h3>
@@ -44,7 +46,9 @@
 						<button type="submit" class="btn btn-success">
 							<i class="fa fa-check"></i>
 						</button>
-						<c:url value="/evaluation/cancel" var="cancelUrl" />
+						<c:url value="/evaluation" var="cancelUrl">
+							<c:param name="mode" value="cancel"/>
+						</c:url>
 						<a href="${cancelUrl}" class="btn btn-warning"> <i
 							class="fa fa-undo"></i>
 						</a>
