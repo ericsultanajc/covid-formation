@@ -114,7 +114,8 @@ public class StagiaireController extends HttpServlet {
 		stagiaire.setAdresse(adrStagiaire);
 		stagiaire.setId(id);
 		stagiaire.setVersion(version);
-		stagiaire.setEvaluation(evaluation);
+		if (evaluation.getId() != null) {
+		stagiaire.setEvaluation(evaluation);}
 		
 		stagiaireRepo.save(stagiaire);
 		
