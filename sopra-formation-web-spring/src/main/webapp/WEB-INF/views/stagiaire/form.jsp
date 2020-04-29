@@ -6,9 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Edition du stagiaire</title>
-<link rel="stylesheet" href="/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/all.css">
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="<c:url value= "/css/bootstrap.min.css/"/>">
+<link rel="stylesheet" href="<c:url value = "/css/all.css"/>">
+<script src="<c:url value="/js/jquery-3.5.0.min.js"/>"></script>
+<script src="<c:url value="/js/bootstrap.bundle.min.js"/>" /></script>
 </head>
 
 

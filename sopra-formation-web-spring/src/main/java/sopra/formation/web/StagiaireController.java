@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -55,7 +56,7 @@ public class StagiaireController {
 		return "stagiaire/form";
 	}
 
-	@RequestMapping("/save")
+	@PostMapping("/save")
 	public String save(Model model, @RequestParam("id") Long id, @RequestParam("version") Integer version,
 			@RequestParam("civilite") Civilite civilite, @RequestParam("nom") String nom, @RequestParam("prenom") String prenom,
 			@RequestParam("dtNaissance") Date dtNaissance, @RequestParam("email") String email, @RequestParam("telephone") String telephone,
@@ -81,8 +82,8 @@ public class StagiaireController {
 
 		stagiaireRepo.save(stagiaire);
 
-		return "forward:list";
-	}
+		return "redirect:list";
+		}
 
 	@RequestMapping("/delete")
 	public String delete(@RequestParam(value = "id") Long id, Model model){
