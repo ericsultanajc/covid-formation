@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!-- Pour avoir une date dans un format particulier -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
@@ -21,13 +20,13 @@
 				<h2>Liste des stagiaires</h2>
 			</div>
 			<div class="card-body">
-				<table id="stagiaireTable" class="table table-striped">
+				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th>Civilité</th>
 							<th>Nom</th>
 							<th>Prénom</th>
-							<th>Email</th>
+							<th>Courriel</th>
 							<th>Téléphone</th>
 							<th>Date de naissance</th>
 							<th>Niveau d'étude</th>
@@ -47,7 +46,6 @@
 								<c:param name="id" value="${stagiaire.id}"/>
 							</c:url>
 							<tr>
-<!-- 							.label pour récupérer la valeur complète de l'énum -->
 								<td>${stagiaire.civilite.label}</td>
 								<td>${stagiaire.nom}</td>
 								<td>${stagiaire.prenom}</td>

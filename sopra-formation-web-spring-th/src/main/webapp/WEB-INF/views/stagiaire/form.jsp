@@ -14,11 +14,10 @@
 <body>
 
 	<div class="container-fluid">
-		<c:url value="/stagiaire/save" var="saveUrl"/>
+		<c:url value="/stagiaire/save" var="saveUrl" />
 		<form action="${saveUrl}" method="post">
-			<input type="hidden"> <input
-				type="hidden" name="id" value="${stagiaire.id}"> <input
-				type="hidden" name="version" value="${stagiaire.version}">
+			<input type="hidden" name="id" value="${stagiaire.id}" />
+			<input type="hidden" name="version" value="${stagiaire.version}"/>
 			<div id="filiereForm" class="card mt-3">
 				<div class="card-header bg-info text-white">
 					<h3>Edition du stagiaire</h3>
@@ -44,7 +43,7 @@
 							value="${stagiaire.prenom}">
 					</div>
 					<div class="form-group">
-						<label for="email">Email:</label> <input type="text"
+						<label for="email">Courriel:</label> <input type="text"
 							class="form-control" id="email" name="email"
 							value="${stagiaire.email}">
 					</div>
@@ -102,11 +101,11 @@
 				</div>
 				<div class="card-footer">
 					<div class="btn-group btn-group-lg float-right">
-						<button type="submit" class="btn">
+						<button type="submit" class="btn btn-success">
 							<i class="fa fa-check"></i>
 						</button>
 						<c:url value="/stagiaire/cancel" var="cancelUrl"/>
-						<a href="${cancelUrl}" class="btn"> <i
+						<a href="${cancelUrl}" class="btn btn-warning"> <i
 							class="fa fa-undo"></i>
 						</a>
 					</div>
