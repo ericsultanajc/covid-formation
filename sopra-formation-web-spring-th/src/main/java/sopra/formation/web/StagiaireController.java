@@ -64,7 +64,7 @@ public class StagiaireController {
 			@RequestParam(required = false) Civilite civilite, @RequestParam String nom,
 			@RequestParam(required = false) String prenom, @RequestParam String email,
 			@RequestParam(required = false) String telephone,
-			@RequestParam(required = false) Date dtNaissance,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date dtNaissance,
 			@RequestParam(required = false) NiveauEtude niveauEtude, @RequestParam(required = false) String rue,
 			@RequestParam(required = false) String complement, @RequestParam(required = false) String codePostal,
 			@RequestParam(required = false) String ville,
