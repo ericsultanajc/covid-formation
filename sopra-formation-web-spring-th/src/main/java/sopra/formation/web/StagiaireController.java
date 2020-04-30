@@ -44,7 +44,7 @@ public class StagiaireController {
 	public String list(Model model) {
 		model.addAttribute("page", "stagiaire");
 		model.addAttribute("stagiaires", stagiaireRepo.findAll());
-		
+
 		return "stagiaire/list";
 	}
 
@@ -58,7 +58,7 @@ public class StagiaireController {
 
 		return "stagiaire/form";
 	}
-	
+
 	@GetMapping("/edit")
 	public String edit(@RequestParam Long id, Model model) {
 		model.addAttribute("page", "stagiaire");
