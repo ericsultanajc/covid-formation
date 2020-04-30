@@ -45,7 +45,7 @@ public abstract class Personne {
 	@Email(message = "Le courriel est invalide")
 	private String email;
 	@Column(name = "phonenumber", length = 15)
-	@Pattern(regexp = "(\\+33|0)[0-9]{9}", message="Numéro pas bon")
+//	@Pattern(regexp = "(\\+33|0)[0-9]{9}", message="Numéro pas bon")
 	@Pattern(regexp = "^\\+?[0-9\\s]*", message = "Seul les chiffres, espaces ou + sont autorisés")
 	private String telephone;
 	@Embedded
