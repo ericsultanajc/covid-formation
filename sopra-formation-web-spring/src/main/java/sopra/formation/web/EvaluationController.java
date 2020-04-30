@@ -1,21 +1,13 @@
 package sopra.formation.web;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,9 +17,7 @@ import sopra.formation.persistence.IEvaluationRepository;
 
 @Controller
 @RequestMapping("/evaluation")
-public class EvaluationController extends HttpServlet {
-
-	private static final long serialVersionUID = 1L;
+public class EvaluationController {
 
 	@Autowired
 	private IEvaluationRepository evaluationRepo;
@@ -35,12 +25,13 @@ public class EvaluationController extends HttpServlet {
 	public EvaluationController() {
 		super();
 	}
-	
+
 	@GetMapping({"", "/"})
 	public String defaut() {
 		return "forward:/evaluation/list";
 	}
-
+	
+	// ETAPE 1 : Réception de la Request
 	@GetMapping("/list")
 	public String list(Model model) {
 		// ETAPE 2 : Récuperation des données
@@ -53,16 +44,30 @@ public class EvaluationController extends HttpServlet {
 		return "evaluation/list";
 	}
 
+	// ETAPE 1 : Réception de la Request
 	@GetMapping("/add")
-	private String add() {
+	public String add() {
 		// ETAPE 2 et 3 : non nécessaire ici
 
 		// ETAPE 4
 		return "evaluation/form";
 	}
 
+	// ETAPE 1 : Réception de la Request
 	@GetMapping("/edit")
-	private String edit(@RequestParam Long id, Model model) {
+	public String edit(@RequestParam("id") Long id, Model model) {
+		// ETAPE 2
+		Optional<Evaluation> optEvaluation = evaluationRepo.findById(id);
+
+		// ETAPE 3
+		model.addAttribute("monEvaluation", optEvaluation.get());
+
+		// ETAPE 4
+		return "evaluation/form";
+	}
+
+	@GetMapping("/editWithPathVariable/{idEval}")
+	public String editWithPathVariable(@PathVariable("idEval") Long id, Model model) {
 		// ETAPE 2
 		Optional<Evaluation> optEvaluation = evaluationRepo.findById(id);
 
@@ -88,14 +93,14 @@ public class EvaluationController extends HttpServlet {
 	}
 
 	@GetMapping("/delete")
-	private String delete(@RequestParam Long id) {
+	public String delete(@RequestParam Long id) {
 		evaluationRepo.deleteById(id);
 
-		return "redirect:list";
+		return "forward:list";
 	}
-//
+
 	@GetMapping("/cancel")
-	private String cancel() {
-		return "redirect:/evaluation/list";
+	public String cancel() {
+		return "redirect:list";
 	}
 }

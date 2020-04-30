@@ -18,7 +18,11 @@
 <%-- <%List<Evaluation> mesEvaluations = (List<Evaluation>)request.getAttribute("mesEvaluations"); %> --%>
 <body>
 
+<<<<<<< HEAD
 	<div class="container">
+=======
+	<div class="container-fluid">
+>>>>>>> master
 		<div class="card mt-3">
 			<div class="card-header bg-info text-white">
 				<h2>Liste des évaluations</h2>
@@ -71,8 +75,12 @@
 				</table>
 			</div>
 			<div class="card-footer">
+<<<<<<< HEAD
 				<c:url value="/evaluation/add" var="addUrl">
 				</c:url>
+=======
+				<c:url value="/evaluation/add" var="addUrl"/>
+>>>>>>> master
 				<a href="${addUrl}" class="btn btn-success btn-lg">
 					<i class="fa fa-plus"></i>
 				</a>

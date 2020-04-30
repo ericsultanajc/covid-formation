@@ -12,12 +12,20 @@
 <script src="<c:url value="/js/bootstrap.bundle.min.js"/>" /></script>
 </head>
 <body>
+<<<<<<< HEAD
 
 	<div class="container">
 		<c:url value="/evaluation/save" var="saveUrl"/>
 		<form action="${saveUrl}" method="post">
 			<input type="hidden" name="id" value="${monEvaluation.id}"> 
 			<input type="hidden" name="version" value="${monEvaluation.version}">
+=======
+	<div class="container-fluid">
+		<c:url value="/evaluation/save" var="saveUrl" />
+		<form action="${saveUrl}" method="post">
+			<input type="hidden" name="id" value="${monEvaluation.id}"> <input
+				type="hidden" name="version" value="${monEvaluation.version}">
+>>>>>>> master
 			<div id="filiereForm" class="card mt-3">
 				<div class="card-header bg-info text-white">
 					<h3>Edition de l'évaluation</h3>
@@ -45,8 +53,12 @@
 						<button type="submit" class="btn btn-success">
 							<i class="fa fa-check"></i>
 						</button>
+<<<<<<< HEAD
 						<c:url value="/evaluation/cancel" var="cancelUrl">
 						</c:url>
+=======
+						<c:url value="/evaluation/cancel" var="cancelUrl" />
+>>>>>>> master
 						<a href="${cancelUrl}" class="btn btn-warning"> <i
 							class="fa fa-undo"></i>
 						</a>
