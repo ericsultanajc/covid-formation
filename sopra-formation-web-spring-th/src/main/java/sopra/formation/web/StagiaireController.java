@@ -3,6 +3,8 @@ package sopra.formation.web;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.PropertyAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -27,6 +29,7 @@ import sopra.formation.model.NiveauEtude;
 import sopra.formation.model.Stagiaire;
 import sopra.formation.persistence.IEvaluationRepository;
 import sopra.formation.persistence.IStagiaireRepository;
+import sopra.formation.web.validator.StagiaireValidator;
 
 @Controller
 @RequestMapping("/stagiaire")
@@ -44,7 +47,7 @@ public class StagiaireController {
 	public String list(Model model) {
 		model.addAttribute("page", "stagiaire");
 		model.addAttribute("stagiaires", stagiaireRepo.findAll());
-		
+
 		return "stagiaire/list";
 	}
 
@@ -58,7 +61,7 @@ public class StagiaireController {
 
 		return "stagiaire/form";
 	}
-	
+
 	@GetMapping("/edit")
 	public String edit(@RequestParam Long id, Model model) {
 		model.addAttribute("page", "stagiaire");
@@ -97,18 +100,34 @@ public class StagiaireController {
 
 		return "redirect:list";
 	}
-	
+
 	@PostMapping("/save")
-	public String save(@ModelAttribute("stagiaire") Stagiaire stagiaire, @RequestParam(value = "evaluationId", required = false) Long evaluationId) {
+	public String save(@ModelAttribute("stagiaire") @Valid Stagiaire stagiaire, BindingResult result,
+			@RequestParam(value = "evaluationId", required = false) Long evaluationId, Model model) {
 		
+		new StagiaireValidator().validate(stagiaire, result);
+
+		if (result.hasErrors()) {
+			model.addAttribute("page", "stagiaire");
+			model.addAttribute("civilites", Civilite.values());
+			model.addAttribute("niveauEtudes", NiveauEtude.values());
+			if (stagiaire.getId() != null) {
+				model.addAttribute("evaluations", evaluationRepo.findAllOrphanAndCurrentStagiaire(stagiaire.getId()));
+			} else {
+				model.addAttribute("evaluations", evaluationRepo.findAllOrphan());
+			}
+
+			return "stagiaire/form";
+		}
+
 		if (evaluationId != null) {
 			Evaluation evaluation = new Evaluation();
 			evaluation.setId(evaluationId);
 			stagiaire.setEvaluation(evaluation);
 		}
-		
+
 		stagiaireRepo.save(stagiaire);
-		
+
 		return "redirect:list";
 	}
 
@@ -123,7 +142,7 @@ public class StagiaireController {
 
 		return "forward:list";
 	}
-	
+
 //	@InitBinder
 //	public void initBinder(WebDataBinder binder) {
 //	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

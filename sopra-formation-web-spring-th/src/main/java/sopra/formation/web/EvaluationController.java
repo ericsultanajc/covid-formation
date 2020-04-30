@@ -31,11 +31,11 @@ public class EvaluationController {
 		super();
 	}
 
-	@GetMapping({"", "/"})
+	@GetMapping({ "", "/" })
 	public String defaut() {
 		return "forward:/evaluation/list";
 	}
-	
+
 	// ETAPE 1 : Réception de la Request
 	@GetMapping("/list")
 	public String list(Model model) {
@@ -54,7 +54,7 @@ public class EvaluationController {
 	@GetMapping("/add")
 	public String add(Model model) {
 		model.addAttribute("page", "evaluation");
-		// ETAPE 2 et 3 : 
+		// ETAPE 2 et 3 :
 		model.addAttribute("monEvaluation", new Evaluation());
 
 		// ETAPE 4
@@ -101,18 +101,20 @@ public class EvaluationController {
 
 		return "redirect:list";
 	}
-	
+
 	@PostMapping("/save")
-	public String save(@ModelAttribute("monEvaluation") @Valid Evaluation evaluation, BindingResult result) {
-		
+	public String save(@ModelAttribute("monEvaluation") @Valid Evaluation evaluation, BindingResult result,
+			Model model) {
+
 		new EvaluationValidator().validate(evaluation, result);
-		
-		if(result.hasErrors()) {
+
+		if (result.hasErrors()) {
+			model.addAttribute("page", "evaluation");
 			return "evaluation/form";
 		}
-		
+
 		evaluationRepo.save(evaluation);
-		
+
 		return "redirect:list";
 	}
 
