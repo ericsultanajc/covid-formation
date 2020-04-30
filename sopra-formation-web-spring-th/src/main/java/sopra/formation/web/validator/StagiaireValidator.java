@@ -16,11 +16,17 @@ public class StagiaireValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		Stagiaire stagiaire = (Stagiaire) target;
 
-		if (stagiaire.getAdresse().getRue() != "") {
-			if (stagiaire.getAdresse().getCodePostal() == "" || stagiaire.getAdresse().getVille() == "") {
-				errors.rejectValue("adresse.rue", "la rue", "renseigner cp et ville");
-				System.out.println("On est dans l erreur ");
+		if (stagiaire.getAdresse() != null) {
+			if (!stagiaire.getAdresse().getRue().isEmpty()) {
+				if (stagiaire.getAdresse().getCodePostal().isEmpty()) {
+					errors.rejectValue("adresse.codePostal", "adresseCodePostal", "Le code postal doit être renseigné");
+				}
+
+				if (stagiaire.getAdresse().getVille().isEmpty()) {
+					errors.rejectValue("adresse.ville", "adresseVille", "La ville doit être renseignée");
+				}
 			}
 		}
 	}
+
 }

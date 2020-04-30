@@ -3,6 +3,8 @@ package sopra.formation.web;
 import java.util.Date;
 
 import javax.validation.Valid;
+
+import org.springframework.beans.PropertyAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -91,28 +93,34 @@ public class StagiaireController {
 
 		return "redirect:list";
 	}
-	
+
 	@PostMapping("/save")
-	public String save(@ModelAttribute("stagiaire") @Valid Stagiaire stagiaire, BindingResult result, @RequestParam(value = "evaluationId", required = false) Long evaluationId, Model model) {
-		
+	public String save(@ModelAttribute("stagiaire") @Valid Stagiaire stagiaire, BindingResult result,
+			@RequestParam(value = "evaluationId", required = false) Long evaluationId, Model model) {
 		
 		new StagiaireValidator().validate(stagiaire, result);
-		
-		if(result.hasErrors()) {
+
+		if (result.hasErrors()) {
+			model.addAttribute("page", "stagiaire");
 			model.addAttribute("civilites", Civilite.values());
 			model.addAttribute("niveauEtudes", NiveauEtude.values());
-			model.addAttribute("evaluations", evaluationRepo.findAllOrphan());
+			if (stagiaire.getId() != null) {
+				model.addAttribute("evaluations", evaluationRepo.findAllOrphanAndCurrentStagiaire(stagiaire.getId()));
+			} else {
+				model.addAttribute("evaluations", evaluationRepo.findAllOrphan());
+			}
+
 			return "stagiaire/form";
 		}
-		
+
 		if (evaluationId != null) {
 			Evaluation evaluation = new Evaluation();
 			evaluation.setId(evaluationId);
 			stagiaire.setEvaluation(evaluation);
 		}
-		
+
 		stagiaireRepo.save(stagiaire);
-		
+
 		return "redirect:list";
 	}
 
@@ -127,7 +135,7 @@ public class StagiaireController {
 
 		return "forward:list";
 	}
-	
+
 //	@InitBinder
 //	public void initBinder(WebDataBinder binder) {
 //	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

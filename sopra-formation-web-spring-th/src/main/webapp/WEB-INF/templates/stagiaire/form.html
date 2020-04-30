@@ -19,7 +19,7 @@
 					<div class="form-group">
 						<label for="civilite">Civilité:</label> 
 						<select class="form-control" id="civilite" name="civilite">
-							<option value="">Veuillez choisir une civilité</option>
+							<option value="">Veuillez sélectionner une civilité</option>
 							<option th:each="civ : ${civilites}" th:value="${civ}" th:selected="${stagiaire.civilite == civ}">[[${civ.label}]]</option>
 						</select>
 						<span th:errors="${stagiaire.civilite}" class="text-danger"></span>
@@ -51,34 +51,38 @@
 						<label for="dtNaissance">Date de naissance:</label> <input
 							type="date" class="form-control" id="dtNaissance"
 							name="dtNaissance" th:value="${stagiaire.dtNaissance}">
-						<span th:errors="${stagiaire.dtNaissance}" class="text-danger"></span>					
+						<span th:errors="${stagiaire.dtNaissance}" class="text-danger"></span>
 					</div>
 					<div class="form-group">
 						<label for="niveauEtude">Niveau d'étude:</label> <select
 							class="form-control" id="niveauEtude" name="niveauEtude">
 								<option th:each="niv : ${niveauEtudes}" th:value="${niv}" th:selected="${stagiaire.niveauEtude == niv}">[[${niv}]]</option>
 						</select>
-
+						<span th:errors="${stagiaire.niveauEtude}" class="text-danger"></span>
 					</div>
 					<div class="form-group">
 						<label for="rue">Rue:</label> <input type="text"
 							class="form-control" id="rue" name="adresse.rue"
 							th:value="${stagiaire.adresse?.rue}">
+						<span th:errors="${stagiaire.adresse.rue}" class="text-danger"></span>
 					</div>
 					<div class="form-group">
 						<label for="complement">Complément:</label> <input type="text"
 							class="form-control" id="complement" name="adresse.complement"
 							th:value="${stagiaire.adresse?.complement}">
+						<span th:errors="${stagiaire.adresse.complement}" class="text-danger"></span>
 					</div>
 					<div class="form-group">
 						<label for="codePostal">Code postal:</label> <input type="text"
 							class="form-control" id="codePostal" name="adresse.codePostal"
 							th:value="${stagiaire.adresse?.codePostal}">
+						<span th:errors="${stagiaire.adresse.codePostal}" class="text-danger"></span>
 					</div>
 					<div class="form-group">
 						<label for="ville">Ville:</label> <input type="text"
 							class="form-control" id="ville" name="adresse.ville"
 							th:value="${stagiaire.adresse?.ville}">
+						<span th:errors="${stagiaire.adresse.ville}" class="text-danger"></span>
 					</div>
 					<div class="form-group">
 						<label for="evaluation">Evaluation:</label> <select

@@ -34,18 +34,19 @@ public abstract class Personne {
 	@NotNull(message="La civilité est obligatoire")
 	private Civilite civilite;
 	@Column(name = "last_name", length = 100, nullable = false)
-	@NotEmpty(message="Le nom est obligatoire")
-	@Size(min = 2,max=100, message="Le nom doit comprendre entre 2 et 100 caractères")
+	@Size(min = 2, max = 100, message="Le nom doit comporter au moins 2 caractères et 100 au maximum")
 	private String nom;
 	@NotEmpty(message="Le prénom est obligatoire")
 	@Column(name = "first_name", length = 100)
+	@Size(min = 1, message = "Le prénom est obligatoire")
 	private String prenom;
 	@Column(length = 255, nullable = false)
-	@Email(message = "L'email n'est pas valide")
-	@NotEmpty(message="Il faut un email")
+	@NotEmpty(message = "Le courriel est obligatoire")
+	@Email(message = "Le courriel est invalide")
 	private String email;
 	@Column(name = "phonenumber", length = 15)
 	@Pattern(regexp = "(\\+33|0)[0-9]{9}", message="Numéro pas bon")
+	@Pattern(regexp = "^\\+?[0-9\\s]*", message = "Seul les chiffres, espaces ou + sont autorisés")
 	private String telephone;
 	@Embedded
 	private Adresse adresse;
