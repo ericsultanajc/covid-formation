@@ -11,7 +11,7 @@
 <body>
 <div class="container">
 
-		<form th:action="@{/evaluation/save}" method="POST">
+		<form th:action="@{/evaluation/save}" method="post">
 			<input type="hidden" th:value="${monEvaluation?.id}" name="id"> 
 			<input type="hidden" th:value="${monEvaluation?.version}" name="version">
 			<div id="filiereForm" class="card mt-3">

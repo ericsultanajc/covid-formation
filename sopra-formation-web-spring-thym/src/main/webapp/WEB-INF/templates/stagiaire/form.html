@@ -9,7 +9,7 @@
 <body>
 	<section layout:fragment="monContenu">
 		<div class="container">
-			<form th:action="@{/stagiaire/cancel}" method="POST">
+			<form th:action="@{/stagiaire/cancel}" method="post">
 				<input type="hidden" name="id" th:value="${monStagaire?.id}">
 				<input type="hidden" name="version"
 					th:value="${monStagaire?.version}">
@@ -21,7 +21,7 @@
 						<div class="form-group">
 							<label for="civilite">Civilité</label> <select
 								class="form-control" id="civilite" name="civilite">
-								<option th:each="civ : ${civilites}" th:value="${civ}" th:selected="${monStagiaire.civilite == civ}">[[${civ.label}]]</option>
+								<option th:each="civ : ${civilites}" th:value="${civ}" th:selected="${monStagiaire.civilite == civ}">[[${civ}]]</option>
 							</select>
 						</div>
 						<div class="form-group">
@@ -54,7 +54,7 @@
 							<label for="niveauEtude">Niveau d'étude</label> <select
 								class="form-control" id="niveauEtude" name="niveauEtude">
 								<option th:each="lvl : ${niveauEtudes}" th:value="${lvl}"
-									th:selected="${monStagiaire.niveauEtude == lvl}">[[${lvl.label}]]</option>
+									th:selected="${monStagiaire.niveauEtude == lvl}">[[${lvl}]]</option>
 							</select>
 						</div>
 						<div class="form-group">
