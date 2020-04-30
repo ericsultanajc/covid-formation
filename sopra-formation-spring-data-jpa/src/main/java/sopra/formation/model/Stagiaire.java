@@ -13,6 +13,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,6 +27,8 @@ public class Stagiaire extends Personne {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "birthdate")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull(message="La date est obligatoire")
+	@Past(message="Une date dans le passé")
 	private Date dtNaissance;
 	@Column(name = "study_level", length = 15)
 	@Enumerated(EnumType.STRING)

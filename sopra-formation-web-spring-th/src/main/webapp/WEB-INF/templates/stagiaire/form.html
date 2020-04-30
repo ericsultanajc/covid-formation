@@ -19,33 +19,39 @@
 					<div class="form-group">
 						<label for="civilite">Civilité:</label> 
 						<select class="form-control" id="civilite" name="civilite">
+							<option value="">Veuillez choisir une civilité</option>
 							<option th:each="civ : ${civilites}" th:value="${civ}" th:selected="${stagiaire.civilite == civ}">[[${civ.label}]]</option>
 						</select>
-
+						<span th:errors="${stagiaire.civilite}" class="text-danger"></span>
 					</div>
 					<div class="form-group">
 						<label for="nom">Nom:</label> <input type="text"
 							class="form-control" id="nom" name="nom" th:value="${stagiaire.nom}">
+						<span th:errors="${stagiaire.nom}" class="text-danger"></span>
 					</div>
 					<div class="form-group">
 						<label for="prenom">Prénom:</label> <input type="text"
 							class="form-control" id="prenom" name="prenom"
 							th:value="${stagiaire.prenom}">
+						<span th:errors="${stagiaire.prenom}" class="text-danger"></span>
 					</div>
 					<div class="form-group">
 						<label for="email">Courriel:</label> <input type="text"
 							class="form-control" id="email" name="email"
 							th:value="${stagiaire.email}">
+						<span th:errors="${stagiaire.email}" class="text-danger"></span>
 					</div>
 					<div class="form-group">
 						<label for="telephone">Téléphone:</label> <input type="text"
 							class="form-control" id="telephone" name="telephone"
 							th:value="${stagiaire.telephone}">
+						<span th:errors="${stagiaire.telephone}" class="text-danger"></span>
 					</div>
 					<div class="form-group">
 						<label for="dtNaissance">Date de naissance:</label> <input
 							type="date" class="form-control" id="dtNaissance"
 							name="dtNaissance" th:value="${stagiaire.dtNaissance}">
+						<span th:errors="${stagiaire.dtNaissance}" class="text-danger"></span>					
 					</div>
 					<div class="form-group">
 						<label for="niveauEtude">Niveau d'étude:</label> <select

@@ -13,6 +13,11 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "person")
@@ -26,14 +31,21 @@ public abstract class Personne {
 	private int version;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "civility", length = 5)
+	@NotNull(message="La civilité est obligatoire")
 	private Civilite civilite;
 	@Column(name = "last_name", length = 100, nullable = false)
+	@NotEmpty(message="Le nom est obligatoire")
+	@Size(min = 2,max=100, message="Le nom doit comprendre entre 2 et 100 caractères")
 	private String nom;
+	@NotEmpty(message="Le prénom est obligatoire")
 	@Column(name = "first_name", length = 100)
 	private String prenom;
 	@Column(length = 255, nullable = false)
+	@Email(message = "L'email n'est pas valide")
+	@NotEmpty(message="Il faut un email")
 	private String email;
 	@Column(name = "phonenumber", length = 15)
+	@Pattern(regexp = "(\\+33|0)[0-9]{9}", message="Numéro pas bon")
 	private String telephone;
 	@Embedded
 	private Adresse adresse;

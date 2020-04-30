@@ -1,25 +1,18 @@
 package sopra.formation.web;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.springframework.beans.PropertyAccessException;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.DefaultBindingErrorProcessor;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import sopra.formation.model.Adresse;
 import sopra.formation.model.Civilite;
 import sopra.formation.model.Evaluation;
@@ -27,6 +20,7 @@ import sopra.formation.model.NiveauEtude;
 import sopra.formation.model.Stagiaire;
 import sopra.formation.persistence.IEvaluationRepository;
 import sopra.formation.persistence.IStagiaireRepository;
+import sopra.formation.web.validator.StagiaireValidator;
 
 @Controller
 @RequestMapping("/stagiaire")
@@ -99,7 +93,17 @@ public class StagiaireController {
 	}
 	
 	@PostMapping("/save")
-	public String save(@ModelAttribute("stagiaire") Stagiaire stagiaire, @RequestParam(value = "evaluationId", required = false) Long evaluationId) {
+	public String save(@ModelAttribute("stagiaire") @Valid Stagiaire stagiaire, BindingResult result, @RequestParam(value = "evaluationId", required = false) Long evaluationId, Model model) {
+		
+		
+		new StagiaireValidator().validate(stagiaire, result);
+		
+		if(result.hasErrors()) {
+			model.addAttribute("civilites", Civilite.values());
+			model.addAttribute("niveauEtudes", NiveauEtude.values());
+			model.addAttribute("evaluations", evaluationRepo.findAllOrphan());
+			return "stagiaire/form";
+		}
 		
 		if (evaluationId != null) {
 			Evaluation evaluation = new Evaluation();
