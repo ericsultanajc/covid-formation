@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,7 +36,7 @@ public class StagiaireController {
 	public String list(Model model) {
 		model.addAttribute("page", "stagiaire");
 		model.addAttribute("stagiaires", stagiaireRepo.findAll());
-		
+
 		return "stagiaire/list";
 	}
 
@@ -49,7 +50,7 @@ public class StagiaireController {
 
 		return "stagiaire/form";
 	}
-	
+
 	@GetMapping("/edit")
 	public String edit(@RequestParam Long id, Model model) {
 		model.addAttribute("page", "stagiaire");
@@ -61,7 +62,7 @@ public class StagiaireController {
 		return "stagiaire/form";
 	}
 
-	@PostMapping("/save")
+	// @PostMapping("/saveFirst")
 	public String save(@RequestParam(required = false) Long id,
 			@RequestParam(required = false, defaultValue = "0") Integer version,
 			@RequestParam(required = false) Civilite civilite, @RequestParam String nom,
@@ -88,9 +89,13 @@ public class StagiaireController {
 
 		return "redirect:list";
 	}
-	
-	public String save(Stagiaire stagiaire, Long evaluationId) {
-		
+
+	@PostMapping("/save")
+	public String save(@ModelAttribute("stagiaire") Stagiaire stagiaire,
+			@RequestParam(value = "evaluationId", required = false) Long evaluation) {
+
+		stagiaireRepo.save(stagiaire);
+
 		return "redirect:list";
 	}
 

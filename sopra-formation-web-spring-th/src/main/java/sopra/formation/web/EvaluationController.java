@@ -85,6 +85,7 @@ public class EvaluationController {
 		return "evaluation/form";
 	}
 
+	// Version 1 : anciennement ("/save") sans le binding --> modif du nom pour le binding
 	@PostMapping("/saveFirst")
 	public String saveFirst(@RequestParam(required = false) Long id,
 			@RequestParam(required = false, defaultValue = "0") Integer version, @RequestParam Integer comportemental,
@@ -105,6 +106,7 @@ public class EvaluationController {
 		// RequestMapping (value="",method"").
 	}
 	
+	// Version 2 : avec le binding
 	@PostMapping("/save")
 	public String save(@ModelAttribute("monEvaluation") Evaluation evaluation) {
 		

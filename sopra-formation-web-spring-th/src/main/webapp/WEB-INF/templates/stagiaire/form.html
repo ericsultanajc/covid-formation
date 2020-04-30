@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html 	xmlns:th="http://www.thymeleaf.org" 
-		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-		layout:decorator="layout.html">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout.html">
 <head>
 <meta charset="UTF-8">
 <title>Edition du stagiaire</title>
@@ -9,28 +9,30 @@
 <body>
 	<section layout:fragment="monContenu">
 		<form th:action="@{/stagiaire/save}" method="post">
-			<input type="hidden" name="id" th:value="${stagiaire.id}" />
-			<input type="hidden" name="version" th:value="${stagiaire.version}"/>
+			<input type="hidden" name="id" th:value="${stagiaire.id}" /> <input
+				type="hidden" name="version" th:value="${stagiaire.version}" />
 			<div id="filiereForm" class="card mt-3">
 				<div class="card-header bg-info text-white">
 					<h3>Edition du stagiaire</h3>
 				</div>
 				<div class="card-body">
 					<div class="form-group">
-						<label for="civilite">Civilité:</label> 
-						<select class="form-control" id="civilite" name="civilite">
-							<option th:each="civ : ${civilites}" th:value="${civ}" th:selected="${stagiaire.civilite == civ}">[[${civ.label}]]</option>
+						<label for="civilite">Civilité:</label> <select
+							class="form-control" id="civilite" name="civilite">
+							<option th:each="civ : ${civilites}" th:value="${civ}"
+								th:selected="${stagiaire.civilite == civ}">[[${civ.label}]]</option>
 						</select>
 
 					</div>
 					<div class="form-group">
 						<label for="nom">Nom:</label> <input type="text"
-							class="form-control" id="nom" name="nom" th:value="${stagiaire.nom}">
+							class="form-control" id="nom" name="nom"
+							th:value="${stagiaire.nom}">
 					</div>
 					<div class="form-group">
 						<label for="prenom">Prénom:</label> <input type="text"
 							class="form-control" id="prenom" name="prenom"
-							th:value="${stagiaire?.prenom}">
+							th:value="${stagiaire.prenom}">
 						<!-- "id" sert dans le HTML pour la recherche quand on travaille en js. "id" et "for" ne s'affichent pas dans le page c'est surtout pour anticiper un besoin à venir-->
 					</div>
 					<div class="form-group">
@@ -51,35 +53,38 @@
 					<div class="form-group">
 						<label for="niveauEtude">Niveau d'étude:</label> <select
 							class="form-control" id="niveauEtude" name="niveauEtude">
-								<option th:each="niv : ${niveauEtudes}" th:value="${niv}" th:selected="${stagiaire.niveauEtude == niv}">[[${niv}]]</option>
+							<option th:each="niv : ${niveauEtudes}" th:value="${niv}"
+								th:selected="${stagiaire.niveauEtude == niv}">[[${niv}]]</option>
 						</select>
 
 					</div>
 					<div class="form-group">
 						<label for="rue">Rue:</label> <input type="text"
-							class="form-control" id="rue" name="rue"
+							class="form-control" id="rue" name="adresse.rue"
 							th:value="${stagiaire.adresse?.rue}">
 					</div>
 					<div class="form-group">
 						<label for="complement">Complément:</label> <input type="text"
-							class="form-control" id="complement" name="complement"
+							class="form-control" id="complement" name="adresse.complement"
 							th:value="${stagiaire.adresse?.complement}">
 					</div>
 					<div class="form-group">
 						<label for="codePostal">Code postal:</label> <input type="text"
-							class="form-control" id="codePostal" name="codePostal"
+							class="form-control" id="codePostal" name="adresse.codePostal"
 							th:value="${stagiaire.adresse?.codePostal}">
 					</div>
 					<div class="form-group">
 						<label for="ville">Ville:</label> <input type="text"
-							class="form-control" id="ville" name="ville"
+							class="form-control" id="ville" name="adresse.ville"
 							th:value="${stagiaire?.adresse?.ville}">
-							<!-- si on choisit de créer un stagiaire vide dans le controller alors on retire le "?" après le stagiaire, en revanche il faut garder celui après adresse -->
+						<!-- si on choisit de créer un stagiaire vide dans le controller alors on retire le "?" après le stagiaire, en revanche il faut garder celui après adresse -->
 					</div>
 					<div class="form-group">
 						<label for="evaluation">Evaluation:</label> <select
-							class="form-control" id="evaluation" name="evaluation">
-							<option th:each="eval : ${evaluations}" th:value="${eval.id}" th:selected="${stagiaire.evaluation?.id == eval.id}">[[${eval.id}]] - [[${eval.commentaires}]]</option>
+							class="form-control" id="evaluationId" name="evaluationId">
+							<option th:each="eval : ${evaluations}" th:value="${eval.id}"
+								th:selected="${stagiaire.evaluation?.id == eval.id}">[[${eval.id}]]
+								- [[${eval.commentaires}]]</option>
 						</select>
 					</div>
 				</div>
