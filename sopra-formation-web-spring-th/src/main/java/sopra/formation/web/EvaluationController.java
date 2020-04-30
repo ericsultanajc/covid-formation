@@ -26,11 +26,11 @@ public class EvaluationController {
 		super();
 	}
 
-	@GetMapping({"", "/"})
+	@GetMapping({ "", "/" })
 	public String defaut() {
 		return "forward:/evaluation/list";
 	}
-	
+
 	// ETAPE 1 : Réception de la Request
 	@GetMapping("/list")
 	public String list(Model model) {
@@ -46,9 +46,10 @@ public class EvaluationController {
 
 	// ETAPE 1 : Réception de la Request
 	@GetMapping("/add")
-	public String add() {
-		// ETAPE 2 et 3 : non nécessaire ici
-
+	public String add(Model model) {
+		// ETAPE 2 et 3 : deux méthodes : on crée un stagiaire vide ou on place des "?"
+		// sur les th:value
+		model.addAttribute("monEvaluation", new Evaluation());
 		// ETAPE 4
 		return "evaluation/form";
 	}
@@ -90,6 +91,12 @@ public class EvaluationController {
 		evaluationRepo.save(evaluation);
 
 		return "redirect:list";
+		// renvoie au navigateur l'ordre de renvoyer la liste --> redirection : deux
+		// allers-retours
+		// l'URL correspond réellement à l'appel qui est fais
+		// on ne peut pas faire le forward car le save est en Post et le list est en
+		// Get, deux solutions : utiliser le redirect ou bien utiliser la méthode
+		// RequestMapping (value="",method"").
 	}
 
 	@GetMapping("/delete")
@@ -97,6 +104,10 @@ public class EvaluationController {
 		evaluationRepo.deleteById(id);
 
 		return "forward:list";
+		// on reste côté serveur et on retourne dans le dispatcherServlet -->
+		// GetMapping("/list")
+		// un peu moins de transit --> plus performant car moins d'allers-retours
+		// ne fonctionne que si les méthodes sont les mêmes! 
 	}
 
 	@GetMapping("/cancel")
