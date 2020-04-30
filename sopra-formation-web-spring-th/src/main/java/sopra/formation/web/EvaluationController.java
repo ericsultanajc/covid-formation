@@ -34,6 +34,7 @@ public class EvaluationController {
 	// ETAPE 1 : Réception de la Request
 	@GetMapping("/list")
 	public String list(Model model) {
+		model.addAttribute("page", "evaluation");
 		// ETAPE 2 : Récuperation des données
 		List<Evaluation> evaluations = evaluationRepo.findAll();
 
@@ -47,6 +48,7 @@ public class EvaluationController {
 	// ETAPE 1 : Réception de la Request
 	@GetMapping("/add")
 	public String add(Model model) {
+		model.addAttribute("page", "evaluation");
 		// ETAPE 2 et 3 : 
 		model.addAttribute("monEvaluation", new Evaluation());
 
@@ -57,6 +59,7 @@ public class EvaluationController {
 	// ETAPE 1 : Réception de la Request
 	@GetMapping("/edit")
 	public String edit(@RequestParam("id") Long id, Model model) {
+		model.addAttribute("page", "evaluation");
 		// ETAPE 2
 		Optional<Evaluation> optEvaluation = evaluationRepo.findById(id);
 
@@ -69,6 +72,7 @@ public class EvaluationController {
 
 	@GetMapping("/editWithPathVariable/{idEval}")
 	public String editWithPathVariable(@PathVariable("idEval") Long id, Model model) {
+		model.addAttribute("page", "evaluation");
 		// ETAPE 2
 		Optional<Evaluation> optEvaluation = evaluationRepo.findById(id);
 

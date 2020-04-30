@@ -33,13 +33,15 @@ public class StagiaireController {
 
 	@GetMapping({ "", "/", "/list" })
 	public String list(Model model) {
+		model.addAttribute("page", "stagiaire");
 		model.addAttribute("stagiaires", stagiaireRepo.findAll());
-
+		
 		return "stagiaire/list";
 	}
 
 	@GetMapping("/add")
 	public String add(Model model) {
+		model.addAttribute("page", "stagiaire");
 		model.addAttribute("civilites", Civilite.values());
 		model.addAttribute("niveauEtudes", NiveauEtude.values());
 		model.addAttribute("evaluations", evaluationRepo.findAllOrphan());
@@ -50,7 +52,7 @@ public class StagiaireController {
 	
 	@GetMapping("/edit")
 	public String edit(@RequestParam Long id, Model model) {
-
+		model.addAttribute("page", "stagiaire");
 		model.addAttribute("civilites", Civilite.values());
 		model.addAttribute("niveauEtudes", NiveauEtude.values());
 		model.addAttribute("evaluations", evaluationRepo.findAllOrphanAndCurrentStagiaire(id));
