@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,8 +84,8 @@ public class EvaluationController {
 		return "evaluation/form";
 	}
 
-	@PostMapping("/save")
-	public String save(@RequestParam(required = false) Long id,
+	@PostMapping("/saveFirst")
+	public String saveFirst(@RequestParam(required = false) Long id,
 			@RequestParam(required = false, defaultValue = "0") Integer version, @RequestParam Integer comportemental,
 			@RequestParam(required = false) Integer technique, @RequestParam(required = false) String commentaires) {
 
@@ -94,6 +95,14 @@ public class EvaluationController {
 
 		evaluationRepo.save(evaluation);
 
+		return "redirect:list";
+	}
+	
+	@PostMapping("/save")
+	public String save(@ModelAttribute("monEvaluation") Evaluation evaluation) {
+		
+		evaluationRepo.save(evaluation);
+		
 		return "redirect:list";
 	}
 

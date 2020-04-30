@@ -88,6 +88,11 @@ public class StagiaireController {
 
 		return "redirect:list";
 	}
+	
+	public String save(Stagiaire stagiaire, Long evaluationId) {
+		
+		return "redirect:list";
+	}
 
 	@GetMapping("/cancel")
 	public String cancel() {
