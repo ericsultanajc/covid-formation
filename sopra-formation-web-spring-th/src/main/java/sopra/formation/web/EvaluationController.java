@@ -103,11 +103,12 @@ public class EvaluationController {
 	}
 	
 	@PostMapping("/save")
-	public String save(@ModelAttribute("monEvaluation") @Valid Evaluation evaluation, BindingResult result) {
+	public String save(@ModelAttribute("monEvaluation") @Valid Evaluation evaluation, BindingResult result, Model model) {
 		
 		new EvaluationValidator().validate(evaluation, result);
 		
 		if(result.hasErrors()) {
+			model.addAttribute("page", "evaluation");
 			return "evaluation/form";
 		}
 		

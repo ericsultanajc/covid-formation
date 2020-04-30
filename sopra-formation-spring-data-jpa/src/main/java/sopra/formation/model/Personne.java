@@ -13,6 +13,12 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "person")
@@ -26,14 +32,21 @@ public abstract class Personne {
 	private int version;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "civility", length = 5)
+	@NotNull (message ="Ce champ doit être renseigné")
 	private Civilite civilite;
 	@Column(name = "last_name", length = 100, nullable = false)
+	@Length(min=2,message="Le nom doit avoir plus de 2 caractères")
+	@Length(max=100,message="Le nom doit avoir au maximum 100 caractères")
 	private String nom;
 	@Column(name = "first_name", length = 100)
+	@NotEmpty (message ="Ce champ doit être renseigné")
 	private String prenom;
 	@Column(length = 255, nullable = false)
+	@NotNull (message ="Ce champ doit être renseigné")
+	@Email (message ="Ceci ne correspond pas au format d''un email")
 	private String email;
 	@Column(name = "phonenumber", length = 15)
+	@Pattern(regexp = "^[0-9+ ]*$")
 	private String telephone;
 	@Embedded
 	private Adresse adresse;
