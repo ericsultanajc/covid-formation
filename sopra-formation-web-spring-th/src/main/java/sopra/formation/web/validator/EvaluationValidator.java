@@ -18,7 +18,7 @@ public class EvaluationValidator implements Validator {
 
 		if (evaluation.getTechnique() != null) {
 			if (evaluation.getTechnique() < 0 || evaluation.getTechnique() > 20) {
-				errors.rejectValue("technique", "borne",
+				errors.rejectValue("technique", "evaluation.technique.borne",
 						"La note technique doit être comprise entre 0 et 20");
 			}
 		}

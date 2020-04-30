@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<!-- Activation des annotations Web MVC -->
-	<mvc:annotation-driven />
+	<mvc:annotation-driven validator="validator"/>
 
 	<!-- Scanner le package où se situe les Controller -->
 	<context:component-scan
@@ -50,6 +50,30 @@
 	<bean id="viewResolver"
 		class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
 		<property name="templateEngine" ref="templateEngine" />
+	</bean>
+	
+	<!-- Charge le bundle traductions en mémoire -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
+	</bean>
+	
+	<!-- Indique comment stocker (en session) et la langue par défaut -->
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+		<property name="defaultLocale" value="fr" />
+	</bean>
+	
+	<!-- Permet d'avoir un paramètre en url (lang) avec lequel nous pouvons changer la langue de l'utilisateur -->
+	<mvc:interceptors>
+		<bean
+			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="lang" />
+		</bean>
+	</mvc:interceptors>
+	
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="validationMessageSource" ref="messageSource"/>
 	</bean>
 
 </beans>
