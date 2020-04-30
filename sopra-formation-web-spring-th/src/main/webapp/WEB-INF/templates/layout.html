@@ -8,7 +8,14 @@
 <link rel="stylesheet" th:href="@{/css/all.css}">
 <script th:src="@{/js/jquery-3.5.0.min.js}"></script>
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<style>
+/* a:visited { color: white; } */
+a:focus, a:visited, a {
+	color: white;
+}
+</style>
 </head>
+
 <body>
 	<header>
 		<ul class="nav nav-pills m-5">
@@ -21,8 +28,36 @@
 			<li class="nav-item"><a class="nav-link disabled" th:href="@{/salle/list}">Salle</a></li>
 		</ul>
 	</header>
+	<header>
+		<div class="container-fluid bg-info" style="text-align: center;">
+			<nav class="navbar navbar-expand-sm">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/evaluation/list}">Evaluations</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/stagiaire/list}">Stagiaires</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
 	<div class="container-fluid">
 		<section layout:fragment="monContenu"></section>
 	</div>
+
+	<footer>
+		<br>
+		<div class="container-fluid bg-info" style="height: 200px; text-align: center; color: white;">
+			<div style="line-height: 200px;">
+            <a th:href="@{/fragments}">Fragments Index</a> | 
+			<a th:href="@{/markup}">Markup inclussion</a> | <a th:href="@{/params}">Fragment params</a> |
+			<a th:href="@{/other}">Other</a>
+            </div>
+		</div>
+	</footer>
+
+
+
+
 </body>
 </html>
