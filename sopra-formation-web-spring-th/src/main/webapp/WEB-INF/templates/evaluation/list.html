@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html 	xmlns:th="http://www.thymeleaf.org" 
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorator="layout.html">
 <head>
 <meta charset="UTF-8">
 <title>Liste des évaluations</title>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
-<link rel="stylesheet" th:href="@{/css/all.css}" >
-<script th:src="@{/js/jquery-3.5.0.min.js}"></script>
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </head>
 
 <body>
-
-	<div class="container-fluid" >
+<section layout:fragment="bandeau">
 		<div class="card mt-3">
 			<div class="card-header bg-info text-white">
 				<h2>Liste des évaluations</h2>
@@ -49,6 +46,6 @@
 				</a>
 			</div>
 		</div>
-	</div>
+	</section>
 </body>
 </html>

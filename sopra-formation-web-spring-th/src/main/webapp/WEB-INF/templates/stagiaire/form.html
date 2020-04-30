@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html 	xmlns:th="http://www.thymeleaf.org" 
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorator="layout.html">
 <head>
 <meta charset="UTF-8">
 <title>Edition du stagiaire</title>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
-<link rel="stylesheet" th:href="@{/css/all.css}" >
-<script th:src="@{/js/jquery-3.5.0.min.js}"></script>
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </head>
 <body>
 
-	<div class="container-fluid">
+	<section layout:fragment="bandeau">
 		<form th:action="@{/stagiaire/save}" method="post">
 			<input type="hidden" name="id" th:value="${stagiaire?.id}" />
 			<input type="hidden" name="version" th:value="${stagiaire?.version}"/>
@@ -103,6 +101,6 @@
 			</div>
 		</form>
 
-	</div>
+	</section>
 </body>
 </html>
