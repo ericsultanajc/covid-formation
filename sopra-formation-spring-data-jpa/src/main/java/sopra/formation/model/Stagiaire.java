@@ -14,6 +14,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @DiscriminatorValue("Stagiaire")
 @NamedQueries({
@@ -22,6 +24,7 @@ import javax.persistence.TemporalType;
 public class Stagiaire extends Personne {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "birthdate")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dtNaissance;
 	@Column(name = "study_level", length = 15)
 	@Enumerated(EnumType.STRING)
