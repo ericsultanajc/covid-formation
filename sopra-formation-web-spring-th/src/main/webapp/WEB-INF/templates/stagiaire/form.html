@@ -56,27 +56,27 @@
 					</div>
 					<div class="form-group">
 						<label for="rue">Rue:</label> <input type="text"
-							class="form-control" id="rue" name="rue"
+							class="form-control" id="rue" name="adresse.rue"
 							th:value="${stagiaire.adresse?.rue}">
 					</div>
 					<div class="form-group">
 						<label for="complement">Complément:</label> <input type="text"
-							class="form-control" id="complement" name="complement"
+							class="form-control" id="complement" name="adresse.complement"
 							th:value="${stagiaire.adresse?.complement}">
 					</div>
 					<div class="form-group">
 						<label for="codePostal">Code postal:</label> <input type="text"
-							class="form-control" id="codePostal" name="codePostal"
+							class="form-control" id="codePostal" name="adresse.codePostal"
 							th:value="${stagiaire.adresse?.codePostal}">
 					</div>
 					<div class="form-group">
 						<label for="ville">Ville:</label> <input type="text"
-							class="form-control" id="ville" name="ville"
+							class="form-control" id="ville" name="adresse.ville"
 							th:value="${stagiaire.adresse?.ville}">
 					</div>
 					<div class="form-group">
 						<label for="evaluation">Evaluation:</label> <select
-							class="form-control" id="evaluation" name="evaluation">
+							class="form-control" id="evaluationId" name="evaluationId">
 							<option th:each="eval : ${evaluations}" th:value="${eval.id}" th:selected="${stagiaire.evaluation?.id == eval.id}">[[${eval.id}]] - [[${eval.commentaires}]]</option>
 						</select>
 					</div>
