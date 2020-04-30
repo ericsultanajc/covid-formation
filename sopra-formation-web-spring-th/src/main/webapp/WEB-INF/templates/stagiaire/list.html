@@ -8,7 +8,8 @@
 </head>
 
 <body>
-<section layout:fragment="bandeau">
+
+	<section layout:fragment="monContenu">
 		<div class="card mt-3">
 			<div class="card-header bg-info text-white">
 				<h2>Liste des stagiaires</h2>
@@ -28,36 +29,39 @@
 							<th>Complément</th>
 							<th>Code postal</th>
 							<th>Ville</th>
-							<th>Evaluation</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-							<tr th:each="stagiaire:${stagiaires}">
-								<td>[[${stagiaire.civilite.label}]]</td>
-								<td>[[${stagiaire.nom}]]</td>
-								<td>[[${stagiaire.prenom}]]</td>
-								<td>[[${stagiaire.email}]]</td>
-								<td>[[${stagiaire.telephone}]]</td>
-								<td th:text ="${#dates.format(stagiaire?.dtNaissance,'yyyy-MM-dd')}"> </td>
-								<td>[[${stagiaire.niveauEtude}]]</td>
-								<td>[[${stagiaire.adresse?.rue}]]</td>
-								<td>[[${stagiaire.adresse?.complement}]]</td>
-								<td>[[${stagiaire.adresse?.codePostal}]]</td>
-								<td>[[${stagiaire.adresse?.ville}]]</td>
-								<td>[[${stagiaire.evaluation?.id}]]</td>
-								
-								<td><div class="btn-group btn-group-sm"><a class="btn btn-primary" th:href="@{/stagiaire/edit(id=${stagiaire.id})}"><i class="fa fa-edit"></i></a><a class="btn btn-danger" th:href="@{/stagiaire/delete(id=${stagiaire.id})}"><i class="fa fa-trash"></i></a></div></td>
-							</tr>
+						<tr th:each="stagiaire : ${stagiaires}">
+							<td>[[${stagiaire.civilite?.label}]]</td>
+							<td>[[${stagiaire.nom}]]</td>
+							<td>[[${stagiaire.prenom}]]</td>
+							<td>[[${stagiaire.email}]]</td>
+							<td>[[${stagiaire.telephone}]]</td>
+							<td>[[${#dates.format(stagiaire.dtNaissance, 'dd/MM/yyyy')}]]</td>
+							<td>[[${stagiaire.niveauEtude}]]</td>
+							<td>[[${stagiaire.adresse?.rue}]]</td>
+							<td>[[${stagiaire.adresse?.complement}]]</td>
+							<td>[[${stagiaire.adresse?.codePostal}]]</td>
+							<td>[[${stagiaire.adresse?.ville}]]</td>
+							<td><div class="btn-group btn-group-sm">
+									<a class="btn btn-primary" th:href="@{/stagiaire/edit(id=${stagiaire.id})}">
+										<i class="fa fa-edit"></i>
+									</a>
+									<a class="btn btn-danger" th:href="@{/stagiaire/delete(id=${stagiaire.id})}"><i class="fa fa-trash"></i></a>
+								</div>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
 			<div class="card-footer">
-				<a th:href="@{/stagiaire/add}" class="btn btn-success btn-lg">
-					<i class="fa fa-plus"></i>
+				<a th:href="@{/stagiaire/add}" class="btn btn-success btn-lg"> <i
+					class="fa fa-plus"></i>
 				</a>
 			</div>
 		</div>
-		</section>
+	</section>
 </body>
 </html>

@@ -3,10 +3,14 @@ package sopra.formation.web;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import sopra.formation.model.Evaluation;
 import sopra.formation.persistence.IEvaluationRepository;
+import sopra.formation.web.validator.EvaluationValidator;
 
 @Controller
 @RequestMapping("/evaluation")
@@ -34,6 +39,7 @@ public class EvaluationController {
 	// ETAPE 1 : Réception de la Request
 	@GetMapping("/list")
 	public String list(Model model) {
+		model.addAttribute("page", "evaluation");
 		// ETAPE 2 : Récuperation des données
 		List<Evaluation> evaluations = evaluationRepo.findAll();
 
@@ -46,8 +52,10 @@ public class EvaluationController {
 
 	// ETAPE 1 : Réception de la Request
 	@GetMapping("/add")
-	public String add() {
-		// ETAPE 2 et 3 : non nécessaire ici
+	public String add(Model model) {
+		model.addAttribute("page", "evaluation");
+		// ETAPE 2 et 3 : 
+		model.addAttribute("monEvaluation", new Evaluation());
 
 		// ETAPE 4
 		return "evaluation/form";
@@ -56,6 +64,7 @@ public class EvaluationController {
 	// ETAPE 1 : Réception de la Request
 	@GetMapping("/edit")
 	public String edit(@RequestParam("id") Long id, Model model) {
+		model.addAttribute("page", "evaluation");
 		// ETAPE 2
 		Optional<Evaluation> optEvaluation = evaluationRepo.findById(id);
 
@@ -68,6 +77,7 @@ public class EvaluationController {
 
 	@GetMapping("/editWithPathVariable/{idEval}")
 	public String editWithPathVariable(@PathVariable("idEval") Long id, Model model) {
+		model.addAttribute("page", "evaluation");
 		// ETAPE 2
 		Optional<Evaluation> optEvaluation = evaluationRepo.findById(id);
 
@@ -78,8 +88,8 @@ public class EvaluationController {
 		return "evaluation/form";
 	}
 
-	@PostMapping("/save")
-	public String save(@RequestParam(required = false) Long id,
+	@PostMapping("/saveFirst")
+	public String saveFirst(@RequestParam(required = false) Long id,
 			@RequestParam(required = false, defaultValue = "0") Integer version, @RequestParam Integer comportemental,
 			@RequestParam(required = false) Integer technique, @RequestParam(required = false) String commentaires) {
 
@@ -89,6 +99,20 @@ public class EvaluationController {
 
 		evaluationRepo.save(evaluation);
 
+		return "redirect:list";
+	}
+	
+	@PostMapping("/save")
+	public String save(@ModelAttribute("monEvaluation") @Valid Evaluation evaluation, BindingResult result) {
+		
+		new EvaluationValidator().validate(evaluation, result);
+		
+		if(result.hasErrors()) {
+			return "evaluation/form";
+		}
+		
+		evaluationRepo.save(evaluation);
+		
 		return "redirect:list";
 	}
 

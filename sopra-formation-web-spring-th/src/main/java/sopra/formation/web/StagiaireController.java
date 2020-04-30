@@ -1,12 +1,21 @@
 package sopra.formation.web;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.beans.PropertyAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.DefaultBindingErrorProcessor;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,23 +42,26 @@ public class StagiaireController {
 
 	@GetMapping({ "", "/", "/list" })
 	public String list(Model model) {
+		model.addAttribute("page", "stagiaire");
 		model.addAttribute("stagiaires", stagiaireRepo.findAll());
-
+		
 		return "stagiaire/list";
 	}
 
 	@GetMapping("/add")
 	public String add(Model model) {
+		model.addAttribute("page", "stagiaire");
 		model.addAttribute("civilites", Civilite.values());
 		model.addAttribute("niveauEtudes", NiveauEtude.values());
 		model.addAttribute("evaluations", evaluationRepo.findAllOrphan());
+		model.addAttribute("stagiaire", new Stagiaire());
 
 		return "stagiaire/form";
 	}
-
+	
 	@GetMapping("/edit")
 	public String edit(@RequestParam Long id, Model model) {
-
+		model.addAttribute("page", "stagiaire");
 		model.addAttribute("civilites", Civilite.values());
 		model.addAttribute("niveauEtudes", NiveauEtude.values());
 		model.addAttribute("evaluations", evaluationRepo.findAllOrphanAndCurrentStagiaire(id));
@@ -58,13 +70,13 @@ public class StagiaireController {
 		return "stagiaire/form";
 	}
 
-	@PostMapping("/save")
+//	@PostMapping("/save")
 	public String save(@RequestParam(required = false) Long id,
 			@RequestParam(required = false, defaultValue = "0") Integer version,
 			@RequestParam(required = false) Civilite civilite, @RequestParam String nom,
 			@RequestParam(required = false) String prenom, @RequestParam String email,
 			@RequestParam(required = false) String telephone,
-			@RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dtNaissance,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date dtNaissance,
 			@RequestParam(required = false) NiveauEtude niveauEtude, @RequestParam(required = false) String rue,
 			@RequestParam(required = false) String complement, @RequestParam(required = false) String codePostal,
 			@RequestParam(required = false) String ville,
@@ -85,6 +97,20 @@ public class StagiaireController {
 
 		return "redirect:list";
 	}
+	
+	@PostMapping("/save")
+	public String save(@ModelAttribute("stagiaire") Stagiaire stagiaire, @RequestParam(value = "evaluationId", required = false) Long evaluationId) {
+		
+		if (evaluationId != null) {
+			Evaluation evaluation = new Evaluation();
+			evaluation.setId(evaluationId);
+			stagiaire.setEvaluation(evaluation);
+		}
+		
+		stagiaireRepo.save(stagiaire);
+		
+		return "redirect:list";
+	}
 
 	@GetMapping("/cancel")
 	public String cancel() {
@@ -97,4 +123,12 @@ public class StagiaireController {
 
 		return "forward:list";
 	}
+	
+//	@InitBinder
+//	public void initBinder(WebDataBinder binder) {
+//	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//	    
+//	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+//	    
+//	}
 }
