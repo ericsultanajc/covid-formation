@@ -82,9 +82,7 @@
 					<div class="form-group">
 						<label for="evaluation">Evaluation:</label> <select
 							class="form-control" id="evaluationId" name="evaluationId">
-							<option th:each="eval : ${evaluations}" th:value="${eval.id}"
-								th:selected="${stagiaire.evaluation?.id == eval.id}">[[${eval.id}]]
-								- [[${eval.commentaires}]]</option>
+							<option th:each="eval : ${evaluations}" th:value="${eval.id}" th:selected="${stagiaire.evaluation?.id == eval.id}">[[${eval.id}]] - [[${eval.commentaires}]]</option>
 						</select>
 					</div>
 				</div>
