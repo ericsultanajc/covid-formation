@@ -46,8 +46,9 @@ public class EvaluationController {
 
 	// ETAPE 1 : Réception de la Request
 	@GetMapping("/add")
-	public String add() {
-		// ETAPE 2 et 3 : non nécessaire ici
+	public String add(Model model) {
+		// ETAPE 2 et 3 : 
+		model.addAttribute("monEvaluation", new Evaluation());
 
 		// ETAPE 4
 		return "evaluation/form";
