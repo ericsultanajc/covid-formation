@@ -56,7 +56,7 @@ public class EvaluationController {
 		// ETAPE 2 et 3 : deux méthodes : on crée un stagiaire vide ou on place des "?"
 		// sur les th:value
 		model.addAttribute("page", "evaluation");
-		// ETAPE 2 et 3 : 
+		// ETAPE 2 et 3 :
 		model.addAttribute("monEvaluation", new Evaluation());
 		// ETAPE 4
 		return "evaluation/form";
@@ -112,16 +112,18 @@ public class EvaluationController {
 	
 	// Version 2 : avec le binding
 	@PostMapping("/save")
-	public String save(@ModelAttribute("monEvaluation") @Valid Evaluation evaluation, BindingResult result) {
-		
+	public String save(@ModelAttribute("monEvaluation") @Valid Evaluation evaluation, BindingResult result,
+			Model model) {
+
 		new EvaluationValidator().validate(evaluation, result);
-		
-		if(result.hasErrors()) {
+
+		if (result.hasErrors()) {
+			model.addAttribute("page", "evaluation");
 			return "evaluation/form";
 		}
-		
+
 		evaluationRepo.save(evaluation);
-		
+
 		return "redirect:list";
 	}
 

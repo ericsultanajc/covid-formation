@@ -13,6 +13,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,6 +27,7 @@ public class Stagiaire extends Personne {
 	@Column(name = "birthdate")
 	// pour le binding en WEB
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Past(message = "La date doît être dans le passé")
 	private Date dtNaissance;
 	@Column(name = "study_level", length = 15)
 	@Enumerated(EnumType.STRING)
