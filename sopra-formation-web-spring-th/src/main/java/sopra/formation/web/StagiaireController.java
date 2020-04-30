@@ -43,10 +43,11 @@ public class StagiaireController {
 		model.addAttribute("civilites", Civilite.values());
 		model.addAttribute("niveauEtudes", NiveauEtude.values());
 		model.addAttribute("evaluations", evaluationRepo.findAllOrphan());
+		model.addAttribute("stagiaire", new Stagiaire());
 
 		return "stagiaire/form";
 	}
-
+	
 	@GetMapping("/edit")
 	public String edit(@RequestParam Long id, Model model) {
 
