@@ -19,16 +19,16 @@ public class Evaluation {
 	private Long id;
 	@Version
 	private int version;
-	@NotNull(message="Note comportementale obligatoire")
-	@Min(value = 0, message="Note >= 0")
-	@Max(value = 20, message="Note <= 20")
+	@NotNull(message="{evaluation.comportemental.notNull}")
+	@Min(value = 0, message="{evaluation.comportemental.min}")
+	@Max(value = 20, message="{evaluation.comportemental.max}")
 	@Column(name = "behaviour", nullable = false)
 	private Integer comportemental;
 	@Column(name = "technical")
-	@NotNull(message="Note technique obligatoire")
+	@NotNull(message="{evaluation.technique.notNull}")
 	private Integer technique;
 	@Column(name = "comments", length = 4000)
-	@NotEmpty(message="Veuillez renseigner un commentaire")
+	@NotEmpty(message="{evaluation.commentaires.notEmpty}")
 	private String commentaires;
 
 	public Evaluation() {
