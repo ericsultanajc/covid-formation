@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT">[[#{layout.title}]]</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/all.css}">
+
+</head>
+<body>
+	<nav class="navbar bg-dark navbar-dark">
+		<!-- Brand -->
+		<a class="navbar-brand" href="#">Accueil</a>
+
+		<!-- Toggler/collapsibe Button -->
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#collapsibleNavbar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<!-- Navbar links -->
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" th:href="@{/stagiaire} ">Stagiaire</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/evaluation}">Evaluation</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container-fluid">
+		<section layout:fragment="monContenu"></section>
+	</div>
+	<script th:src="@{/js/jquery-3.5.0.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

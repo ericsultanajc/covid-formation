@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -33,8 +35,13 @@ public class EvaluationController extends HttpServlet {
 	public EvaluationController() {
 		super();
 	}
+	
+	@GetMapping({"", "/"})
+	public String defaut() {
+		return "forward:/evaluation/list";
+	}
 
-	@RequestMapping("/list")
+	@GetMapping("/list")
 	public String list(Model model) {
 		// ETAPE 2 : Récuperation des données
 		List<Evaluation> evaluations = evaluationRepo.findAll();
@@ -46,7 +53,7 @@ public class EvaluationController extends HttpServlet {
 		return "evaluation/list";
 	}
 
-	@RequestMapping("/add")
+	@GetMapping("/add")
 	private String add() {
 		// ETAPE 2 et 3 : non nécessaire ici
 
@@ -54,7 +61,7 @@ public class EvaluationController extends HttpServlet {
 		return "evaluation/form";
 	}
 
-	@RequestMapping("/edit")
+	@GetMapping("/edit")
 	private String edit(@RequestParam Long id, Model model) {
 		// ETAPE 2
 		Optional<Evaluation> optEvaluation = evaluationRepo.findById(id);
@@ -65,36 +72,30 @@ public class EvaluationController extends HttpServlet {
 		// ETAPE 4
 		return "evaluation/form";
 	}
-//
-//	private void save(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		Long id = (request.getParameter("id") != null && request.getParameter("id").length() > 0)
-//				? Long.valueOf(request.getParameter("id"))
-//				: null;
-//		Integer version = (request.getParameter("version") != null && request.getParameter("version").length() > 0)
-//				? Integer.valueOf(request.getParameter("version"))
-//				: 0;
-//		Integer comportemental = Integer.valueOf(request.getParameter("comportemental"));
-//		Integer technique = Integer.valueOf(request.getParameter("technique"));
-//		String commentaires = request.getParameter("commentaires");
-//
-//		Evaluation evaluation = new Evaluation(comportemental, technique, commentaires);
-//		evaluation.setId(id);
-//		evaluation.setVersion(version);
-//
-//		evaluationRepo.save(evaluation);
-//
-//		response.sendRedirect("evaluation");
-//	}
-//
-	@RequestMapping("/delete")
+
+	@PostMapping("/save")
+	public String save(@RequestParam(required = false) Long id,
+			@RequestParam(required = false, defaultValue = "0") Integer version, @RequestParam Integer comportemental,
+			@RequestParam(required = false) Integer technique, @RequestParam(required = false) String commentaires) {
+
+		Evaluation evaluation = new Evaluation(comportemental, technique, commentaires);
+		evaluation.setId(id);
+		evaluation.setVersion(version);
+
+		evaluationRepo.save(evaluation);
+
+		return "redirect:list";
+	}
+
+	@GetMapping("/delete")
 	private String delete(@RequestParam Long id) {
 		evaluationRepo.deleteById(id);
 
-		return "redirect:/evaluation/list";
+		return "redirect:list";
 	}
 //
-	@RequestMapping("/cancel")
-	private String cancel(Model model) {
+	@GetMapping("/cancel")
+	private String cancel() {
 		return "redirect:/evaluation/list";
 	}
 }

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout.html">
+<head>
+<meta charset="UTF-8">
+<title>Liste des stagiaires</title>
+</head>
+
+<body>
+	<section layout:fragment="monContenu">
+		<div class="container-fluid">
+			<div class="card">
+				<div class="card-header bg-primary text-white">
+					<h2>Liste des stagiaires</h2>
+				</div>
+				<div class="card-body">
+					<table id="stagiaireTable" class="table table-striped">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Version</th>
+								<th>Civilité</th>
+								<th>Nom</th>
+								<th>Prénom</th>
+								<th>Email</th>
+								<th>Téléphone</th>
+								<th>Date de naissance</th>
+								<th>Niveau d'étude</th>
+								<th>Rue</th>
+								<th>Complément</th>
+								<th>Code Postal</th>
+								<th>Ville</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="stagiaire : ${mesStagiaires}">
+								<td>[[${stagiaire.id}]]</td>
+								<td>[[${stagiaire.version}]]</td>
+								<td>[[${stagiaire.civilite}]]</td>
+								<td>[[${stagiaire.nom}]]</td>
+								<td>[[${stagiaire.prenom}]]</td>
+								<td>[[${stagiaire.email}]]</td>
+								<td>[[${stagiaire.telephone}]]</td>
+								<td>[[${stagiaire.dtNaissance}]]</td>
+								<td>[[${stagiaire.niveauEtude}]]</td>
+								<td>[[${stagiaire.adresse?.rue}]]</td>
+								<td>[[${stagiaire.adresse?.complement}]]</td>
+								<td>[[${stagiaire.adresse?.codePostal}]]</td>
+								<td>[[${stagiaire.adresse?.ville}]]</td>
+								<td><div class="btn-group btn-group-sm">
+										<a class="btn btn-primary"
+											th:href="@{/stagiaire/edit(id=${stagiaire.id})}"><i
+											class="fa fa-edit"></i></a><a class="btn btn-danger"
+											th:href="@{/stagiaire/delete(id=${stagiaire.id})}"><i
+											class="fa fa-trash"></i></a>
+									</div></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="card-footer">
+					<a th:href="@{/stagiaire/add}" class="btn btn-dark"> <i
+						class="far fa-plus-square fa-3x"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

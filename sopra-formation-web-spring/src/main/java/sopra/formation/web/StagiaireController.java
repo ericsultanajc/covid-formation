@@ -14,117 +14,78 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import sopra.formation.model.Civilite;
+import sopra.formation.model.Evaluation;
 import sopra.formation.model.NiveauEtude;
 import sopra.formation.model.Stagiaire;
 import sopra.formation.persistence.IStagiaireRepository;
 
-@WebServlet("/stagiaire")
+@Controller
+@RequestMapping("/stagiaire")
 public class StagiaireController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+	@Autowired
 	private IStagiaireRepository stagiaireRepo;
 
 	public StagiaireController() {
 		super();
 	}
-
-	@Override
-	public void init(ServletConfig config) throws ServletException {
-		ClassPathXmlApplicationContext context = (ClassPathXmlApplicationContext) config.getServletContext()
-				.getAttribute("spring");
-		stagiaireRepo = context.getBean(IStagiaireRepository.class);
+	
+	@GetMapping({"", "/"})
+	public String defaut() {
+		return "forward:/stagiaire/list";
 	}
 
-	// ETAPE 1 : Réception de la Request
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String mode = request.getParameter("mode") != null ? request.getParameter("mode") : "list";
-
-		if (mode.contentEquals("list")) {
-			list(request, response);
-		} else if (mode.contentEquals("add")) {
-			add(request, response);
-		} else if (mode.contentEquals("edit")) {
-			edit(request, response);
-		} else if (mode.contentEquals("save")) {
-			try {
-				save(request, response);
-			} catch (ServletException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-		} else if (mode.contentEquals("delete")) {
-			delete(request, response);
-		} else if (mode.contentEquals("cancel")) {
-			cancel(request, response);
-		}
-
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
-	}
-
-	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@GetMapping("/list")
+	public String list(Model model) {
 		// ETAPE 2 : Récuperation des données
 		List<Stagiaire> stagiaires = stagiaireRepo.findAll();
 
 		// ETAPE 3 : Remplissage du Model avec les données
-		request.setAttribute("mesStagiaires", stagiaires);
+		model.addAttribute("mesStagiaires", stagiaires);
 
 		// ETAPE 4 : Appel de la vue avec les données renseignées à l'étape 3
-		request.getServletContext().getRequestDispatcher("/WEB-INF/views/stagiaire/list.jsp").forward(request,
-				response);
+		return "stagiaire/list";
 	}
 
-	private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@GetMapping("/add")
+	private String add() {
 		// ETAPE 2 et 3 : non nécessaire ici
-		
+
 		// ETAPE 4
-		request.getServletContext().getRequestDispatcher("/WEB-INF/views/stagiaire/form.jsp").forward(request,
-				response);
+		return "stagiaire/form";
 	}
 
-	private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Long id = Long.valueOf(request.getParameter("id"));
-		
+
+	@GetMapping("/edit")
+	private String edit(@RequestParam Long id, Model model) {
 		// ETAPE 2
 		Optional<Stagiaire> optStagiaire = stagiaireRepo.findById(id);
-		
-		// ETAPE 3
-		request.setAttribute("monStagiaire", optStagiaire.get());
-		
-		// ETAPE 4
-		request.getServletContext().getRequestDispatcher("/WEB-INF/views/stagiaire/form.jsp").forward(request,
-				response);
-	}
 
-	private void save(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
-		Long id = (request.getParameter("id") != null && request.getParameter("id").length() > 0)
-				? Long.valueOf(request.getParameter("id"))
-				: null;
-		Integer version = (request.getParameter("version") != null && request.getParameter("version").length() > 0)
-				? Integer.valueOf(request.getParameter("version"))
-				: 0;
-		Civilite civilite = Civilite.valueOf(request.getParameter("civilite"));
-		String nom = request.getParameter("nom");
-		String prenom = request.getParameter("prenom");
-		Date dtNaissance = sdf.parse(request.getParameter("dtNaissance"));
-		NiveauEtude niveauEtude = NiveauEtude.valueOf(request.getParameter("niveauEtude"));
-		String email = request.getParameter("email");
-		String telephone = request.getParameter("telephone");
-		String rue = request.getParameter("rue");
-		String complement = request.getParameter("complement");
-		String codePostal = request.getParameter("codePostal");
-		String ville = request.getParameter("ville");
+		// ETAPE 3
+		model.addAttribute("monStagiaire", optStagiaire.get());
+
+		// ETAPE 4
+		return "stagiaire/form";
+	}
+	
+	@PostMapping("/save")
+	public String save(@RequestParam(required = false) Long id, @RequestParam(required = false, defaultValue = "0") Integer version,@RequestParam(required = false) Civilite civilite,
+			@RequestParam(required = false) String nom, @RequestParam(required = false) String prenom, @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date dtNaissance, @RequestParam(required = false) NiveauEtude niveauEtude,
+			@RequestParam(required = false) String email, @RequestParam(required = false) String telephone, @RequestParam(required = false) String rue, @RequestParam(required = false) String complement,
+			@RequestParam(required = false) String codePostal, @RequestParam(required = false) String ville) {
 		
 		Stagiaire stagiaire = new Stagiaire(civilite, nom, prenom, email, telephone, dtNaissance, niveauEtude);
 		stagiaire.setAdresse(rue, complement, codePostal, ville);
@@ -133,19 +94,18 @@ public class StagiaireController extends HttpServlet {
 		
 		stagiaireRepo.save(stagiaire);
 		
-		response.sendRedirect("stagiaire");		
+		return "redirect:list";	
 	}
 
-	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Long id = Long.valueOf(request.getParameter("id"));
-		
+	@GetMapping("/delete")
+	private String delete(@RequestParam Long id) {
 		stagiaireRepo.deleteById(id);
-		
-		request.getServletContext().getRequestDispatcher("/stagiaire?mode=list").forward(request,
-				response);
+
+		return "redirect:list";
 	}
 	
-	private void cancel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		list(request, response);
+	@GetMapping("/cancel")
+	private String cancel() {
+		return "redirect:list";
 	}
 }

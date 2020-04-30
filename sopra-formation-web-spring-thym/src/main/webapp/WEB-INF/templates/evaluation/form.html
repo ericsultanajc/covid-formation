@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Edition de l'évaluation</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
+<link rel="stylesheet" th:href="@{/css/all.css}" >
+<script th:src="@{/js/jquery-3.5.0.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</head>
+<body>
+<div class="container">
+
+		<form th:action="@{/evaluation/save}" method="POST">
+			<input type="hidden" th:value="${monEvaluation?.id}" name="id"> 
+			<input type="hidden" th:value="${monEvaluation?.version}" name="version">
+			<div id="filiereForm" class="card mt-3">
+				<div class="card-header bg-info text-white">
+					<h3>Edition de l'évaluation</h3>
+				</div>
+				<div class="card-body">
+					<div class="form-group">
+						<label for="comportemental">Note comportementale:</label> <input
+							type="number" class="form-control" id="comportemental"
+							name="comportemental" th:value="${monEvaluation?.comportemental}">
+					</div>
+					<div class="form-group">
+						<label for="technique">Note technique:</label> <input
+							type="number" class="form-control" id="technique"
+							name="technique" th:value="${monEvaluation?.technique}">
+					</div>
+					<div class="form-group">
+						<label for="commentaires">Commentaires:</label> <input type="text"
+							class="form-control" id="commentaires" name="commentaires"
+							th:value="${monEvaluation?.commentaires}">
+					</div>
+
+				</div>
+				<div class="card-footer">
+					<div class="btn-group btn-group-lg float-right">
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-check"></i>
+						</button>
+						<a th:href="@{/evaluation/cancel}" class="btn btn-warning"> <i
+							class="fa fa-undo"></i>
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</form>
+
+	</div>
+</body>
+</html>

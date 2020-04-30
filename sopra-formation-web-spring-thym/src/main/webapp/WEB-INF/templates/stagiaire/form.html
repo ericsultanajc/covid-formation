@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout.html">
+<head>
+<meta charset="UTF-8">
+<title>Edition du stagiaire</title>
+</head>
+<body>
+	<section layout:fragment="monContenu">
+		<div class="container">
+			<form th:action="@{/stagiaire/cancel}" method="POST">
+				<input type="hidden" name="id" th:value="${monStagaire?.id}">
+				<input type="hidden" name="version"
+					th:value="${monStagaire?.version}">
+				<div id="stagiaireForm" class="card mt-3">
+					<div class="card-header bg-dark text-white">
+						<h2>Formulaire</h2>
+					</div>
+					<div class="card-body">
+						<div class="form-group">
+							<label for="civilite">Civilité</label> <select
+								class="form-control" id="civilite" name="civilite">
+								<option th:each="civ : ${civilites}" th:value="${civ}" th:selected="${monStagiaire.civilite == civ}">[[${civ.label}]]</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="nom">Nom</label> <input type="text"
+								class="form-control" id="nom" name="nom" placeholder="DUPONT"
+								th:value="${monStagiaire?.nom}">
+						</div>
+						<div class="form-group">
+							<label for="prenom">Prénom</label> <input type="text"
+								class="form-control" id="prenom" name="prenom"
+								placeholder="Jean" th:value="${monStagiaire.prenom}">
+						</div>
+						<div class="form-group">
+							<label for="email">Email</label> <input type="text"
+								class="form-control" id="email" name="email"
+								placeholder="jean.dupont@gmail.com"
+								th:value="${monStagiaire.email}">
+						</div>
+						<div class="form-group">
+							<label for="telephone">Téléphone</label> <input type="number"
+								class="form-control" id="telephone" name="telephone"
+								placeholder="0606060606" th:value="${monStagiaire.telephone}">
+						</div>
+						<div class="form-group">
+							<label for="dtNaissance">Date de Naissance</label> <input
+								type="date" class="form-control" id="dtNaissance"
+								name="dtNaissance" th:value="${monStagiaire.dtNaissance}">
+						</div>
+						<div class="form-group">
+							<label for="niveauEtude">Niveau d'étude</label> <select
+								class="form-control" id="niveauEtude" name="niveauEtude">
+								<option th:each="lvl : ${niveauEtudes}" th:value="${lvl}"
+									th:selected="${monStagiaire.niveauEtude == lvl}">[[${lvl.label}]]</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="rue">Rue</label> <input type="text"
+								class="form-control" id="rue" name="rue"
+								th:value="${monStagiaire.adresse?.rue}">
+						</div>
+						<div class="form-group">
+							<label for="complement">Complément</label> <input type="text"
+								class="form-control" id="complement" name="complement"
+								th:value="${monStagiaire.adresse?.complement}">
+						</div>
+						<div class="form-group">
+							<label for="codePostal">Code Postal</label> <input type="number"
+								class="form-control" id="codePostal" name="codePostal"
+								th:value="${monStagiaire.adresse?.codePostal}">
+						</div>
+						<div class="form-group">
+							<label for="ville">Ville</label> <input type="text"
+								class="form-control" id="ville" name="ville"
+								th:value="${monStagiaire.adresse?.ville}">
+						</div>
+
+					</div>
+					<div class="card-footer">
+						<div class="btn-group btn-group-lg float-right">
+							<button type="submit" class="btn btn-success">
+								<i class="fa fa-check"></i>
+							</button>
+							<a th:href="@{/stagiaire/cancel}" class="btn btn-warning"> <i
+								class="fa fa-undo"></i>
+							</a>
+						</div>
+					</div>
+
+				</div>
+			</form>
+
+		</div>
+	</section>
+</body>
+</html>
