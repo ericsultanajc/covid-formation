@@ -17,7 +17,10 @@ public class StagiaireValidator implements Validator {
 		Stagiaire stagiaire = (Stagiaire) target;
 
 		if (stagiaire.getAdresse() != null) {
-			if (!stagiaire.getAdresse().getRue().isEmpty()) {
+			if (!stagiaire.getAdresse().getRue().isEmpty() || !stagiaire.getAdresse().getCodePostal().isEmpty() || !stagiaire.getAdresse().getVille().isEmpty()) {
+				if (stagiaire.getAdresse().getRue().isEmpty()) {
+					errors.rejectValue("adresse.rue", "adresseRue", "La rue doit être renseignée");
+				}
 				if (stagiaire.getAdresse().getCodePostal().isEmpty()) {
 					errors.rejectValue("adresse.codePostal", "adresseCodePostal", "Le code postal doit être renseigné");
 				}

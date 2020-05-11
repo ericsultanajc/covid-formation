@@ -19,7 +19,7 @@
 					<div class="form-group">
 						<label for="civilite">Civilité:</label> 
 						<select class="form-control" id="civilite" name="civilite">
-							<option value="">Veuillez sélectionner une civilité</option>
+							<option value=""></option>
 							<option th:each="civ : ${civilites}" th:value="${civ}" th:selected="${stagiaire.civilite == civ}">[[${civ.label}]]</option>
 						</select>
 						<span th:errors="${stagiaire.civilite}" class="text-danger"></span>
@@ -56,6 +56,7 @@
 					<div class="form-group">
 						<label for="niveauEtude">Niveau d'étude:</label> <select
 							class="form-control" id="niveauEtude" name="niveauEtude">
+								<option value=""></option>
 								<option th:each="niv : ${niveauEtudes}" th:value="${niv}" th:selected="${stagiaire.niveauEtude == niv}">[[${niv}]]</option>
 						</select>
 						<span th:errors="${stagiaire.niveauEtude}" class="text-danger"></span>
