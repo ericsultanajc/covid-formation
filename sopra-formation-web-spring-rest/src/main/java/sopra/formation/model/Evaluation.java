@@ -6,20 +6,29 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity // obligatoire
 @Table(name = "rating") // optionnel
 public class Evaluation {
 	@Id // obligatoire
 	@GeneratedValue // optionnelle
+	@JsonView(Views.ViewCommon.class)
 	private Long id;
 	@Version
+	@JsonView(Views.ViewCommon.class)
 	private int version;
 	@Column(name = "behaviour", nullable = false)
+	@NotNull
+	@JsonView(Views.ViewCommon.class)
 	private Integer comportemental;
 	@Column(name = "technical")
+	@JsonView(Views.ViewCommon.class)
 	private Integer technique;
 	@Column(name = "comments", length = 4000)
+	@JsonView(Views.ViewCommon.class)
 	private String commentaires;
 
 	public Evaluation() {

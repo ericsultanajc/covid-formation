@@ -17,27 +17,32 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 @DiscriminatorValue("Stagiaire")
 @NamedQueries({
 		@NamedQuery(name = "Stagiaire.findAllByFormateur", query = "select s from Stagiaire s join s.filiere f join f.referent ref where ref.nom = :nom"),
-		@NamedQuery(name = "Stagiaire.findAllByVille", query = "select s from Stagiaire s where s.adresse.ville = :ville") })
+		@NamedQuery(name = "Stagiaire.findAllByVille", query = "select s from Stagiaire s where s.adresse.ville = :ville"),
+		@NamedQuery(name = "Stagiaire.findAllByNom", query = "select s from Stagiaire s where s.nom like :nom"),
+		@NamedQuery(name = "Stagiaire.findAllByFiliere", query = "select s from Stagiaire s where s.filiere.id = :id")})
 public class Stagiaire extends Personne {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "birthdate")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonView(Views.ViewCommon.class)
 	private Date dtNaissance;
 	@Column(name = "study_level", length = 15)
 	@Enumerated(EnumType.STRING)
+	@JsonView(Views.ViewCommon.class)
 	private NiveauEtude niveauEtude;
 	@ManyToOne
 	@JoinColumn(name = "course_id")
-	@JsonIgnore
+	@JsonView(Views.ViewStagiaireDetail.class)
 	private Filiere filiere;
 	@ManyToOne
 	@JoinColumn(name = "rating_id")
-	@JsonIgnore
+	@JsonView(Views.ViewStagiaire.class)
 	private Evaluation evaluation;
 
 	public Stagiaire() {
