@@ -22,7 +22,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @DiscriminatorValue("Stagiaire")
 @NamedQueries({
 		@NamedQuery(name = "Stagiaire.findAllByFormateur", query = "select s from Stagiaire s join s.filiere f join f.referent ref where ref.nom = :nom"),
-		@NamedQuery(name = "Stagiaire.findAllByVille", query = "select s from Stagiaire s where s.adresse.ville = :ville") })
+		@NamedQuery(name = "Stagiaire.findAllByVille", query = "select s from Stagiaire s where s.adresse.ville = :ville"),
+		@NamedQuery(name = "Stagiaire.findAllByNom", query = "select s from Stagiaire s where s.nom like :nom")})
 public class Stagiaire extends Personne {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "birthdate")
