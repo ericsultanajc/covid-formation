@@ -38,6 +38,31 @@ public class EvaluationRestController {
 		return evaluationRepo.findAll();
 	}
 
+	@GetMapping("/evaluation/orphans")
+	@JsonView(Views.ViewEvaluation.class)
+	public List<Evaluation> findAllOrphan() {
+		return evaluationRepo.findAllOrphan();
+	}
+
+	@GetMapping("/evaluation/orphans/{stagiaireId}")
+	@JsonView(Views.ViewEvaluation.class)
+	public List<Evaluation> findAllOrphanAndCurrentStagiaire(@PathVariable Long stagiaireId) {
+		return evaluationRepo.findAllOrphanAndCurrentStagiaire(stagiaireId);
+	}
+
+	@GetMapping("/evaluation/by-technique/{technique}")
+	@JsonView(Views.ViewEvaluation.class)
+	public List<Evaluation> findAllByTechnique(@PathVariable Integer technique) {
+		return evaluationRepo.findByTechnique(technique);
+	}
+
+	@GetMapping("/evaluation/by-gt-comp-and-technique/{comp}:{technique}")
+	@JsonView(Views.ViewEvaluation.class)
+	public List<Evaluation> findAllByTechnique(@PathVariable("comp") Integer comportemental,
+			@PathVariable Integer technique) {
+		return evaluationRepo.findByComportementalGreaterThanAndTechniqueGreaterThan(comportemental, technique);
+	}
+
 	@GetMapping("/evaluation/{id}")
 	@JsonView(Views.ViewEvaluation.class)
 	public Evaluation find(@PathVariable Long id) {
@@ -53,10 +78,10 @@ public class EvaluationRestController {
 
 	@PostMapping("/evaluation")
 	public Evaluation create(@Valid @RequestBody Evaluation evaluation, BindingResult result) {
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			throw new EvaluationValidationException();
 		}
-		
+
 		evaluation = evaluationRepo.save(evaluation);
 
 		return evaluation;
@@ -95,9 +120,9 @@ public class EvaluationRestController {
 
 		return evaluationFind;
 	}
-	
+
 	@DeleteMapping("/evaluation/{id}")
-	public void delete (@PathVariable Long id) {
+	public void delete(@PathVariable Long id) {
 		evaluationRepo.deleteById(id);
 	}
 }
