@@ -6,10 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Entity // obligatoire
 @Table(name = "rating") // optionnel
@@ -19,16 +15,11 @@ public class Evaluation {
 	private Long id;
 	@Version
 	private int version;
-	@NotNull(message="{evaluation.comportemental.notNull}")
-	@Min(value = 0, message="{evaluation.comportemental.min}")
-	@Max(value = 20, message="{evaluation.comportemental.max}")
 	@Column(name = "behaviour", nullable = false)
 	private Integer comportemental;
 	@Column(name = "technical")
-	@NotNull(message="{evaluation.technique.notNull}")
 	private Integer technique;
 	@Column(name = "comments", length = 4000)
-	@NotEmpty(message="{evaluation.commentaires.notEmpty}")
 	private String commentaires;
 
 	public Evaluation() {
