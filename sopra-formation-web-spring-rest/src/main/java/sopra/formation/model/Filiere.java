@@ -19,25 +19,34 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "course")
 public class Filiere {
 	@Id
 	@GeneratedValue
+	@JsonView(Views.ViewCommon.class)
 	private Long id;
 	@Version
+	@JsonView(Views.ViewCommon.class)
 	private int version;
 	@Column(name = "title", length = 100, nullable = false)
+	@JsonView(Views.ViewCommon.class)
 	private String intitule;
 	@Column(length = 255)
+	@JsonView(Views.ViewCommon.class)
 	private String promotion;
 	@Temporal(TemporalType.DATE)
 	@Column(name = "startdate")
+	@JsonView(Views.ViewCommon.class)
 	private Date dtDebut;
 	@Column(name = "duration")
+	@JsonView(Views.ViewCommon.class)
 	private Integer duree;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "plan", length = 10)
+	@JsonView(Views.ViewCommon.class)
 	private Dispositif dispositif;
 	@OneToMany(mappedBy = "filiere")
 	private List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
@@ -45,6 +54,7 @@ public class Filiere {
 	private List<UE> ues = new ArrayList<UE>();
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "trainer_id")
+	@JsonView(Views.ViewFiliereWithReferent.class)
 	private Formateur referent;
 
 	public Filiere() {

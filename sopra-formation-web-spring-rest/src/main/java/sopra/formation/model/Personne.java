@@ -14,6 +14,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "person")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -21,21 +23,29 @@ import javax.persistence.Version;
 public abstract class Personne {
 	@Id
 	@GeneratedValue
+	@JsonView(Views.ViewCommon.class)
 	private Long id;
 	@Version
+	@JsonView(Views.ViewCommon.class)
 	private int version;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "civility", length = 5)
+	@JsonView(Views.ViewCommon.class)
 	private Civilite civilite;
 	@Column(name = "last_name", length = 100, nullable = false)
+	@JsonView(Views.ViewCommon.class)
 	private String nom;
 	@Column(name = "first_name", length = 100)
+	@JsonView(Views.ViewCommon.class)
 	private String prenom;
 	@Column(length = 255, nullable = false)
+	@JsonView(Views.ViewCommon.class)
 	private String email;
 	@Column(name = "phonenumber", length = 15)
+	@JsonView(Views.ViewCommon.class)
 	private String telephone;
 	@Embedded
+	@JsonView(Views.ViewCommon.class)
 	private Adresse adresse;
 
 	public Personne() {
