@@ -17,6 +17,7 @@ public class StagiaireValidator implements Validator {
 		Stagiaire stagiaire = (Stagiaire) target;
 
 		if (stagiaire.getAdresse() != null) {
+			//si la rue est renseignée mais pas le code postal ou la ville alors renvoie une erreur
 			if (!stagiaire.getAdresse().getRue().isEmpty()) {
 				if (stagiaire.getAdresse().getCodePostal().isEmpty()) {
 					errors.rejectValue("adresse.codePostal", "adresseCodePostal", "Le code postal doit être renseigné");
