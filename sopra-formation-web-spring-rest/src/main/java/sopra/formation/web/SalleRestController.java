@@ -33,41 +33,22 @@ public class SalleRestController {
 	public List<Salle> findAll() {
 		return salleRepo.findAll();
 	}
-
-	@GetMapping("/by-formateur/{nom}")
+	
+	@GetMapping("/by-filiere/{idFiliere}")
 	@JsonView(Views.ViewSalle.class)
-	public List<Salle> findAllByFormateur(@PathVariable String nom) {
-		return salleRepo.findAllByFormateur(nom);
+	public List<Salle> findAllByFiliere(@PathVariable Long idFiliere) {
+		return salleRepo.findAllByFiliere(idFiliere);
 	}
-
+	
 	@GetMapping("/by-ville/{ville}")
 	@JsonView(Views.ViewSalle.class)
 	public List<Salle> findAllByVille(@PathVariable String ville) {
 		return salleRepo.findAllByVille(ville);
 	}
 
-	@GetMapping("/by-nom/{nom}")
-	@JsonView(Views.ViewSalle.class)
-	public List<Salle> findAllByNom(@PathVariable String nom) {
-		return salleRepo.findAllByNom(nom + "%");
-	}
-
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewSalle.class)
 	public Salle find(@PathVariable Long id) {
-
-		Optional<Salle> optSalle = salleRepo.findById(id);
-
-		if (optSalle.isPresent()) {
-			return optSalle.get();
-		} else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
-		}
-	}
-	
-	@GetMapping("/{id}/detail")
-	@JsonView(Views.ViewSalleDetail.class)
-	public Salle findDetail(@PathVariable Long id) {
 
 		Optional<Salle> optSalle = salleRepo.findById(id);
 

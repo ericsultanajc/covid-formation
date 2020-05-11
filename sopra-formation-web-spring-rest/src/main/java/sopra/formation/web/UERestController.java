@@ -34,40 +34,9 @@ public class UERestController {
 		return ueRepo.findAll();
 	}
 
-	@GetMapping("/by-formateur/{nom}")
-	@JsonView(Views.ViewUE.class)
-	public List<UE> findAllByFormateur(@PathVariable String nom) {
-		return ueRepo.findAllByFormateur(nom);
-	}
-
-	@GetMapping("/by-ville/{ville}")
-	@JsonView(Views.ViewUE.class)
-	public List<UE> findAllByVille(@PathVariable String ville) {
-		return ueRepo.findAllByVille(ville);
-	}
-
-	@GetMapping("/by-nom/{nom}")
-	@JsonView(Views.ViewUE.class)
-	public List<UE> findAllByNom(@PathVariable String nom) {
-		return ueRepo.findAllByNom(nom + "%");
-	}
-
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewUE.class)
 	public UE find(@PathVariable Long id) {
-
-		Optional<UE> optUE = ueRepo.findById(id);
-
-		if (optUE.isPresent()) {
-			return optUE.get();
-		} else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
-		}
-	}
-	
-	@GetMapping("/{id}/detail")
-	@JsonView(Views.ViewUEDetail.class)
-	public UE findDetail(@PathVariable Long id) {
 
 		Optional<UE> optUE = ueRepo.findById(id);
 

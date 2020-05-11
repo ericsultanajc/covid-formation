@@ -17,8 +17,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import sopra.formation.model.Evaluation;
+import sopra.formation.model.NiveauEtude;
 import sopra.formation.model.Stagiaire;
 import sopra.formation.model.Views;
+import sopra.formation.persistence.IEvaluationRepository;
 import sopra.formation.persistence.IStagiaireRepository;
 
 @RestController
@@ -27,11 +30,20 @@ public class StagiaireRestController {
 
 	@Autowired
 	private IStagiaireRepository stagiaireRepo;
+	
+	@Autowired
+	private IEvaluationRepository evaluationRepo;
 
 	@GetMapping("")
 	@JsonView(Views.ViewStagiaire.class)
 	public List<Stagiaire> findAll() {
 		return stagiaireRepo.findAll();
+	}
+	
+	@GetMapping("/by-niveau/{niveau}/evaluation")
+	@JsonView(Views.ViewEvaluation.class)
+	public List<Evaluation> findAllEvaluationByNiveau(@PathVariable NiveauEtude niveau) {
+		return evaluationRepo.findAllByStagiaireNiveau(niveau);
 	}
 
 	@GetMapping("/by-formateur/{nom}")

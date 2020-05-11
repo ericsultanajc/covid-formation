@@ -34,24 +34,6 @@ public class MatiereRestController {
 		return matiereRepo.findAll();
 	}
 
-//	@GetMapping("/by-formateur/{nom}")
-//	@JsonView(Views.ViewMatiere.class)
-//	public List<Matiere> findAllByFormateur(@PathVariable String nom) {
-//		return matiereRepo.findAllByFormateur(nom);
-//	}
-//
-//	@GetMapping("/by-ville/{ville}")
-//	@JsonView(Views.ViewMatiere.class)
-//	public List<Matiere> findAllByVille(@PathVariable String ville) {
-//		return matiereRepo.findAllByVille(ville);
-//	}
-//
-//	@GetMapping("/by-nom/{nom}")
-//	@JsonView(Views.ViewMatiere.class)
-//	public List<Matiere> findAllByNom(@PathVariable String nom) {
-//		return matiereRepo.findAllByNom(nom + "%");
-//	}
-
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewMatiere.class)
 	public Matiere find(@PathVariable Long id) {
@@ -64,19 +46,6 @@ public class MatiereRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 	}
-	
-//	@GetMapping("/{id}/detail")
-//	@JsonView(Views.ViewMatiereDetail.class)
-//	public Matiere findDetail(@PathVariable Long id) {
-//
-//		Optional<Matiere> optMatiere = matiereRepo.findById(id);
-//
-//		if (optMatiere.isPresent()) {
-//			return optMatiere.get();
-//		} else {
-//			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
-//		}
-//	}
 
 	@PostMapping("")
 	public Matiere create(@RequestBody Matiere matiere) {

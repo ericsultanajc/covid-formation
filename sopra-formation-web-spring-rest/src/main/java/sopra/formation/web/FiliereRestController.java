@@ -52,6 +52,26 @@ public class FiliereRestController {
 		}
 	}
 	
+	@GetMapping("/by-promotion/{promotion}")
+	@JsonView(Views.ViewFiliere.class)
+	public Filiere find(@PathVariable String promotion) {
+
+		Filiere filiere = filiereRepo.findByPromotion(promotion);
+
+		if (filiere != null) {
+			return filiere;
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
+		}
+	}
+	
+	@GetMapping("/by-ville/{ville}")
+	@JsonView(Views.ViewFiliere.class)
+	public List<Filiere> findAllByVille(@PathVariable String ville) {
+
+		return filiereRepo.findAllByVille(ville);
+	}
+	
 	@GetMapping("/{id}/stagiaires")
 	@JsonView(Views.ViewFiliereWithReferent.class)
 	public List<Stagiaire> findAllStagiaireByFiliere(@PathVariable Long id) {

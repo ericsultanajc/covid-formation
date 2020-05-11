@@ -17,16 +17,26 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import sopra.formation.model.Filiere;
 import sopra.formation.model.Formateur;
+import sopra.formation.model.Stagiaire;
 import sopra.formation.model.Views;
+import sopra.formation.persistence.IFiliereRepository;
 import sopra.formation.persistence.IFormateurRepository;
+import sopra.formation.persistence.IStagiaireRepository;
 
 @RestController
 @RequestMapping("/formateur")
 public class FormateurRestController {
 
 	@Autowired
+	private IFiliereRepository filiereRepo;
+
+	@Autowired
 	private IFormateurRepository formateurRepo;
+
+	@Autowired
+	private IStagiaireRepository stagiaireRepo;
 
 	@GetMapping("")
 	@JsonView(Views.ViewFormateur.class)
@@ -34,18 +44,25 @@ public class FormateurRestController {
 		return formateurRepo.findAll();
 	}
 
-//	@GetMapping("/by-formateur/{nom}")
-//	@JsonView(Views.ViewFormateur.class)
-//	public List<Formateur> findAllByFormateur(@PathVariable String nom) {
-//		return formateurRepo.findAllByFormateur(nom);
-//	}
-//
-//	@GetMapping("/by-ville/{ville}")
-//	@JsonView(Views.ViewFormateur.class)
-//	public List<Formateur> findByFiliere(@PathVariable Filiere filiere) {
-//		return formateurRepo.findByFiliere(filiere);
-//	}
+	@GetMapping("/by-filiere/{filiere}")
+	@JsonView(Views.ViewFormateur.class)
+	public Formateur findByFiliere(@PathVariable Long filiere) {
+		Optional<Filiere> optFiliere = filiereRepo.findById(filiere);
 
+		return formateurRepo.findByFiliere(optFiliere.get());
+	}
+
+	@GetMapping("/by-email/{email}")
+	@JsonView(Views.ViewFormateur.class)
+	public Formateur findByEmail(@PathVariable String email) {
+		return formateurRepo.findByEmail(email);
+	}
+
+	@GetMapping("/by-nom/{nom}/stagiaires")
+	@JsonView(Views.ViewStagiaire.class)
+	public List<Stagiaire> findAllStagiaireByNom(@PathVariable String nom) {
+		return stagiaireRepo.findAllByFormateur(nom);
+	}
 
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewFormateur.class)
@@ -59,19 +76,6 @@ public class FormateurRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 	}
-	
-//	@GetMapping("/{id}/detail")
-//	@JsonView(Views.ViewFormateurDetail.class)
-//	public Formateur findDetail(@PathVariable Long id) {
-//
-//		Optional<Formateur> optFormateur = formateurRepo.findById(id);
-//
-//		if (optFormateur.isPresent()) {
-//			return optFormateur.get();
-//		} else {
-//			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
-//		}
-//	}
 
 	@PostMapping("")
 	public Formateur create(@RequestBody Formateur formateur) {
