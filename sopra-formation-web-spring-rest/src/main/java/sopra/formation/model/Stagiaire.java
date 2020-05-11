@@ -37,7 +37,6 @@ public class Stagiaire extends Personne {
 	private Filiere filiere;
 	@ManyToOne
 	@JoinColumn(name = "rating_id")
-	@JsonIgnore
 	private Evaluation evaluation;
 
 	public Stagiaire() {
