@@ -26,6 +26,7 @@ public class EvaluationController {
 	@Autowired
 	private IEvaluationRepository evaluationRepo;
 
+	// GET --> findAll
 	@GetMapping("/evaluationOld")
 	@ResponseBody
 	public List<Evaluation> findAll() {
@@ -35,6 +36,7 @@ public class EvaluationController {
 		return evaluations;
 	}
 	
+	// GET --> find
 	@GetMapping("/evaluationOld/{id}")
 	public ResponseEntity<Evaluation> find(@PathVariable Long id) {
 
@@ -47,6 +49,7 @@ public class EvaluationController {
 		}
 	}
 	
+	// POST --> create
 	@PostMapping("/evaluationOld")
 	public ResponseEntity<Evaluation> create(@RequestBody Evaluation evaluation) {
 		evaluation = evaluationRepo.save(evaluation);
@@ -54,6 +57,7 @@ public class EvaluationController {
 		return new ResponseEntity<Evaluation>(evaluation, HttpStatus.OK);
 	}
 	
+	// PUT --> update
 	@PutMapping("/evaluationOld/{id}")
 	public ResponseEntity<Evaluation> update(@RequestBody Evaluation evaluation, @PathVariable Long id) {
 		if(!evaluationRepo.existsById(id)) {
@@ -65,6 +69,7 @@ public class EvaluationController {
 		return new ResponseEntity<Evaluation>(evaluation, HttpStatus.OK);
 	}
 	
+	// PATCH --> update partiel
 	@PatchMapping("/evaluationOld/{id}")
 	public ResponseEntity<Evaluation> partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!evaluationRepo.existsById(id)) {
@@ -88,6 +93,7 @@ public class EvaluationController {
 		return new ResponseEntity<Evaluation>(evaluationFind, HttpStatus.OK);
 	}
 	
+	// DELETE --> delete
 	@DeleteMapping("/evaluationOld/{id}")
 	public void delete (@PathVariable Long id) {
 		evaluationRepo.deleteById(id);

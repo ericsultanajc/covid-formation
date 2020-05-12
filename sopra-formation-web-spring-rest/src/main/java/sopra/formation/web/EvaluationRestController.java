@@ -22,47 +22,62 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import sopra.formation.model.Evaluation;
+import sopra.formation.model.NiveauEtude;
 import sopra.formation.model.Views;
 import sopra.formation.persistence.IEvaluationRepository;
 import sopra.formation.web.exception.EvaluationValidationException;
 
+// 5 request et lien avec stagiaire dans Stagiaire.java 
 @RestController
 public class EvaluationRestController {
 
 	@Autowired
 	private IEvaluationRepository evaluationRepo;
 
+	// GET --> findAll
 	@GetMapping("/evaluation")
 	@JsonView(Views.ViewEvaluation.class)
 	public List<Evaluation> findAll() {
 		return evaluationRepo.findAll();
 	}
 
-	@GetMapping("/evaluation/orphans")
-	@JsonView(Views.ViewEvaluation.class)
-	public List<Evaluation> findAllOrphan() {
-		return evaluationRepo.findAllOrphan();
-	}
-
-	@GetMapping("/evaluation/orphans/{stagiaireId}")
-	@JsonView(Views.ViewEvaluation.class)
-	public List<Evaluation> findAllOrphanAndCurrentStagiaire(@PathVariable Long stagiaireId) {
-		return evaluationRepo.findAllOrphanAndCurrentStagiaire(stagiaireId);
-	}
-
+	// Request 1 : find by technique --> dans IEvaluation
 	@GetMapping("/evaluation/by-technique/{technique}")
 	@JsonView(Views.ViewEvaluation.class)
 	public List<Evaluation> findAllByTechnique(@PathVariable Integer technique) {
 		return evaluationRepo.findByTechnique(technique);
 	}
 
+	// Request 2 : find by paramètres --> dans IEvaluation
 	@GetMapping("/evaluation/by-gt-comp-and-technique/{comp}:{technique}")
 	@JsonView(Views.ViewEvaluation.class)
-	public List<Evaluation> findAllByTechnique(@PathVariable("comp") Integer comportemental,
-			@PathVariable Integer technique) {
+	public List<Evaluation> findByComportementalGreaterThanAndTechniqueGreaterThan(
+			@PathVariable("comp") Integer comportemental, @PathVariable Integer technique) {
 		return evaluationRepo.findByComportementalGreaterThanAndTechniqueGreaterThan(comportemental, technique);
 	}
 
+	// Request 3 : find by niveauEtude dans IEvaluation
+	@GetMapping("/evaluation/by-niveau/{niveau}")
+	@JsonView(Views.ViewEvaluation.class)
+	public List<Evaluation> findAllByStagiaireNiveau(@PathVariable NiveauEtude niveauEtude) {
+		return evaluationRepo.findAllByStagiaireNiveau(niveauEtude);
+	}
+
+	// Request 4 : --> dans IEvaluation
+	@GetMapping("/evaluation/orphans")
+	@JsonView(Views.ViewEvaluation.class)
+	public List<Evaluation> findAllOrphan() {
+		return evaluationRepo.findAllOrphan();
+	}
+
+	// Request 5 : --> dans IEvaluation
+	@GetMapping("/evaluation/orphans/{stagiaireId}")
+	@JsonView(Views.ViewEvaluation.class)
+	public List<Evaluation> findAllOrphanAndCurrentStagiaire(@PathVariable Long stagiaireId) {
+		return evaluationRepo.findAllOrphanAndCurrentStagiaire(stagiaireId);
+	}
+
+	// GET --> find
 	@GetMapping("/evaluation/{id}")
 	@JsonView(Views.ViewEvaluation.class)
 	public Evaluation find(@PathVariable Long id) {
@@ -76,6 +91,7 @@ public class EvaluationRestController {
 		}
 	}
 
+	// POST --> create
 	@PostMapping("/evaluation")
 	public Evaluation create(@Valid @RequestBody Evaluation evaluation, BindingResult result) {
 		if (result.hasErrors()) {
@@ -87,7 +103,9 @@ public class EvaluationRestController {
 		return evaluation;
 	}
 
+	// PUT --> update
 	@PutMapping("/evaluation/{id}")
+	@JsonView(Views.ViewEvaluation.class)
 	public Evaluation update(@RequestBody Evaluation evaluation, @PathVariable Long id) {
 		if (!evaluationRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -98,6 +116,7 @@ public class EvaluationRestController {
 		return evaluation;
 	}
 
+	// PATCH --> update partiel
 	@PatchMapping("/evaluation/{id}")
 	public Evaluation partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!evaluationRepo.existsById(id)) {
@@ -121,6 +140,7 @@ public class EvaluationRestController {
 		return evaluationFind;
 	}
 
+	// DELETE --> delete
 	@DeleteMapping("/evaluation/{id}")
 	public void delete(@PathVariable Long id) {
 		evaluationRepo.deleteById(id);

@@ -21,6 +21,7 @@ import sopra.formation.model.Salle;
 import sopra.formation.model.Views;
 import sopra.formation.persistence.ISalleRepository;
 
+// 2 request et pas de lien  
 @RestController
 @RequestMapping("/salle")
 public class SalleRestController {
@@ -28,24 +29,28 @@ public class SalleRestController {
 	@Autowired
 	private ISalleRepository salleRepo;
 
+	// GET --> findAll
 	@GetMapping("")
 	@JsonView(Views.ViewSalle.class)
 	public List<Salle> findAll() {
 		return salleRepo.findAll();
 	}
 	
+	// Request 1 : find by filiere dans Iformateur
 	@GetMapping("/by-filiere/{idFiliere}")
 	@JsonView(Views.ViewSalle.class)
 	public List<Salle> findAllByFiliere(@PathVariable Long idFiliere) {
 		return salleRepo.findAllByFiliere(idFiliere);
 	}
 	
+	// Request 2 : find by ville pour l'adresse de la salle --> dans IFiliere
 	@GetMapping("/by-ville/{ville}")
 	@JsonView(Views.ViewSalle.class)
 	public List<Salle> findAllByVille(@PathVariable String ville) {
 		return salleRepo.findAllByVille(ville);
 	}
 
+	// GET --> find
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewSalle.class)
 	public Salle find(@PathVariable Long id) {
@@ -59,6 +64,7 @@ public class SalleRestController {
 		}
 	}
 
+	// POST --> create
 	@PostMapping("")
 	public Salle create(@RequestBody Salle salle) {
 		salle = salleRepo.save(salle);
@@ -66,7 +72,9 @@ public class SalleRestController {
 		return salle;
 	}
 
+	// PUT --> update
 	@PutMapping("/{id}")
+//	@JsonView(Views.ViewSalle.class)
 	public Salle update(@RequestBody Salle salle, @PathVariable Long id) {
 		if (!salleRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -77,6 +85,7 @@ public class SalleRestController {
 		return salle;
 	}
 
+	// DELETE --> delete
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
 		salleRepo.deleteById(id);

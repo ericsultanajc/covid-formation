@@ -9,31 +9,42 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "module")
 public class UE {
 	@Id
 	@GeneratedValue
+	@JsonView(Views.ViewCommon.class)
 	private Long id;
 	@Version
+	@JsonView(Views.ViewCommon.class)
 	private int version;
 	@Column(nullable = false)
+	@JsonView(Views.ViewCommon.class)
 	private Integer code;
 	@Column(name = "duration", nullable = false)
+	@JsonView(Views.ViewCommon.class)
 	private Integer duree;
 	@Column(name = "position", nullable = false)
+	@JsonView(Views.ViewCommon.class)
 	private int ordre;
 	@ManyToOne
 	@JoinColumn(name = "course_id")
+	@JsonView(Views.ViewUE.class)
 	private Filiere filiere;
 	@ManyToOne
 	@JoinColumn(name = "trainer_id")
+	@JsonView(Views.ViewUE.class)
 	private Formateur formateur;
 	@ManyToOne
 	@JoinColumn(name = "subject_id")
+	@JsonView(Views.ViewUE.class)
 	private Matiere matiere;
 	@ManyToOne
 	@JoinColumn(name = "classroom_id")
+	@JsonView(Views.ViewUE.class)
 	private Salle salle;
 
 	public UE() {

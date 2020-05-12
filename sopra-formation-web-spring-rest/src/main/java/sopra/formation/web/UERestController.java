@@ -21,6 +21,7 @@ import sopra.formation.model.UE;
 import sopra.formation.model.Views;
 import sopra.formation.persistence.IUERepository;
 
+// pas de @query ici, tous les liens sont fais directement avec le @json dans le UE.java
 @RestController
 @RequestMapping("/ue")
 public class UERestController {
@@ -28,12 +29,14 @@ public class UERestController {
 	@Autowired
 	private IUERepository ueRepo;
 
+	// GET --> findAll
 	@GetMapping("")
 	@JsonView(Views.ViewUE.class)
 	public List<UE> findAll() {
 		return ueRepo.findAll();
 	}
 
+	// GET --> find
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewUE.class)
 	public UE find(@PathVariable Long id) {
@@ -47,6 +50,7 @@ public class UERestController {
 		}
 	}
 
+	// POST --> create
 	@PostMapping("")
 	public UE create(@RequestBody UE ue) {
 		ue = ueRepo.save(ue);
@@ -54,7 +58,9 @@ public class UERestController {
 		return ue;
 	}
 
+	// PUT --> update
 	@PutMapping("/{id}")
+	@JsonView(Views.ViewUE.class)
 	public UE update(@RequestBody UE ue, @PathVariable Long id) {
 		if (!ueRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -65,6 +71,7 @@ public class UERestController {
 		return ue;
 	}
 
+	// DELETE --> delete
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
 		ueRepo.deleteById(id);

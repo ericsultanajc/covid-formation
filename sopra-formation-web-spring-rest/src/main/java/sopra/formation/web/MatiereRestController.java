@@ -21,6 +21,8 @@ import sopra.formation.model.Matiere;
 import sopra.formation.model.Views;
 import sopra.formation.persistence.IMatiereRepository;
 
+//lien pas fais avec postman
+// pas de request et 1 lien avec le formateur dans le matiere.java
 @RestController
 @RequestMapping("/matiere")
 public class MatiereRestController {
@@ -28,12 +30,14 @@ public class MatiereRestController {
 	@Autowired
 	private IMatiereRepository matiereRepo;
 
+	// GET --> findAll
 	@GetMapping("")
 	@JsonView(Views.ViewMatiere.class)
 	public List<Matiere> findAll() {
 		return matiereRepo.findAll();
 	}
 
+	// GET --> find
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewMatiere.class)
 	public Matiere find(@PathVariable Long id) {
@@ -47,14 +51,18 @@ public class MatiereRestController {
 		}
 	}
 
+	// POST --> create
 	@PostMapping("")
+	@JsonView(Views.ViewMatiere.class)
 	public Matiere create(@RequestBody Matiere matiere) {
 		matiere = matiereRepo.save(matiere);
 
 		return matiere;
 	}
 
+	// PUT --> update
 	@PutMapping("/{id}")
+	@JsonView(Views.ViewMatiere.class)
 	public Matiere update(@RequestBody Matiere matiere, @PathVariable Long id) {
 		if (!matiereRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -65,6 +73,7 @@ public class MatiereRestController {
 		return matiere;
 	}
 
+	// DELETE --> delete
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
 		matiereRepo.deleteById(id);

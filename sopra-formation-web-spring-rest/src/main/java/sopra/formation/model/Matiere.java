@@ -31,10 +31,8 @@ public class Matiere {
 	@JsonView(Views.ViewCommon.class)
 	private Integer duree;
 	@OneToMany(mappedBy = "matiere")
-	//@JsonView(Views.ViewMatiere.class)
 	private List<UE> ues = new ArrayList<UE>();
 	@ManyToMany(mappedBy = "competences")
-	@JsonView(Views.ViewMatiere.class)
 	private List<Formateur> formateurs = new ArrayList<Formateur>();
 
 	public Matiere() {

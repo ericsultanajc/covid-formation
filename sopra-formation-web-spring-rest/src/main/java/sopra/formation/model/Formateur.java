@@ -20,11 +20,9 @@ public class Formateur extends Personne {
 	@JsonView(Views.ViewCommon.class)
 	private Integer experience;
 	@OneToMany(mappedBy = "formateur")
-	//@JsonView(Views.ViewFormateur.class)
 	private List<UE> ues = new ArrayList<UE>();
 	@ManyToMany
 	@JoinTable(name = "skill", joinColumns = @JoinColumn(name = "trainer_id"), inverseJoinColumns = @JoinColumn(name = "subject_id"))
-	@JsonView(Views.ViewFormateur.class)
 	private List<Matiere> competences = new ArrayList<Matiere>();
 
 	public Formateur() {

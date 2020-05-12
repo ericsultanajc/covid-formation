@@ -25,6 +25,7 @@ import sopra.formation.persistence.IFiliereRepository;
 import sopra.formation.persistence.IFormateurRepository;
 import sopra.formation.persistence.IStagiaireRepository;
 
+// 3 request et le lien avec matière via les compétences est fais dans le formateur.java
 @RestController
 @RequestMapping("/formateur")
 public class FormateurRestController {
@@ -38,12 +39,14 @@ public class FormateurRestController {
 	@Autowired
 	private IStagiaireRepository stagiaireRepo;
 
+	// GET --> findAll
 	@GetMapping("")
 	@JsonView(Views.ViewFormateur.class)
 	public List<Formateur> findAll() {
 		return formateurRepo.findAll();
 	}
 
+	// Request 1 : find by filiere dans Iformateur
 	@GetMapping("/by-filiere/{filiere}")
 	@JsonView(Views.ViewFormateur.class)
 	public Formateur findByFiliere(@PathVariable Long filiere) {
@@ -52,18 +55,21 @@ public class FormateurRestController {
 		return formateurRepo.findByFiliere(optFiliere.get());
 	}
 
+	// Request 2 : find by email --> dans IFormateur
 	@GetMapping("/by-email/{email}")
 	@JsonView(Views.ViewFormateur.class)
 	public Formateur findByEmail(@PathVariable String email) {
 		return formateurRepo.findByEmail(email);
 	}
 
+	// Request 3 : find by nom --> dans stagiaire
 	@GetMapping("/by-nom/{nom}/stagiaires")
 	@JsonView(Views.ViewStagiaire.class)
 	public List<Stagiaire> findAllStagiaireByNom(@PathVariable String nom) {
 		return stagiaireRepo.findAllByFormateur(nom);
 	}
 
+	// GET --> find
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewFormateur.class)
 	public Formateur find(@PathVariable Long id) {
@@ -77,14 +83,19 @@ public class FormateurRestController {
 		}
 	}
 
+	// POST --> create // @JsonView recommandé si on veut seulement les paramètres
+	// du formateur sans les liens
 	@PostMapping("")
+	@JsonView(Views.ViewFormateur.class)
 	public Formateur create(@RequestBody Formateur formateur) {
 		formateur = formateurRepo.save(formateur);
 
 		return formateur;
 	}
 
+	// PUT --> update // @JsonView obligatoire pour le fonctionnement de la méthode
 	@PutMapping("/{id}")
+	@JsonView(Views.ViewFormateur.class)
 	public Formateur update(@RequestBody Formateur formateur, @PathVariable Long id) {
 		if (!formateurRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -95,6 +106,7 @@ public class FormateurRestController {
 		return formateur;
 	}
 
+	// DELETE --> delete
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
 		formateurRepo.deleteById(id);
