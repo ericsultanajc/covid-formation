@@ -3,6 +3,9 @@ package sopra.formation.web;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +26,7 @@ import sopra.formation.model.Stagiaire;
 import sopra.formation.model.Views;
 import sopra.formation.persistence.IEvaluationRepository;
 import sopra.formation.persistence.IStagiaireRepository;
+import sopra.formation.web.dto.StagiaireFilter;
 
 // 4 request et les 2 liens avec filière et évaluation dans le stagiaire.java
 @RestController
@@ -123,5 +127,13 @@ public class StagiaireRestController {
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
 		stagiaireRepo.deleteById(id);
+	}
+	
+	public List<Stagiaire> search(@RequestBody StagiaireFilter filter) {
+
+		
+		List<Stagiaire> stagiaires = stagiaireRepo.search(filter.getNom(), filter.getAnnee(), filter.getNiveauEtude(), filter.getVille());
+		
+		return stagiaires;
 	}
 }

@@ -1,5 +1,7 @@
 package sopra.formation.web;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,11 +19,15 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import sopra.formation.model.Dispositif;
 import sopra.formation.model.Filiere;
+import sopra.formation.model.Formateur;
 import sopra.formation.model.Stagiaire;
 import sopra.formation.model.Views;
 import sopra.formation.persistence.IFiliereRepository;
+import sopra.formation.persistence.IFormateurRepository;
 import sopra.formation.persistence.IStagiaireRepository;
+import sopra.formation.web.dto.FiliereForm;
 
 // 4 request et 1 lien avec le référent de la filière dans le filiere.java
 @RestController
@@ -34,6 +40,9 @@ public class FiliereRestController {
 	@Autowired
 	private IStagiaireRepository stagiaireRepo;
 
+	@Autowired
+	private IFormateurRepository formateurRepo;
+	
 	// GET --> findAll
 	@GetMapping("")
 	@JsonView(Views.ViewFiliere.class)
@@ -89,7 +98,22 @@ public class FiliereRestController {
 
 	// POST --> create
 	@PostMapping("")
-	public Filiere create(@RequestBody Filiere filiere) {
+	public Filiere create(@RequestBody FiliereForm filiereForm) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Filiere filiere = new Filiere();
+		filiere.setIntitule(filiereForm.getIntitule());
+		filiere.setPromotion(filiereForm.getPromotion());
+		filiere.setDtDebut(sdf.parse(filiereForm.getDtDebut()));
+		filiere.setDuree(filiereForm.getDuree());
+		filiere.setDispositif(Dispositif.valueOf(filiereForm.getDispositif()));
+		
+		Optional<Formateur> optFormateur = formateurRepo.findById(filiereForm.getIdFormateur());
+		
+		if(optFormateur.isPresent()) {
+			filiere.setReferent(optFormateur.get());
+		}
+		
 		filiere = filiereRepo.save(filiere);
 
 		return filiere;
