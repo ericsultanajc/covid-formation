@@ -16,4 +16,10 @@ public class Views {
 	public static class ViewFiliere extends ViewCommon {}
 	
 	public static class ViewFiliereWithReferent extends ViewFiliere {}
+	
+	public static class ViewMatiere extends ViewCommon {}
+	
+	public static class ViewSalle extends ViewCommon {}
+	
+	public static class ViewUE extends ViewCommon {}
 }
