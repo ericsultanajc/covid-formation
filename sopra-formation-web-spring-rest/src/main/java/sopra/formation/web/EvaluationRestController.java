@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -27,18 +28,19 @@ import sopra.formation.persistence.IEvaluationRepository;
 import sopra.formation.web.exception.EvaluationValidationException;
 
 @RestController
+@RequestMapping("/evaluation")
 public class EvaluationRestController {
 
 	@Autowired
 	private IEvaluationRepository evaluationRepo;
 
-	@GetMapping("/evaluation")
+	@GetMapping("")
 	@JsonView(Views.ViewEvaluation.class)
 	public List<Evaluation> findAll() {
 		return evaluationRepo.findAll();
 	}
 
-	@GetMapping("/evaluation/{id}")
+	@GetMapping("/{id}")
 	@JsonView(Views.ViewEvaluation.class)
 	public Evaluation find(@PathVariable Long id) {
 
@@ -50,8 +52,22 @@ public class EvaluationRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 	}
+	
+	@GetMapping("/by-technique/{technique}")
+	@JsonView(Views.ViewEvaluation.class)
+	public List<Evaluation> findByTechnique(@PathVariable Integer technique) {
 
-	@PostMapping("/evaluation")
+		return evaluationRepo.findByTechnique(technique);
+	}
+	
+	@GetMapping("/by-comportemental-technique/{comportemental}|{technique}")
+	@JsonView(Views.ViewEvaluation.class)
+	public List<Evaluation> findByComportementalGreaterThanAndTechniqueGreaterThan(@PathVariable Integer comportemental, @PathVariable Integer technique) {
+
+		return evaluationRepo.findByComportementalGreaterThanAndTechniqueGreaterThan(comportemental, technique);
+	}
+
+	@PostMapping("")
 	public Evaluation create(@Valid @RequestBody Evaluation evaluation, BindingResult result) {
 		if(result.hasErrors()) {
 			throw new EvaluationValidationException();
@@ -62,7 +78,7 @@ public class EvaluationRestController {
 		return evaluation;
 	}
 
-	@PutMapping("/evaluation/{id}")
+	@PutMapping("/{id}")
 	public Evaluation update(@RequestBody Evaluation evaluation, @PathVariable Long id) {
 		if (!evaluationRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -73,7 +89,7 @@ public class EvaluationRestController {
 		return evaluation;
 	}
 
-	@PatchMapping("/evaluation/{id}")
+	@PatchMapping("/{id}")
 	public Evaluation partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!evaluationRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -96,7 +112,7 @@ public class EvaluationRestController {
 		return evaluationFind;
 	}
 	
-	@DeleteMapping("/evaluation/{id}")
+	@DeleteMapping("/{id}")
 	public void delete (@PathVariable Long id) {
 		evaluationRepo.deleteById(id);
 	}
