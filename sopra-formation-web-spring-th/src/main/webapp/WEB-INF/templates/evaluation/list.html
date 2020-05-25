@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html 	xmlns:th="http://www.thymeleaf.org" 
-		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-		layout:decorator="layout.html">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout.html">
 <head>
 <meta charset="UTF-8">
 <title>[[#{evaluation.list.title}]]</title>
@@ -26,8 +26,8 @@
 							<th></th>
 						</tr>
 					</thead>
-				
-					
+
+
 					<tbody>
 						<tr th:each="eval : ${mesEvaluations}">
 							<td th:text="${eval.id}"></td>
@@ -35,10 +35,16 @@
 							<td>[[${eval.comportemental}]]</td>
 							<td>[[${eval.technique}]]</td>
 							<td>[[${eval.commentaires}]]</td>
-							<td><div class="btn-group btn-group-sm"><a class="btn btn-primary" th:href="@{/evaluation/edit(id=${eval.id})}"><i class="fa fa-edit"></i></a><a class="btn btn-danger" th:href="@{/evaluation/delete(id=${eval.id})}"><i class="fa fa-trash"></i></a></div></td>
+							<td><div class="btn-group btn-group-sm">
+									<a class="btn btn-primary"
+										th:href="@{/evaluation/edit(id=${eval.id})}"><i
+										class="fa fa-edit"></i></a><a class="btn btn-danger"
+										th:href="@{/evaluation/delete(id=${eval.id})}"><i
+										class="fa fa-trash"></i></a>
+								</div></td>
 						</tr>
 					</tbody>
-					
+
 				</table>
 			</div>
 			<div class="card-footer">

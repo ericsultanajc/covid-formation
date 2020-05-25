@@ -104,7 +104,7 @@ public class StagiaireController {
 	@PostMapping("/save")
 	public String save(@ModelAttribute("stagiaire") @Valid Stagiaire stagiaire, BindingResult result,
 			@RequestParam(value = "evaluationId", required = false) Long evaluationId, Model model) {
-		
+
 		new StagiaireValidator().validate(stagiaire, result);
 
 		if (result.hasErrors()) {
