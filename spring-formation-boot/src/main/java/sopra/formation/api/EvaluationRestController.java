@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -30,6 +31,7 @@ import sopra.formation.repository.IEvaluationRepository;
 
 @RestController
 @RequestMapping ("/api/evaluation")
+@CrossOrigin("*")
 public class EvaluationRestController {
 
 	@Autowired
@@ -41,19 +43,19 @@ public class EvaluationRestController {
 		return evaluationRepo.findAll();
 	}
 
-	@GetMapping("/evaluation/orphans/{stagiaireId}")
+	@GetMapping("/orphans/{stagiaireId}")
 	@JsonView(Views.ViewEvaluation.class)
 	public List<Evaluation> findAllOrphanAndCurrentStagiaire(@PathVariable Long stagiaireId) {
 		return evaluationRepo.findAllOrphanAndCurrentStagiaire(stagiaireId);
 	}
 
-	@GetMapping("/evaluation/by-technique/{technique}")
+	@GetMapping("/by-technique/{technique}")
 	@JsonView(Views.ViewEvaluation.class)
 	public List<Evaluation> findAllByTechnique(@PathVariable Integer technique) {
 		return evaluationRepo.findByTechnique(technique);
 	}
 
-	@GetMapping("/evaluation/by-gt-comp-and-technique/{comp}:{technique}")
+	@GetMapping("/by-gt-comp-and-technique/{comp}:{technique}")
 	@JsonView(Views.ViewEvaluation.class)
 	public List<Evaluation> findAllByTechnique(@PathVariable("comp") Integer comportemental,
 			@PathVariable Integer technique) {
@@ -139,7 +141,7 @@ public class EvaluationRestController {
 		return evaluationFind;
 	}
 
-	@DeleteMapping("/evaluation/{id}")
+	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
 		evaluationRepo.deleteById(id);
 	}
