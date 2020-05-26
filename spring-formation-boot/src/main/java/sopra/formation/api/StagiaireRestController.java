@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,11 +27,12 @@ import sopra.formation.repository.IStagiaireRepository;
 
 @RestController
 @RequestMapping("/api/stagiaire")
+@CrossOrigin("*")
 public class StagiaireRestController {
 
 	@Autowired
 	private IStagiaireRepository stagiaireRepo;
-	
+
 	@Autowired
 	private IEvaluationRepository evaluationRepo;
 
@@ -39,7 +41,7 @@ public class StagiaireRestController {
 	public List<Stagiaire> findAll() {
 		return stagiaireRepo.findAll();
 	}
-	
+
 	@GetMapping("/by-niveau/{niveau}/evaluation")
 	@JsonView(Views.ViewEvaluation.class)
 	public List<Evaluation> findAllEvaluationByNiveau(@PathVariable NiveauEtude niveau) {
@@ -57,7 +59,7 @@ public class StagiaireRestController {
 	public List<Stagiaire> findAllByVille(@PathVariable String ville) {
 		return stagiaireRepo.findAllByVille(ville);
 	}
-	
+
 	@GetMapping("/by-formateur/{nom}")
 	@JsonView(Views.ViewStagiaire.class)
 	public List<Stagiaire> findAllByFormateur(@PathVariable String nom) {
@@ -82,7 +84,7 @@ public class StagiaireRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 	}
-	
+
 	@GetMapping("/{id}/detail")
 	@JsonView(Views.ViewStagiaireDetail.class)
 	public Stagiaire findDetail(@PathVariable Long id) {
@@ -99,6 +101,9 @@ public class StagiaireRestController {
 	@PostMapping("")
 	@JsonView(Views.ViewStagiaire.class)
 	public Stagiaire create(@RequestBody Stagiaire stagiaire) {
+		if (stagiaire.getEvaluation() != null && stagiaire.getEvaluation().getId() == null) {
+			stagiaire.setEvaluation(null);
+		}
 		stagiaire = stagiaireRepo.save(stagiaire);
 
 		return stagiaire;
@@ -111,6 +116,10 @@ public class StagiaireRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
+		if (stagiaire.getEvaluation() != null && stagiaire.getEvaluation().getId() == null) {
+			stagiaire.setEvaluation(null);
+		}
+		
 		stagiaire = stagiaireRepo.save(stagiaire);
 
 		return stagiaire;
@@ -120,7 +129,7 @@ public class StagiaireRestController {
 	public void delete(@PathVariable Long id) {
 		stagiaireRepo.deleteById(id);
 	}
-	
+
 //	public List<Stagiaire> search(@RequestBody StagiaireFilter filter) {
 //
 //		

@@ -18,6 +18,14 @@ export class EvaluationService {
     return this.evaluations;
   }
 
+  findAllOrphan(): Observable<Array<Evaluation>> {
+    return this.http.get<Array<Evaluation>>("http://localhost:8080/api/evaluation/orphans");
+  }
+
+  findAllOrphanWithStagiaire(idStagiaire: number): Observable<Array<Evaluation>> {
+    return this.http.get<Array<Evaluation>>("http://localhost:8080/api/evaluation/orphans/" + idStagiaire);
+  }
+
   findById(id: number): Observable<Evaluation> {
     return this.http.get<Evaluation>("http://localhost:8080/api/evaluation/" + id);
   }
