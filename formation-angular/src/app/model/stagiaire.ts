@@ -1,12 +1,14 @@
 import {Personne} from "./personne";
-import {NiveauEtude} from "./niveauEtude";
+import {Adresse} from "./adresse";
+import {Evaluation} from "./evaluation";
 
 export class Stagiaire extends Personne {
   dtNaissance: Date;
-  niveauEtude: NiveauEtude;
+  niveauEtude: string;
+  evaluation: Evaluation;
 
-  constructor(dtNaissance?: Date, niveauEtude?: NiveauEtude) {
-    super();
+  constructor(id?: number, version?: number, civilite?: string, nom?: string, prenom?: string, email?: string, telephone?: string, adresse?: Adresse, dtNaissance?: Date, niveauEtude?: string) {
+    super(id, version, civilite, nom, prenom, email, telephone, adresse);
     this.dtNaissance = dtNaissance;
     this.niveauEtude = niveauEtude;
   }

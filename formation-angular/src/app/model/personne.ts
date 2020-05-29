@@ -4,14 +4,15 @@ import {Civilite} from "./civilite";
 export class Personne {
   id: number;
   version: number;
-  civilite : Civilite;
-  nom:string;
-  prenom:string;
-  email:string;
-  telephone:string
+  civilite: string;
+  nom: string;
+  prenom: string;
+  email: string;
+  telephone: string;
   adresse: Adresse;
 
-  constructor(id?: number, version?: number, civilite?: Civilite, nom?: string, prenom?: string, email?: string, telephone?: string, adresse?: Adresse) {
+
+  constructor(id?: number, version?: number, civilite?: string, nom?: string, prenom?: string, email?: string, telephone?: string, adresse?: Adresse) {
     this.id = id;
     this.version = version;
     this.civilite = civilite;

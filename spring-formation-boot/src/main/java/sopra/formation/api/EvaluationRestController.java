@@ -74,7 +74,7 @@ public class EvaluationRestController {
 		return evaluationRepo.findAllByStagiaireNiveau(niveauEtude);
 	}
 	
-	@GetMapping("/orphan")
+	@GetMapping("/orphans")
 	@JsonView(Views.ViewEvaluation.class)
 	public List<Evaluation> findAllOrphan() {
 		return evaluationRepo.findAllOrphan();
