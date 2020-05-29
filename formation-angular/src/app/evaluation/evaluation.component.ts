@@ -30,7 +30,7 @@ export class EvaluationComponent implements OnInit {
     this.evaluationService.findById(id).subscribe(resp => this.evaluationForm = resp, error => console.log(error));
   }
 
-  save() {
+  save(){
     if (!this.evaluationForm.id) {
       this.evaluationService.create(this.evaluationForm).subscribe(resp => {
           this.evaluationForm = null;

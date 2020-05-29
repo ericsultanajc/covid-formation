@@ -81,7 +81,7 @@ class SpringFormationBootApplicationTests {
 			fail("FindAll size en erreur");
 		}
 
-		evaluationDao.delete(evaluation);
+		//evaluationDao.delete(evaluation);
 
 		optEvaluation = evaluationDao.findById(evaluation.getId());
 
@@ -206,7 +206,7 @@ class SpringFormationBootApplicationTests {
 //
 //		Assert.assertEquals("Erreur dans la requête findAllByFormateur", 1, testSizeByFormateur - startSizeByFormateur);
 
-		stagiaireDao.delete(cecile);
+		//stagiaireDao.delete(cecile);
 
 		optStagiaire = stagiaireDao.findById(cecile.getId());
 
@@ -214,11 +214,11 @@ class SpringFormationBootApplicationTests {
 			fail("Erreur sur delete");
 		}
 
-		evaluationDao.delete(evalCecilia);
-		evaluationDao.delete(evalCecile);
+		//evaluationDao.delete(evalCecilia);
+		//evaluationDao.delete(evalCecile);
 
-		filiereDao.delete(elysee);
-		filiereDao.delete(covid);
+		//filiereDao.delete(elysee);
+		//filiereDao.delete(covid);
 	}
 
 }

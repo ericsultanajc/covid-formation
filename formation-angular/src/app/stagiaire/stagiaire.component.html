@@ -1,0 +1,139 @@
+<!--LISTE-->
+<div class="card mt-3">
+  <div class="card-header bg-info text-white">
+    <h2>Liste des stagiaires</h2>
+  </div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Civilité</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Courriel</th>
+        <th>Téléphone</th>
+        <th>Date de naissance</th>
+        <th>Niveau d'étude</th>
+        <th>Rue</th>
+        <th>Complément</th>
+        <th>Code postal</th>
+        <th>Ville</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let stagiaire of list()">
+        <td>{{stagiaire.civilite}}</td>
+        <td>{{stagiaire.nom}}</td>
+        <td>{{stagiaire.prenom}}</td>
+        <td>{{stagiaire.email}}</td>
+        <td>{{stagiaire.telephone}}</td>
+        <td>{{stagiaire.dtNaissance}}</td>
+        <td>{{stagiaire.niveauEtude}}</td>
+        <td>{{stagiaire.adresse?.rue}}</td>
+        <td>{{stagiaire.adresse?.complement}}</td>
+        <td>{{stagiaire.adresse?.codePostal}}</td>
+        <td>{{stagiaire.adresse?.ville}}</td>
+        <td><div class="btn-group btn-group-sm">
+          <a class="btn btn-primary" (click)="edit(stagiaire.id)"><i class="fa fa-edit"></i></a>
+          <a class="btn btn-danger" (click)="delete(stagiaire.id)"><i class="fa fa-trash"></i></a>
+        </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer">
+    <a class="btn btn-success btn-lg" (click)="add()">
+      <i class="fa fa-plus"></i>
+    </a>
+  </div>
+
+  <!--FORMULAIRE-->
+  <div class="card mt-3" *ngIf="stagiaireForm">
+    <div class="card-header bg-info text-white">
+      <h3>Edition du stagiaire</h3>
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        <label>Civilité:</label> <select>
+        <option value="1">Monsieur</option>
+        <option value="2">Madame</option>
+        <option value="3">Mademoiselle</option>
+      </select>
+      </div>
+      <div class="form-group">
+        <label for="nom">Nom:</label>
+        <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="stagiaireForm.nom">
+      </div>
+      <div class="form-group">
+        <label for="prenom">Prénom:</label> <input type="text"
+                                                   class="form-control" id="prenom" name="prenom"
+                                                   [(ngModel)]="stagiaireForm.prenom">
+              </div>
+      <div class="form-group">
+        <label for="email">Email:</label> <input type="text"
+                                                    class="form-control" id="email" name="email"
+                                                    [(ngModel)]="stagiaireForm.email">
+           </div>
+      <div class="form-group">
+        <label for="telephone">Téléphone:</label> <input type="text"
+                                                         class="form-control" id="telephone" name="telephone"
+                                                         [(ngModel)]="stagiaireForm.telephone">
+      </div>
+      <div class="form-group">
+        <label for="dtNaissance">Date de naissance:</label> <input
+        type="Date" class="form-control" id="dtNaissance"
+        name="dtNaissance" [(ngModel)]="stagiaireForm.dtNaissance">
+      </div>
+      <div class="form-group">
+        <label>Niveau d'étude:</label> <select>
+        <option value="1">BAC+2</option>
+        <option value="2">BAC+3</option>
+        <option value="3">BAC+5</option>
+        <option value="3">BAC+8</option>
+      </select>
+      </div>
+      <div class="form-group">
+        <label for="rue">Rue:</label> <input type="text"
+                                             class="form-control" id="rue" name="adresse.rue"
+                                             [(ngModel)]="stagiaireForm.adresse.rue">
+      </div>
+      <div class="form-group">
+        <label for="complement">Complément:</label> <input type="text"
+                                                           class="form-control" id="complement" name="adresse.complement"
+                                                           [(ngModel)]="stagiaireForm.adresse.complement">
+      </div>
+      <div class="form-group">
+        <label for="codePostal">Code postal:</label> <input type="text"
+                                                            class="form-control" id="codePostal" name="adresse.codePostal"
+                                                            [(ngModel)]="stagiaireForm.adresse.codePostal">
+      </div>
+      <div class="form-group">
+        <label for="ville">Ville:</label> <input type="text"
+                                                 class="form-control" id="ville" name="adresse.ville"
+                                                 [(ngModel)]="stagiaireForm.adresse.ville">
+      </div>
+<!--      <div class="form-group">-->
+<!--        <label for="eval">Evaluation:</label> <select-->
+<!--        class="form-control" id="evaluationId" name="evaluationId">-->
+<!--      </select>-->
+<!--      </div>-->
+    </div>
+
+    <div class="card-footer">
+      <div class="btn-group btn-group-lg float-right">
+        <a class="btn btn-success" (click)="save()">
+          <i class="fa fa-check"></i>
+        </a>
+        <a class="btn btn-warning" (click)="cancel()">
+          <i class="fa fa-undo"></i>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
